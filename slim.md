@@ -368,3 +368,40 @@ Slim 应用模板文件所在文件目录的相对或者绝对地址。这个路
     $app = new \Slim\Slim();
     $app->setName('foo');
     $name = $app->getName(); // 'foo'
+    
+**作用域解析**
+
+那么你怎样才可以获取 Slim 应用的引用呢？下面这个例子演示了如何在路由的回调函数中获取一个 Slim 应用的引用。$app 变量已经在定义 HTTP GET路由的全局作用域中使用。但是在路由回调函数的函数作用域中也需要使用 $app 变量来渲染模板。
+
+    <?php
+    $app = new \Slim\Slim();
+    $app->get('/foo', function(){
+                    $app->render('foo.php'); // <---- 错误
+                });
+
+这个例子运行错误是因为 $app 变量在路由回调函数的函数作用域中是未定义的。
+
+**柯里化（Currying）**
+
+我们可以使用 use 关键词把 $app 变量注入到回调函数的作用域中：
+
+    <?php
+    $app = new \Slim\Slim();
+    $app->get('/foo', function() use($app){
+                    $app->render('foo.php'); // <---- 成功
+                });
+
+**按名称获取**
+
+你也可以在 Slim 应用中使用 getInstance() 静态函数：
+
+    <?php
+    $app = new \Slim\Slim();
+    $app->get('/foo', 'foo');
+    function foo(){
+        $app = Slim::getInstance();
+        $app->render('foo.php');
+    }
+
+-- EOF --
+
