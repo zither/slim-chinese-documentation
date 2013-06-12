@@ -132,7 +132,7 @@ write() 函数主要负责发送日志信息（不一定是字符串）发送到
     <?php
     // During instantiation
     $app = new \Slim\Slim(array(
-                        'log.writer' => new \My\LogWriter();
+                        'log.writer' => new \My\LogWriter()
                     ));
 
     // After instantiation
@@ -160,7 +160,7 @@ Slim 有5个日志信息等级：
     <?php
     // During instantiation
     $app = new \Slim\Slim(array(
-                        'log.level' => \Slim\Log::DEBUG;
+                        'log.level' => \Slim\Log::DEBUG
                     ));
 
     // After instantiation
@@ -176,7 +176,7 @@ Slim 有5个日志信息等级：
     <?php
     // During instantiation
     $app = new \Slim\Slim(array(
-                        'log.enabled' => true;
+                        'log.enabled' => true
                     ));
 
     // After instantiation
@@ -194,7 +194,7 @@ Slim 应用模板文件所在文件目录的相对或者绝对地址。这个路
     <?php
     // During instantiation
     $ap = new \Slim\Slim(array(
-                        'templates.path' => './templates';
+                        'templates.path' => './templates'
                     ));
 
     // After instantiation
@@ -210,7 +210,7 @@ Slim 应用模板文件所在文件目录的相对或者绝对地址。这个路
     <?php
     // During instantiation
     $app = new \Slim\Slim(array(
-                        'view' => new \My\View();
+                        'view' => new \My\View()
                     ));
 
     // After instantiation
@@ -225,7 +225,7 @@ Slim 应用模板文件所在文件目录的相对或者绝对地址。这个路
     <?php
     // During instantiation
     $app = new \Slim\Slim(array(
-                        'cookies.lifetime' => '20 minutes';
+                        'cookies.lifetime' => '20 minutes'
                     ));
 
     // After instantiation
@@ -240,7 +240,7 @@ Slim 应用模板文件所在文件目录的相对或者绝对地址。这个路
     <?php
     // During instantation
     $app = new \Slim\Slim(array(
-                        'cookies.path' => '/';
+                        'cookies.path' => '/'
                     ));
 
     // After instantiation
@@ -255,7 +255,7 @@ Slim 应用模板文件所在文件目录的相对或者绝对地址。这个路
     <?php
     // During instantiation
     $app = new \Slim\Slim(array(
-                        'cookies.domain' => 'domain.com';
+                        'cookies.domain' => 'domain.com'
                     ));
 
     // After instantiation
@@ -270,7 +270,7 @@ Slim 应用模板文件所在文件目录的相对或者绝对地址。这个路
     <?php
     // During instantiation
     $app = new \Slim\Slim(array(
-                        'cookies.secure' => false;
+                        'cookies.secure' => false
                     ));
 
     // After instantiation
@@ -285,7 +285,7 @@ Slim 应用模板文件所在文件目录的相对或者绝对地址。这个路
     <?php
     // During instantiation
     $app = new \Slim\Slim(array(
-                        'cookies.httponly' => false;
+                        'cookies.httponly' => false
                     ));
 
     // After instantiation
@@ -300,7 +300,7 @@ Slim 应用模板文件所在文件目录的相对或者绝对地址。这个路
     <?php
     // During instantiation
     $app = new \Slim\Slim(array(
-                        'cookies.secret_key' => 'secret'；
+                        'cookies.secret_key' => 'secret'
                     ));
 
     // After instantiation
@@ -315,7 +315,7 @@ Slim 应用模板文件所在文件目录的相对或者绝对地址。这个路
     <?php
     // During instantiation
     $app = new \Slim\Slim(array(
-                        'cookies.cipher' => MCRYPT_DIJNDAEL_256;
+                        'cookies.cipher' => MCRYPT_DIJNDAEL_256
                     ));
 
     //After instantiation
@@ -330,7 +330,7 @@ Slim 应用模板文件所在文件目录的相对或者绝对地址。这个路
     <?php
     // During instantiation
     $app = new \Slim\Slim(array(
-                        'cookies.cipher_mode' => MCRYPT_MODE_CBC;
+                        'cookies.cipher_mode' => MCRYPT_MODE_CBC
                     ));
 
     // After instantiation
@@ -345,7 +345,7 @@ Slim 应用模板文件所在文件目录的相对或者绝对地址。这个路
     <?php
     // During instantiation
     $app = new \Slim\Slim(array(
-                        'http.version' => '1.1';
+                        'http.version' => '1.1'
                     ));
 
     // After instantiation
@@ -402,6 +402,68 @@ Slim 应用模板文件所在文件目录的相对或者绝对地址。这个路
         $app = Slim::getInstance();
         $app->render('foo.php');
     }
+
+##应用模式
+
+一般来说，网页应用运行在指定模式都决定于项目当前的状态。如果你在开发应用，那么你就应该在“development”模式中运行应用；如果你在测试应用，你就应该在“testing”模式中运行应用；如果你发布了应用，那么你的应用在“production”模式中运行应用。
+
+Slim 提供了应用模式的概念，你可以定义需要的模式以便 Slim 为当前模式的运行作适当的准备。 比如，你想要在“development”模式中开启调试（debugging）功能，但需在“production”模式中关闭。下面的例子向您演示了如何为 Slim 设置不同的模式。
+
+**什么是模式**
+
+从技术上来说，应用模式只不过是由字符串组成的文字，就像“development”或者“production”，有一个与之相关联的回调函数为 Slim 应用的运行作适当的配置。应用模式可以是任何名字，就比如“testing”，“production”，“development”甚至是“foo”。
+
+**我应该如何设置应用模式？**
+
+    注意！应用模式只能在应用实例化时设置，之后无法更改。
+
+**使用环境变量**
+
+如果 Slim 检测到名为 “SLIM_MODE” 的环境变量，它就会把应用模式设置为该值。
+
+    <?php
+    $_ENV['SLIM_MODE'] = 'production';
+
+**使用应用设置**
+
+如果环境变量未定义时，Slim 会继续检查应用设置中的模式参数。
+
+    <?php
+    $app = new \Slim\Slim(array(
+                        'mode' => 'production'
+                    ));
+
+**默认模式**
+
+如果环境变量和应用设置中均未定义模式，Slim 就会将应用模式设置为“development”。
+
+**配置指定模式**
+
+当你实例化一个 Slim 应用之后，你可以使用 Slim 应用的 configureMode() 函数对 Slim 应用的指定模式进行配置。这个函数接受两个参数：目标模式的名称以及当前应用模式与第一个参数相匹配时需要调用回调函数。
+
+假如应用的当前模式为“produciton”。那么只有与“production”模式相关联的回调函数会被调用。而与“development”模式关联的回调函数将会被忽略，直到应用模式改变为“development”时才会被执行。
+
+    <?php
+    // 设置当前模式
+    $app = new \Slim\Slim(array(
+                        'mode' => 'production'
+                    ));
+
+    // 只在“production”模式中执行
+    $app->configureMode('production', function() use($app){
+                    $app->config(array(
+                                'log.enable' => true,
+                                'debug' => false
+                            ));
+                });
+
+    // 只在“development”模式中执行
+    $app->configureMode('development', function() use($app){
+                    $app->config(array(
+                                'log.enable' => false,
+                                'debug' => true
+                            ));
+                });
 
 -- EOF --
 
