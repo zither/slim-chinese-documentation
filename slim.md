@@ -465,5 +465,41 @@ Slim 提供了应用模式的概念，你可以定义需要的模式以便 Slim 
                             ));
                 });
 
+##路由
+
+**路由概述**
+
+Slim 框架帮助你将应用 URIs 映射到特定 HTTP 请求方法（比如：GET，POST，PUT，DELETE，OPTION 或 HEAD）的回调函数上。Slim 应用将会调用与当前 HTTP 请求 的 URI 和方法相匹配的第一个路由。
+
+如果 Slim 应用未找到与 HTTP 请求 URI 和方法相配备的路由，它将自动返回一个 404 Not Found 响应。
+
+**GET 路由**
+
+使用 Slim 应用的 get() 函数会将一个回调函数映射到 一个由 HTTP GET 方法请求的资源 URI。
+
+    <?php
+    $app = new \Slim\Slim();
+    $app->get('/book/:id', function($id){
+                    // 根据书籍 $id 显示数据
+                });
+
+在这个例子中，当使用 HTTP GET 向“/books/1” 发送请求时，与它相关联的回调函数将会被执行，并会把“1”作为参数传递给回调函数。
+
+Slim 应用 get() 函数的第一个参数是资源 URI。最后一个参数是经 is_callable() 检测后会返回 true 的任何东西。通常来说，最后一个参数是一个[匿名函数](http://php.net/manual/en/functions.anonymous.php)。
+
+**POST 路由**
+
+使用 Slim 应用的 post() 函数会将一个回调函数映射到 一个由 HTTP POST 方法请求的资源 URI。
+
+    <?php
+    $app = new \Slim\Slim();
+    $app->post('/books', function(){
+                    // 创建书籍
+                });
+
+在这个例子中，当使用 HTTP POST 向“/books”发送请求时，与它相关的回调函数将会被执行。
+
+Slim 应用 post() 函数的第一个参数是资源 URI。最后一个参数是经 is_callable() 检测后会返回 true 的任何东西。通常来说，最后一个参数是一个[匿名函数](http://php.net/manual/en/functions.anonymous.php)。
+
 -- EOF --
 
