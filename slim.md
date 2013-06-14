@@ -501,5 +501,84 @@ Slim 应用 get() 函数的第一个参数是资源 URI。最后一个参数是�
 
 Slim 应用 post() 函数的第一个参数是资源 URI。最后一个参数是经 is_callable() 检测后会返回 true 的任何东西。通常来说，最后一个参数是一个[匿名函数](http://php.net/manual/en/functions.anonymous.php)。
 
+**PUT 路由**
+
+使用 Slim 应用的 put() 函数会将一个回调函数映射到 一个由 HTTP PUT 方法请求的资源 URI。
+
+    <?php
+    $app = new \Slim\Slim();
+    $app->put('/books/:id', function($id){
+                    // 更新 $id 对应的书籍
+                });
+
+在这个例子中，当使用 HTTP PUT 向“/books/1” 发送请求时，与它相关联的回调函数将会被执行，并会把“1”作为参数传递给回调函数。
+
+Slim 应用 put() 函数的第一个参数是资源 URI。最后一个参数是经 is_callable() 检测后会返回 true 的任何东西。通常来说，最后一个参数是一个[匿名函数](http://php.net/manual/en/functions.anonymous.php)。
+
+**Method 覆盖**
+
+不幸的是当前的浏览器并不原生支持 HTTP PUT 请求。为了解决这个问题，请确保你的 HTML 表单的请求方式为“post”，然后像下面例子一样，在 HTML 表单中添加一项请求方式覆盖参数：
+
+    <form action="/books/1" method="post">
+        ... 其他表单域 ...
+        <input type="hidden" name="_METHOD" value="PUT" />
+        <input type="submit" value="Update Book"/>
+    </form>
+
+如果你正在使用 [Backbone.js](http://documentcloud.github.com/backbone/) 或者 HTTP 命令行客户端，你同样可以使用 X-HTTP-Method-Override 请求头来覆盖 HTTP 请求方式。
+
+**DELETE 路由**
+
+使用 Slim 应用的 delete() 函数会将一个回调函数映射到 一个由 HTTP DELETE 方法请求的资源 URI。
+
+    <?php
+    $app = new \Slim\Slim();
+    $app->delete('/books/:id', function($id){
+                    // 删除 $id 对应的书籍
+                });
+
+在这个例子中，当使用 HTTP DELETE 向“/books/1” 发送请求时，与它相关联的回调函数将会被执行，并会把“1”作为参数传递给回调函数。
+
+Slim 应用 delete() 函数的第一个参数是资源 URI。最后一个参数是经 is_callable() 检测后会返回 true 的任何东西。通常来说，最后一个参数是一个[匿名函数](http://php.net/manual/en/functions.anonymous.php)。
+
+**Method 覆盖**
+
+不幸的是当前的浏览器并不原生支持 HTTP DELETE 请求。为了解决这个问题，请确保你的 HTML 表单的请求方式为“post”，然后像下面例子一样，在 HTML 表单中添加一项请求方式覆盖参数：
+
+    <form action="/books/1" method="post">
+        ... 其他表单域 ...
+        <input type="hidden" name="_METHOD" value="DELETE" />
+        <input type="submit" value="Update Book"/>
+    </form>
+
+如果你正在使用 [Backbone.js](http://documentcloud.github.com/backbone/) 或者 HTTP 命令行客户端，你同样可以使用 X-HTTP-Method-Override 请求头来覆盖 HTTP 请求方式。
+
+**OPTIONS 路由**
+
+使用 Slim 应用的 options() 函数会将一个回调函数映射到 一个由 HTTP DELETE 方法请求的资源 URI。
+
+    <?php
+    $app = new \Slim\Slim();
+    $app->options('/books/:id', function($id){
+                    // 返回响应头
+                });
+
+在这个例子中，当使用 HTTP OPTIONS 向“/books/1” 发送请求时，与它相关联的回调函数将会被执行，并会把“1”作为参数传递给回调函数。
+
+Slim 应用 options() 函数的第一个参数是资源 URI。最后一个参数是经 is_callable() 检测后会返回 true 的任何东西。通常来说，最后一个参数是一个[匿名函数](http://php.net/manual/en/functions.anonymous.php)。
+
+**Method 覆盖**
+
+不幸的是当前的浏览器并不原生支持 HTTP OPTIONS 请求。为了解决这个问题，请确保你的 HTML 表单的请求方式为“post”，然后像下面例子一样，在 HTML 表单中添加一项请求方式覆盖参数：
+
+    <form action="/books/1" method="post">
+        ... 其他表单域 ...
+        <input type="hidden" name="_METHOD" value="OPTIONS" />
+        <input type="submit" value="Update Book"/>
+    </form>
+
+如果你正在使用 [Backbone.js](http://documentcloud.github.com/backbone/) 或者 HTTP 命令行客户端，你同样可以使用 X-HTTP-Method-Override 请求头来覆盖 HTTP 请求方式。
+
+
 -- EOF --
 
