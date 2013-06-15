@@ -579,6 +579,27 @@ Slim 应用 options() 函数的第一个参数是资源 URI。最后一个参数
 
 如果你正在使用 [Backbone.js](http://documentcloud.github.com/backbone/) 或者 HTTP 命令行客户端，你同样可以使用 X-HTTP-Method-Override 请求头来覆盖 HTTP 请求方式。
 
+**自定义 HTTP 方法**
+
+**一个路由对应多个 HTTP 方法**
+
+有时候我可能需要通过一个路由响应多个 HTTP 方法；有时候我可能需要一个响应自定义 HTTP 方法的路由。你可以使用路由对象的 via() 函数来完成。这个例子演示了如何将一个资源 URI 映射到可以响应多种 HTTP 方法请求的回调函数。
+
+    <?php
+    $app = new \Slim\Slim();
+    $app->map('/foo/bar', function(){
+                    echo "I respond to multiple HTTP methods!";
+                })->via('GET', 'POST');
+    $app->run();
+
+这个例子中定义的路由将会同时响应请求资源定位符 “/foo/bar” 的 GET 和 POST 两种方法。只需要把每个 HTTP 请求方法以字符串的形式作为参数传递给路由对象 via() 函数。同路由的其他函数一样（比如：name() 和 conditions()），via() 函数也支持链式调用。
+
+    <?php
+    $app = new \Slim\Slim();
+    $app->map('/foo/bar', function(){
+                    echo "Fancy,huh?";
+                })->via('GET', 'POST')->name('foo');
+    $app->run();
 
 -- EOF --
 
