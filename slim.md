@@ -601,5 +601,31 @@ Slim 应用 options() 函数的第一个参数是资源 URI。最后一个参数
                 })->via('GET', 'POST')->name('foo');
     $app->run();
 
+**路由参数**
+
+你可以在路由的资源 URIs 中加入参数。在这个例子中，我在路由 URI 中加入了两个参数：“:one”和“:two”。
+
+    <?php
+    $app = new \Slim\Slim();
+    $app->get('/books/:one/:two', function($one, $two){
+                    echo "The first paramter is " . $one;
+                    echo "The second paramter is " . $two;
+                });
+
+创建路由参数时，只需要在路由 URI 的参数前面加上“:”。当路由和当前 HTTP 请求相匹配时，路由中的每个参数都会从 HTTP 请求 URI 中提取出来，并把它们按照适当的顺序传递给相关联的回调函数。
+
+**通配符路由参数**
+
+你也可以在路由中使用通配符参数。与通配符参数相匹配的一个或者多个 URI 字段将会被捕捉并以数组的形式保存。通配符参数的标志就是以“+”为后缀，其他地方和前面讲过的普通参数相同。下面是一个例子：
+
+    <?php
+    $app = new \Slim\Slim();
+    $app->get('/hello/:name+', function($name){
+                    // Do something
+                });
+
+当你用“/hello/Josh/T/Lockhart”作为资源 URI 调用上面这个应用，回调函数的 $name 参数就等于 array('Josh', 'T', 'Lockhart')。
+
+
 -- EOF --
 
