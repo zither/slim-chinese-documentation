@@ -626,6 +626,28 @@ Slim 应用 options() 函数的第一个参数是资源 URI。最后一个参数
 
 当你用“/hello/Josh/T/Lockhart”作为资源 URI 调用上面这个应用，回调函数的 $name 参数就等于 array('Josh', 'T', 'Lockhart')。
 
+**可选路由参数**
+
+    注意！路由的可选字段还在实验中。只应当用如下演示例子的方式使用。
+
+你也可以定义可选路由参数。这是在博客归档时使用可选路由参数的例子，你可以用例子中的方式来指定可选路由参数：
+
+    <?php
+    $app = new \Slim\Slim();
+    $app->get('/archive(/:year(/:month(/:day)))', function($year = 2010, $month = 12, $day = 05){
+                    echo sprintf('%s-%s-%s', $year, $month, $day);
+                });
+
+每个路由字段都是可选的，这个路由将会接受如下 HTTP 请求：
+
+    - /archive
+    - /archive/2010
+    - /archive/2010/12
+    - /archive/2010/12/05
+
+如果一个 HTTP 请求的可选参数被省略，回调函数中定义的默认值会被代替使用。
+
+目前你只能如以上示例定义可选参数的方式来设置路由字段。如果使用和示例中不同的方式，你可以发现它并不能稳定运行。
 
 -- EOF --
 
