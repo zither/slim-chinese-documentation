@@ -649,5 +649,23 @@ Slim 应用 options() 函数的第一个参数是资源 URI。最后一个参数
 
 目前你只能如以上示例定义可选参数的方式来设置路由字段。如果使用和示例中不同的方式，你可以发现它并不能稳定运行。
 
+**路由名称**
+
+Slim 允许你为路由单独命名。为路由命名可以让你使用 urlFor 帮助函数来动态生成 URLs。当你使用 Slim 应用的 urlFor() 函数来创建应用 URLs，你可以自由的在不破坏应用的情况下修改路由参数。下面是一个命名路由：
+
+    <?php
+    $app = new \Slim\Slim();
+    $app->get('/hello/:name', function($name){
+                    echo "Hello, $name!";
+                })->name('hello');
+
+现在你可以使用 urlFor() 函数来生成 URLs，这点会在后面讲解。路由的 name() 函数同样支持链式调用：
+
+    <?php
+    $app = new \Slim\Slim();
+    $app->get('/hello/:name', function($name){
+                    echo "Hello, $name!";
+                })->name('hello')->conditions(array('name' => '\w+'));
+
 -- EOF --
 
