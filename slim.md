@@ -667,5 +667,17 @@ Slim 允许你为路由单独命名。为路由命名可以让你使用 urlFor �
                     echo "Hello, $name!";
                 })->name('hello')->conditions(array('name' => '\w+'));
 
+**路由条件**
+
+Slim 可以让你指定路由参数的满足条件。如果未满足指定条件，那么路由就不会执行。例如，如果你需要一个路由，它的第二个字段 year 必须是4个整数，你可以这样设定条件：
+
+    <?php
+    $app = new \Slim\Slim();
+    $app->get('archive/:year', function($year){
+                    echo "You are viewing archives from $year";
+                })->conditions(array('year' => '(19|20)\d\d'));
+
+调用路由对象的 conditions() 函数，第一个也是唯一一个参数是一个关联数组，关键字是所有匹配的路由参数，值为正则表达式。
+
 -- EOF --
 
