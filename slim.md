@@ -679,5 +679,30 @@ Slim 可以让你指定路由参数的满足条件。如果未满足指定条件
 
 调用路由对象的 conditions() 函数，第一个也是唯一一个参数是一个关联数组，关键字是所有匹配的路由参数，值为正则表达式。
 
+**应用泛路由条件**
+
+如果你 Slim 应用的很多路由都接受同样的参数和使用同样的条件，你就可以像这样定义一个默认的泛路由条件：
+
+    <?php
+    \Slim\Route::setDefaultConditions(array(
+                        'firstName' => '[a-zA-Z]{3,}'
+                    ));
+
+在你定义应用路由之前定义应用的泛路由条件。当你定义了一个路由，它将自动指定由 \Slim\Route::setDefaultCondtions() 定义的所有泛路由条件。不管出于什么原因，你都可以使用 \Slim\Route::getDefaultConditions() 来获取已定义的应用泛路由条件。这个函数将返回所有已定义的默认路由条件。
+
+当定义路由时，你可以像下面一样通过重新定义路由条件来覆盖默认路由条件：
+
+    <?php
+    $app = new \Slim\Slim();
+    $app->get('/hello/:firstName', $callable)
+        ->conditions(array('firstName' => '[a-z]{10,}'));
+
+你也可以通过如下方式来为路由追加条件：
+
+    <?php
+    $app = new \Slim\Slim();
+    $app->get('/hello/:firstName/:lastName', $callable)
+        ->conditions(array('lastName' => '[a-z]{10,}'));
+
 -- EOF --
 
