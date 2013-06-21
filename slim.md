@@ -704,5 +704,13 @@ Slim 可以让你指定路由参数的满足条件。如果未满足指定条件
     $app->get('/hello/:firstName/:lastName', $callable)
         ->conditions(array('lastName' => '[a-z]{10,}'));
 
+**路由中间件**
+
+Slim 可以让你为指定路由关联中间件。当路由和当前 HTTP 请求相匹配被调用时，Slim 将在第一时间按顺序调用与之相关联的中间件。
+
+**什么是路由中间件**
+
+路由中间件是 is_callable 会返回 true 的任何事物。路由中间件会在路由回调函数被调用前按顺序被执行。
+
 -- EOF --
 
