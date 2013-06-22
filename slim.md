@@ -712,5 +712,63 @@ Slim 可以让你为指定路由关联中间件。当路由和当前 HTTP 请求
 
 路由中间件是 is_callable 会返回 true 的任何事物。路由中间件会在路由回调函数被调用前按顺序被执行。
 
+**如何添加路由中间件**
+
+当你在使用 Slim 应用的 get()，post()，put()，delete() 函数定义一个新的应用路由时，你必须定义一个路由模式以及当路由和 HTTP 请求匹配时调用的回调函数。
+
+    <?php
+    $app = new \Slim\Slim();
+    $app->get('/foo', function(){
+                    // Do something
+                });
+
+在上面的例子中，第一个参数是路由模式，最后一个参数时与当前 HTTP 请求匹配时要调用的回调函数。路由模式必须时第一个参数，回调函数必须是最后一个参数。
+
+你可以把每个中间件分别作为中间参数传递给路由来指定中间件：
+
+    <?php
+    function mw1(){
+        echo "This is middleware!";
+    }
+    function mw2(){
+        echo "This is middleware!";
+    }
+    $app = new \Slim\Slim();
+    $app->get('/foo', 'mw1', 'mw2', function(){
+                    // Do something
+                });
+
+当/foo 路由被调用时，mw1 和 mw2 函数也将会在路由回调函数调用之前按顺序执行。
+
+假如你想要在路由中对当前用户进行认证，你可以像下面一样使用匿名函数：
+
+    <?php
+    $authenticateForRole = function($role = 'member') {
+        return function() use($role){
+            $user = User::fetchFromDatabaseSomehow();
+            if ($user->belongsToRole($role) === false) {
+                $app = \Slim\Slim::getInstance();
+                $app->flash('error', 'Login required');
+                $app->redirect('/login');
+            }
+        }
+    };
+    $app = new \Slim\Slim();
+    $app->get('/foo', $authenticateForRole('admin'), function(){
+                    // Display admin control panel
+                });
+
+**什么参数会被传递给每个路由中间件函数？**
+
+每个中间件函数在被调用时都可以传递一个参数，这个例子里是 \Slim\Route 对象。
+
+    <?php
+    $aBitOfInfo = function(\Slim\Route $route){
+        echo "Current route is " . $route->getName();
+    };
+    $app->get('/foo', $aBitOfInfo, function(){
+                    echo "foo";
+                });
+
 -- EOF --
 
