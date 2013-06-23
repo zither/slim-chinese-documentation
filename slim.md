@@ -770,5 +770,35 @@ Slim 可以让你为指定路由关联中间件。当路由和当前 HTTP 请求
                     echo "foo";
                 });
 
+**路由辅助函数**
+
+Slim 提供了一些辅助函数（通过 Slim 实例调用）来帮助你控制应用流程。
+
+你应该意识到下面这些应用实例的辅助函数 halt()，pass()，redirect()，stop() 都是通过异常（Exceptions）来执行的。每个都会抛出 \Slim\Exception\Stop 或者 \Slim\Exception\Pass 异常。在这些情况下，抛出异常是让你的代码停止运行的简单方法，框架会接受并发送必要的响应信息到客户端。如果没有正确认识到这点，可能会得到奇怪结果。看一下下面的代码：
+
+    <?php
+    $app->get('/', function() use($app, $obj){
+                    try {
+                        $obj->thisMightThrowException();
+                        $app->redirect('/success');
+                    } catch(\Exception $e) {
+                        $app->flass('error', $e->geMessage());
+                        $app->redirect('/error');
+                    }
+                });
+
+如果 $obj->thisMightThrowException() 抛出了一个异常，那么代码会按预想的情况运行。但是如果它没有抛出异常，$app->redirect('/success')在调用时也会抛出一个 \Slim\Exception\Stop 异常并被 catch 模块捕获，然后框架会将浏览器跳转到“/error”页面。你应该在应用需要抛出异常的地方使用不同类型的异常，那么 catch 模块就会捕捉指定异常而不是捕获所有的异常。在一些情况下，thisMightThrowException 可能是你无法控制的外部组件，在这种情况下要抛出所有类型的异常是不可能的。那么我们可以细微的调整下代码，把 $app->redirect('/success') 移动到 try/catch 模块后面来解决这个问题。现在代码会按照预想的流程执行，除非捕获到 error redirect 抛出的异常。
+
+    <?php
+    $app->get('/', function() use($app, $obj){
+                    try {
+                        $obj->thisMightThrowException();
+                    } catch(Exception $e) {
+                        $app->flash('error', $e->getMessage());
+                        $app->redirect('/error');
+                    }
+                    $app->redirect('/success');
+                });
+
 -- EOF --
 
