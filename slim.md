@@ -800,5 +800,30 @@ Slim 提供了一些辅助函数（通过 Slim 实例调用）来帮助你控制
                     $app->redirect('/success');
                 });
 
+**Halt**
+
+Slim 应用的 halt() 函数会立即返回给定的 HTTP 响应状态码（status code）和正文（body）。该函数接受两个参数：HTTP 状态码和可选消息。Slim 会立即停止当前应用并把HTTP 响应以及指定的状态码和可选消息（作为响应正文）发送到客户端。它会覆盖已存在的 \Slim\Http\Response 对象。
+
+    <?php
+    $app = new \Slim\Slim();
+
+    // Send a default 500 error response
+    $app->halt(500);
+
+    // Or if you encouter a balrog
+    $app->halt(403, 'You shall not pass!');
+
+如果你需要用错误信息列表来渲染一个模板，你应该使用 Slim 应用的 render() 函数来代替。
+
+    <?php
+    $app = new \Slim\Slim();
+    $app->get('/foo', function() use($app){
+                    $errorData = array('error' => 'Permission Denied');
+                    $app->render('errorTemplate.php', $errorData, 403);
+                });
+    $app->run();
+
+halt() 函数可以发送任何类型的 HTTP 响应到客户端：infomational，success，redirect，not found，client error，或者 server error。
+
 -- EOF --
 
