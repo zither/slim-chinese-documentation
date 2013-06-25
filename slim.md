@@ -825,5 +825,55 @@ Slim 应用的 halt() 函数会立即返回给定的 HTTP 响应状态码（stat
 
 halt() 函数可以发送任何类型的 HTTP 响应到客户端：infomational，success，redirect，not found，client error，或者 server error。
 
+**Pass**
+
+一个路由可以使用 pass() 函数告诉 Slim 应用继续执行下一个匹配的路由。当这个函数被调用，Slim 应用会立即停止执行当前匹配路由并直接调用下一个匹配路由。如果没有后续路由被匹配，就会像客户端发送一个 **404 Not Found** 响应。下面是一个例子，假如向“/hello/Frank”发送一个 HTTP GET请求：
+
+    <?php
+    $app = new \Slim\Slim();
+    $app->get('/hello/Frank', function() use($app){
+                    echo "You wont see this ...";
+                    $app->pass();
+                });
+    $app->get('/hello/:name', function($name) use($app){
+                    echo "But you will see this!";
+                });
+    $app->run();
+
+**Redirect**
+
+使用 Slim 应用的 redirect() 函数可以非常容易的让客户端跳转到另一个 URL。这个函数接受两个参数：第一个参数是客户端即将跳转的 URL；第二个可选参数是 HTTP 状态码。默认情况下，redirect() 函数会发送一个302临时跳转响应。
+
+    <?php
+    $app = new \Slim\Slim();
+    $app->get('/foo', function() use($app){
+                    $app->redirect('/bar');
+                });
+    $app->run();
+
+但是如果你想要使用永久跳转，你必须指定把目标 URL 作为第一个参数然后把 HTTP 状态码作为第二个参数。
+
+    <?php
+    $app = new \Slim\Slim();
+    $app->get('/old', function() use($app){
+                    $app->redirect('/new', 301);
+                });
+    $app->run();
+
+这个函数会自动设置 Location:header。HTTP 跳转响应会被立即发送到客户端。
+
+**Stop**
+
+Slim 应用的 stop() 函数会停止 Slim 应用并发送当前 HTTP 响应到客户端。不会考虑到其他情况。
+
+    <?php
+    $app = new \Slim\Slim();
+    $app->get('/foo', function() use($app){
+                    echo "You will see this...";
+                    $app->stop();
+                    echo "But not this";
+                });
+    $app->run();
+
 -- EOF --
 
