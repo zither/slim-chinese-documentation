@@ -875,5 +875,20 @@ Slim 应用的 stop() 函数会停止 Slim 应用并发送当前 HTTP 响应到�
                 });
     $app->run();
 
+**URL For**
+
+Slim 应用的 urlFor() 函数可以让你为一个已命名路由动态的创建 URLs，当路由字段改变时，你的 URLs 也会在不破坏程序的情况下自动更新。下面的例子演示如何为已命名路由生成 URLs：
+
+    <?php
+    $app = new \Slim\Slim();
+    // Create a named route
+    $app->get('/hello/:name', function($name) use($app){
+                    echo "Hello $name";
+                })->name('hello');
+    // Generate a URL for the named route
+    $url = $app->urlFor('hello', array('name' => 'Josh'));
+
+在这个例子中，$url 是“/hello/Josh”.当你使用 urlFor() 函数时，你必须首先为路由命名，然后再调用 urlFor() 函数。它的第一个参数是路由名称，第二个参数是用来替换路由 URL 参数实际值的关联数组；数组的 key 值必须和路由 URI 字段参数相匹配，数组的值才会被替换使用。
+
 -- EOF --
 
