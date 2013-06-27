@@ -890,5 +890,46 @@ Slim 应用的 urlFor() 函数可以让你为一个已命名路由动态的创�
 
 在这个例子中，$url 是“/hello/Josh”.当你使用 urlFor() 函数时，你必须首先为路由命名，然后再调用 urlFor() 函数。它的第一个参数是路由名称，第二个参数是用来替换路由 URL 参数实际值的关联数组；数组的 key 值必须和路由 URI 字段参数相匹配，数组的值才会被替换使用。
 
+**路由 URL 重写**
+
+我强烈推荐你使用支持 URL 重写的web服务器；这样你可以在 Slim 应用中使用简洁而友好的 URLs。要使用 URL 重写功能，你需要使用服务器提供的相关工具来转发所有的 HTTP 请求到 你实例化和运行 Slim 应用的 PHP 文件上。下面是 使用 mod_php 的Apache 和 nginx 最小配置示例。这些设置并不能满足生产环境需要，但是足够让你的应用尽快运行起来。你可以继续阅读[http://www.phptherightway.com](http://www.phptherightway.com)来获取更多服务器部署相关信息。
+
+**Apache 和 mod_rewrite**
+
+这是一个目录结构示例：
+
+    /path/www.mysite.com/
+        public_html <-- Document root!
+            .htaccess
+            index.php <-- I instantiate Slim here
+        lib/
+            slim/ <-- I store Slim lib files here!
+
+目录中的 .htaccess 文件包含一下内容：
+
+    RewriteEngine On
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [QSA,L]
+
+同时你也需要一个目录指令让 .htaccess文件 和 RewriteEngin 可以被使用。这个设置虽然可以在全局的 httpd.conf 文件中完成，但是通过将指令封装到虚拟主机设置模块的方式把指令限制在虚拟主机权限类是最好的办法。下面是设置的大致形式：
+
+    <VirtualHost *:80>
+        ServerAdmin me@mysite.com
+        DocumentRoot "/path/www.mysite.com/public_html"
+        ServerName mysite.com
+        ServerAlias www.mysite.com
+
+        #ErrorLog "logs/mysite.com-error.log"
+        #CustomLog "logs/mysite.com-access.log" combined
+
+        <Directory "/path/www.mysite.com/public_html">
+            AllowOverride All
+            Order allow,deny
+            Allow from all
+        </Directory>
+    </VirtualHost>
+
+现在 Apache 会将所有非文件请求转发到我 实例化和运行 Slim 应用的 index.php 脚本上。开启 URL 重写之后，以下面 index.php 中定义的 Slim 应用为例。
+
 -- EOF --
 
