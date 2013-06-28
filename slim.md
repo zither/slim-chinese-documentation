@@ -929,7 +929,43 @@ Slim 应用的 urlFor() 函数可以让你为一个已命名路由动态的创�
         </Directory>
     </VirtualHost>
 
-现在 Apache 会将所有非文件请求转发到我 实例化和运行 Slim 应用的 index.php 脚本上。开启 URL 重写之后，以下面 index.php 中定义的 Slim 应用为例。
+现在 Apache 会将所有非文件请求转发到我 实例化和运行 Slim 应用的 index.php 脚本上。开启 URL 重写之后，以下面 index.php 中定义的 Slim 应用为例。你可以在应用路由中使用“/foo”来代替“/index.php/foo”。
+
+    <?php
+    $app = new \Slim\Slim();
+    $app->get('/foo', function(){
+                    echo "Foo";
+                });
+    $app->run();
+
+**nginx**
+
+我们使用和上面同样的目录结构，只是把配置文件换为 nginx 的配置文件 nginx.conf。
+
+    /path/www.mysite.com/
+    public_html/ <-- Document root!
+        index.php <-- I instantiate Slim here!
+    lib/
+        Slim/ <-- I store Slim lib files here!
+
+下面是 nginx.conf 文件中我们使用 try_files 指令的位置片段，它让服务器处理实际存在的静态文件（图片，css，js 等）请求而把其他的都转发到 index.php 文件上。
+
+    server {
+        listen       80;
+        server_name  www.mysite.com mysite.com;
+        root         /path/www.mysite.com/public_html;
+
+        try_files $uri /index.php;
+
+        # this will only pass index.php to the fastcgi process which is generally safer but
+        # assumes the whole site is run via Slim.
+        location /index.php {
+            fastcgi_connect_timeout 3s;     # default of 60s is just too long
+            fastcgi_read_timeout 10s;       # default of 60s is just too long
+            include fastcgi_params;
+            fastcgi_pass 127.0.0.1:9000;    # assumes you are running php-fpm locally on port 9000
+        }
+    }
 
 -- EOF --
 
