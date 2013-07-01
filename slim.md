@@ -967,5 +967,22 @@ Slim 应用的 urlFor() 函数可以让你为一个已命名路由动态的创�
         }
     }
 
+大多数情况下安装后会有一个默认的 fastcgi_params 文件，因此你只需要把上面的配置包含进去即可。不过有些配置文件中没有包含 SCRIPT_FILENAME 参数。你必须确保包含了该参数，否则可能被终止运行并收到来自 fastcgi 程序的未指定输入文件错误。这个问题可以直接在 location block 中添加或者简单的把参数添加到 fastcgi_params 文件中。无论哪种方式，它应该看起来像这样：
+
+    fastcgi_param SCRIPT_FILENAME $docment_root$fastcgi_script_name;
+
+**不使用 URL 重写**
+
+Slim 也可以在不使用 URL 重写的情况下使用。在这种脚本中，你必须在初始化和运行Slim 应用的资源 URI中包含 PHP 文件名。举个例子，假如下面的 Slim 应用定义在你虚拟主机根目录的 index.php 文件中：
+
+    <?php
+    $app = new \Slim\Slim();
+    $app->get('/foo', function(){
+                    echo "Foo!";
+                });
+    $app->run();
+
+你可以使用“index.php/foo”来访问定义的路由。如果同样的应用被定义在 blog/ 子目录的 index.php 文件中，你可以通过 “/blog/index.php/foo” 来访问定义的路由。
+
 -- EOF --
 
