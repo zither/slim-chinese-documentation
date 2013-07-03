@@ -999,5 +999,18 @@ Slim 应用的环境是指一系列解析后能够被 Slim 应用和它的中间
 
 这些变量基本上决定了 Slim 应用的运行：资源 URI，HTTP 请求方式，HTTP 请求正文，URL 查询参数，错误输出等等。后面将讲到的中间件会给你提供足够的能力在 Slim 应用运行前或运行后来操纵这些环境变量。
 
+**环境变量**
+
+下面这些内容基本上都借鉴于 [http://rack.rubyforge.org/doc/files/SPEC.html](http://rack.rubyforge.org/doc/files/SPEC.html)上已有的信息。环境变量必须包含这些变量：
+
+    REQUEST_METHOD
+        HTTP 请求方式，必须包含这个变量且不能未空字符。
+    SCRIPT_NAME
+        URI 请求路径的初始部分，它和 Slim 应用的实际安装目录一致，因此应用知道它的虚拟位置。如果应用被安装在 public 目录的根目录这个变量可能是空值。变量后面没有斜线。
+    PATH_INFO
+        URI 请求路径的剩余部分，它决定 HTTP 请求目标资源在 Slim 应用中的虚拟位置。它总是以斜线开头，末尾斜线可有可无。
+    QUERY_STRING
+        HTTP 请求 URL 之后不包含“?”的部分。这个变量是必须的，但是可以是空字符。
+
 -- EOF --
 
