@@ -1010,7 +1010,19 @@ Slim 应用的环境是指一系列解析后能够被 Slim 应用和它的中间
     PATH_INFO
         URI 请求路径的剩余部分，它决定 HTTP 请求目标资源在 Slim 应用中的虚拟位置。它总是以斜线开头，末尾斜线可有可无。
     QUERY_STRING
-        HTTP 请求 URL 之后不包含“?”的部分。这个变量是必须的，但是可以是空字符。
+        HTTP 请求 URL 之后不包含“?”的部分。这个变量是必要的，但是可以是空字符。
+    SERVER_NAME
+        当把它和 SCRIPT_NAME 以及 PATH_INFO 连接在一起，就可以建立一个指向应用资源的完整 URL。但是，如果设有 HTTP_HOST，那么应该使用 HTTP_HOST 来代替该变量。该变量是必要的且不能为空。 
+    SERVER_PORT
+        当把它和 SCRIPT_NAME 以及 PATH_INFO 连接在一起，就可以建立一个指向应用资源的完整 URL。该变量是必要的且不能为空。
+    HTTP_*
+        与客户端发送的 HTTP 请求头相匹配的变量。这些变量与当前 HTTP 请求发送的相一致。
+    slim.url_scheme
+        根据 HTTP 请求 URL 来决定变量是“http”或者“https”。
+    slim.input
+        以字符串形式表现的原始的 HTTP 请求正文。如果 HTTP 请求正文为空（比如：GET 请求），该变量也为空。
+    slim.errors
+        必须是可写入的资源；默认情况下，该变量为 php://stderr 的一个可写资源句柄。
 
 -- EOF --
 
