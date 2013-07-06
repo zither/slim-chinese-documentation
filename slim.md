@@ -1024,5 +1024,16 @@ Slim 应用的环境是指一系列解析后能够被 Slim 应用和它的中间
     slim.errors
         必须是可写入的资源；默认情况下，该变量为 php://stderr 的一个可写资源句柄。
 
+Slim 应用也可以把自身数据储存到环境中。环境变量数组的关键词必须至少包含一个“.”点号以及一个独特的前缀（比如“prefix.foo”）。slim 前缀是 Slim 应用的保留前缀，不允许被 Slim 自身以外的其他使用。CGI 关键词的值必须是字符串。下面是一些相关限制：
+
+    - slim.url_scheme 必须是“http”或者“https”。
+    - slim.input 必须是字符串。
+    - slim.errors 必须是一个有效可写的资源。
+    - REQUEST_METHOD 必须是有效令牌。
+    - SCRIPT_NAME 如果不为空，必须以“/”开头。
+    - PATH_INFO 如果不为空，必须以“/”开头。
+    - CONTENT_LENGTH 如果被给出，必须是有数字组成。
+    - SCRIPT_NAME 或者 PATH_INFO 两者必须有一个被设置。如果 SCRIPT_NAME 为空，PATH_INFO 必须是“/”。与之相反，SCRIPT_NAME 不允许为“/”，应该使用空字符代替。
+
 -- EOF --
 
