@@ -1035,5 +1035,15 @@ Slim 应用也可以把自身数据储存到环境中。环境变量数组的关
     - CONTENT_LENGTH 如果被给出，必须是有数字组成。
     - SCRIPT_NAME 或者 PATH_INFO 两者必须有一个被设置。如果 SCRIPT_NAME 为空，PATH_INFO 必须是“/”。与之相反，SCRIPT_NAME 不允许为“/”，应该使用空字符代替。
 
+##Request##
+
+**Request 概述**
+
+每个 Slim 应用实例都有一个 request 对象。request 对象是对当前 HTTP 请求的抽象，可以让你方便的和 Slim 应用的环境变量进行交互。虽然每个 Slim 应用都包含一个默认的 request 对象，但是 \Slim\Http\Request 类是幂等的；你可以把它作为一个整体在任何需要的地方（中间件或者 Slim 应用的其他地方）实例化这个类而完全不影响应用。你可以用如下方式获得 Slim 应用 request 对象的一个引用：
+
+    <?php
+    // 返回 \Slim\Http\Request 实例
+    $request = $app->request();
+
 -- EOF --
 
