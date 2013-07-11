@@ -1045,5 +1045,57 @@ Slim 应用也可以把自身数据储存到环境中。环境变量数组的关
     // 返回 \Slim\Http\Request 实例
     $request = $app->request();
 
+**Request 方式**
+
+每个 HTTP 请求都有一个方式（比如：GET 或 POST）。你可以通过 Slim 应用的 request 对象来获取当前 HTTP 请求方式：
+
+    /**
+     * request 请求的方式是什么？
+     * @return string (e.g. GET,POST,PUT,DELETE)
+     */
+    $app->request()->getMethod();
+
+    /**
+     * 是否是 GET 请求？
+     * @return bool
+     */
+    $app->request()->isGet();
+
+    /**
+     * 是否是 POST 请求？
+     * @return bool
+     */
+    $app->request()->isPost();
+
+    /**
+     * 是否是 PUT 请求？
+     * @return bool
+     */
+    $app->request()->isPut();
+
+    /**
+     * 是否是 DELETE 请求？
+     * @return bool
+     */
+    $app->request()->isDelete();
+
+    /**
+     * 是否是 HEAD 请求？
+     * @return bool
+     */
+    $app->request()->isHead();
+
+    /**
+     * 是否是 OPTIONS 请求？
+     * @return bool
+     */
+    $app->request()->isOptions();
+
+    /**
+     * 是否是 XHR/AJAX 请求？
+     * @return bool
+     */
+    $app->request()->isAjax();
+
 -- EOF --
 
