@@ -1097,5 +1097,22 @@ Slim 应用也可以把自身数据储存到环境中。环境变量数组的关
      */
     $app->request()->isAjax();
 
+**Requset Headers**
+
+Slim 应用会自动解析所有的 HTTP 请求头。你可以使用 request 对象的 headers() 函数来访问请求头。
+
+    <?php
+    $app = new \Slim\Slim();
+    // Get request object
+    $req = $app->request();
+    // Get request headers as associative array
+    $headers = $req->headers();
+    // Get the ACCEPT_CHARSET header
+    $charset = $req->headers('ACCEPT_CHARSET');
+
+在第二个例子中，如果给出的名字不存在，headers() 函数可能会返回字符串或者 null。
+
+HTTP 规范声明 HTTP 请求头名称可以是大写、小写或者大小写混合。无论你获取一个大写、小写或者大小写混合名称的请求头，Slim 都能正确的返回请求头的值。因此你可以使用你最喜欢的命名方式。
+
 -- EOF --
 
