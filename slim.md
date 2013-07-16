@@ -1114,5 +1114,44 @@ Slim 应用会自动解析所有的 HTTP 请求头。你可以使用 request 对
 
 HTTP 规范声明 HTTP 请求头名称可以是大写、小写或者大小写混合。无论你获取一个大写、小写或者大小写混合名称的请求头，Slim 都能正确的返回请求头的值。因此你可以使用你最喜欢的命名方式。
 
+**Requst Body**
+
+使用 request 对象的 getBody() 函数获取从 HTTP 客户端发送来的原始 HTTP 请求正文。这在 Slim  应用处理 JSON 或者 XML 请求时特别有用。
+
+    <?php
+    $request = $app->request();
+    $body = $request->getBody();
+
+**Request 变量**
+
+HTTP 请求也可以有关联变量（不要和 route 变量弄混）。当前 HTTP 请求发送的 GET、POST 或者 PUT变量都可以通过 Slim 应用的 request 对象获得。
+
+如果你想要在不区分请求方式的情况下快速获取一个 request 变量，可以使用 request 对象的 params() 函数。
+
+    <?php
+    $req = $app->request();
+    $paramValue = $req->params('paramName');
+
+params() 函数会首先查找 PUT 变量，然后 POST 变量，最后才查找 GET 变量。如果为找到变量，会返回 null。如果你只想查找指定请求方式的变量，你可以使用一下函数来代替：
+
+    <?php
+    // Get request object
+    $req = $app->request();
+    // GET 变量
+    $paramValue = $req->get('paramName');
+    // POST 变量
+    $paramValue = $req->post('paramName');
+    // PUT 变量
+    $paramValue = $req->put('paramName');
+
+如果查找的变量不存在，每个函数都会返回 null。如果在调用这些函数时没有传递参数，你可以获取一个给定方式的所有变量的数组：
+
+    <?php
+    $req = $app->request();
+    $allGetVars = $req-get();
+    $allPostVars = $req->post();
+    $allPutVars = $req->put();
+
+
 -- EOF --
 
