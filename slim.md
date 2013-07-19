@@ -1152,6 +1152,35 @@ params() 函数会首先查找 PUT 变量，然后 POST 变量，最后才查找
     $allPostVars = $req->post();
     $allPutVars = $req->put();
 
+**Request Cookies**
+
+**Get Cookies**
+
+Slim 应用会自动解析当前 HTTP 请求发送得 cookies。你可以使用 Slim 应用的 getCookie() 函数来获取 cookie 的值：
+
+    <?php
+    $foo = $app->getCookie('foo');
+
+只有跟随当前 HTTP 请求发送的  Cookies 才能被这个函数访问。如果你在当前请求的过程中设置一个 cookie，它无法被这个函数访问，直到后续请求被发送。如果你想要获取一个跟随当前请求发送的所有 cookies 的数组，你必须使用 request 对象的 cookies()  函数：
+
+    <?php
+    $cookies = $app->request()->cookies();
+
+当多个 cookies 同名时（比如它们拥有不同的路径），只有最具体（最长匹配路径）的一个会被返回。详情请查阅 RFC2109。
+
+**Get Encrypted cookies**
+
+如果你预先设置了一个加密的 cookie，你可以使用 Slim 应用的 getEncryptedCookie() 函数来获取它的解密值：
+
+    <?php
+    $value = $app->getEncryptedCookie('foo');
+
+如果 cookie 被 HTTP 客户端修改，Slim 会自动注销这个 cookies 值使它对后面的 HTTP 响应无效。你可以把 false 作为第二个传递参数来关闭这个设置：
+
+    <?php
+    $value = $app->getEncryptedCookie('foo', false);
+
+不管你是否注销无效的 cookies，当 cookie 无效或者不存在时将会返回 null 值。
 
 -- EOF --
 
