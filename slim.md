@@ -1182,5 +1182,32 @@ Slim 应用会自动解析当前 HTTP 请求发送得 cookies。你可以使用 
 
 不管你是否注销无效的 cookies，当 cookie 无效或者不存在时将会返回 null 值。
 
+**Request Paths**
+
+Slim 应用接收的每个 HTTP 请求都必须包含一个根 URI 以及一个目标资源 URI。
+
+**Root URI**
+
+根 URI 是指实例化和运行 Slim 应用目录的物理 URL 地址。如果一个 Slim 应用是在虚拟机最上层根目录中的 index.php 文件中实例化，那么根 URI 就是一个空值。如果 Slim 应用是在虚拟机根目录的子目录中的 index.php 文件实例化，那么根 URI 就是子目录的路径（以斜线开头但不能以斜线结尾）。
+
+**Resource URI**
+
+resource URI 是应用资源的虚拟路径。resource URI 会被用来与 Slim 应用路由进行匹配。
+
+假设 Slim 应用被安装在你虚拟主机 document root 目录下的 /foo子目录中，再假设完成的 HTTP 请求 URL（你在浏览器地址栏中看到的链接）是 /foo/books/1。那么 root URI 就是 /foo（Slim 应用被实例化的物理目录地址），resource URI 就是 /books/1（应用资源路径）。
+
+你可以使用 request 对象的 getRootUri() 和 getResourceUri() 函数来获取 HTTP 请求的 root URI 和 resource URI。
+
+    <?php
+    $app = new Slim();
+    // 获取 request 对象
+    $req = $app->request();
+    // 获取 root URI
+    $rootUri = $req->getRootUri();
+    // 获取 resource URI
+    $resourceUri = $req->getResourceUri();
+
+
+
 -- EOF --
 
