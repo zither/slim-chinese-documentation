@@ -1207,6 +1207,35 @@ resource URI 是应用资源的虚拟路径。resource URI 会被用来与 Slim 
     // 获取 resource URI
     $resourceUri = $req->getResourceUri();
 
+**XMLHttpRequest**
+
+当使用像 MooTools 或者 JQuery 这样的 javascript 框架执行一个 XMLHttpRequest，XMLHttpReqest 通常会自动附带发送一个 X-Requested-With 的 HTTP 请求头。Slim 应用会检查 HTTP 请求的 X-Requested-With 请求头并把它标记为 XMLHttpRequest 请求。如果由于某些原因 XMLHttpRequest 不能发送 X-Requested-With 请求头，你可以通过在 GET、POST 或者 PUT 的请求参数中设置一个名为“isajax”的真值来强制让 Slim 应用认定 HTTP 请求为 XMLHttpRequest。
+
+可以通过 request 对象的 isAjax() 或者 isXhr() 函数来判断当前请求是否是一个 XHR/Ajax 请求：
+
+    <?php
+    $isXHR = $app->request->isAjax();
+    $isXHR = $app->request->isXhr();
+
+**Request Helpers**
+
+Slim 应用的 request 对象提供了一些获取常用 HTTP 请求信息的辅助函数：
+
+**Content Type**
+
+获取请求的 content type（比如“application/json;charset=utf-8”）：
+
+    <?php
+    $req = $app->request;
+    $req->getContentType();
+
+**Media Type**
+
+获取请求的 media type（比如“application/json”）：
+
+    <?php
+    $req = $app->request;
+    $req->getMediaType();
 
 
 -- EOF --
