@@ -1237,6 +1237,101 @@ Slim 应用的 request 对象提供了一些获取常用 HTTP 请求信息的辅
     $req = $app->request;
     $req->getMediaType();
 
+**Media Type Params**
+
+获取请求的 media type 参数（比如charset => "utf-8"）：
+
+    <?php 
+    $req = $app->request;
+    $req->getMediaTypeParams();
+
+**Content Charset**
+
+获取请求的内容字符集设置（比如“utf-8”）:
+
+    <?php
+    $req = $app->request;
+    $req->getContentCharset();
+
+**Content Length**
+
+获取请求内容长度：
+
+    <?php
+    $req = $app->request;
+    $req->getContentLength();
+
+**Host**
+
+获取请求的主机：
+
+    <?php
+    $req = $app->request;
+    $req->getHost();
+
+**Host with Port**
+
+获取请求的主机及端口（e.g."slimframework.com:80"）：
+
+    <?php
+    $req = $app->request;
+    $req->getHostWithPort();
+
+**Port**
+
+获取请求的端口（e.g.80）：
+
+    <?php
+    $req = $app->request;
+    $req->getPort();
+
+**Scheme**
+
+获取请求的协议方式（e.g."http" or "https"）：
+
+    <?php
+    $req = $app->request;
+    $req->getScheme();
+
+**Path**
+
+获取请求的路径（root URI + resource URI）：
+
+    <?php
+    $req = $app->request;
+    $req->getPath();
+
+**URL**
+
+获取请求的 URL（scheme + host + port）：
+
+    <?php
+    $req = $app->request;
+    $req->getUrl();
+
+**IP Address**
+
+获取请求的 IP 地址：
+
+    <?php
+    $req = $app->request;
+    $req->getIp();
+
+**Referer**
+
+获取请求来源地址：
+
+    <?php
+    $req = $app->request;
+    $req->getReferrer();
+
+**User Agent**
+
+获取请求的 user agent 字符串：
+
+    <?php
+    $req = $app->request;
+    $req->getUserAgent();
 
 -- EOF --
 
