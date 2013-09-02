@@ -1333,5 +1333,23 @@ Slim 应用的 request 对象提供了一些获取常用 HTTP 请求信息的辅
     $req = $app->request;
     $req->getUserAgent();
 
+**Response**
+
+**Response 概述**
+
+每个 Slim 应用实例都有一个 response 对象。这个 response 是 Slim 应用对返回给 HTTP 客户端的响应内容的抽象对象。虽然每个 Slim 应用都包含一个默认的 response 对象，但 \Slim\Http\Response 类是幂等的。你可以在需要的地方（中间件或着 Slim 应用的其他地方）实例化这个类而不会影响应用的整体性。你可以使用一下方法来获得一个 Slim 应用 response 对象的引用：
+
+    <?php
+    $app = new \Slim\Slim();
+    $app->response;
+
+一个 HTTP response 主要有三个属性：
+
+    Status
+    Header
+    Body
+
+response 对象提供了辅助函数（会面会讲到）来帮助你与这些 HTTP response 属性互动。默认 response 对象会返回 text/html 类型的 200 OK HTTP 响应。
+
 -- EOF --
 
