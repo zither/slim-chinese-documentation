@@ -205,7 +205,7 @@ Slim 应用模板文件所在文件目录的相对或者绝对地址。这个路
 
 **view**
 
-视图类（View class）或者其实例都是供 Slim 使用。应用实例生成之后你需要使用 Slim 的 view()函数来修改。
+试图类（View class）或者其实例都是供 Slim 使用。应用实例生成之后你需要使用 Slim 的 view()函数来修改。
 
     <?php
     // During instantiation
