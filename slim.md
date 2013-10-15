@@ -1351,5 +1351,33 @@ Slim 应用的 request 对象提供了一些获取常用 HTTP 请求信息的辅
 
 response 对象提供了辅助函数（会面会讲到）来帮助你与这些 HTTP response 属性互动。默认 response 对象会返回 text/html 类型的 200 OK HTTP 响应。
 
+
+**Response Status**
+
+返回给客户端的 HTTP 响应会包含一个标识响应类型（e.g.200 OK，400 Bad Request，或者 500 Server Error）的状态码。你可以使用 Slim 应用的 response 对象按下面的方式来设置 HTTP 响应的状态码：
+
+    <?php
+    $app->response->setStatus(400);
+
+如果你打算返回一个不是 200 OK 状态的 HTTP 响应，只需要设置 response 对象的状态码即可。同时你也可以简单的通过无参调用该函数来获取 response 对象当前的 HTTP 状态。
+
+    <?php
+    $status = $app->response->getStatus();
+
+**Response Headers**
+
+返回给 HTTP 客户端的 HTTP 响应可以包含响应头信息。HTTP 头信息是提供 HTTP 响应相关元信息的一个键值列表。你可以使用 Slim 应用的 response 对象来设置 HTTP 响应头。response 对象包含一个公有属性 headers，它是 \Slim\Helper\Set 的实例，该属性提供了一个简单的标准接口来操作 HTTP 响应头。
+
+    <?php
+    $app = new \Slim\Slim();
+    $app->response->headers->set('Content-Type', 'application/json');
+
+你同样可以通过 response 对象的 headers 属性来获取 headers：
+
+    <?php
+    $contentType = $app->response->headers->get('Content-Type');
+
+如果给出的 header 名不存在时将会返回 null 值。你可以使用大写，小写或者大小写字母混合结合破折号或下划线的方式来指定 header 名。请使用你最喜欢的命名方式。
+
 -- EOF --
 
