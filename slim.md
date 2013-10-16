@@ -1379,5 +1379,36 @@ response 对象提供了辅助函数（会面会讲到）来帮助你与这些 H
 
 如果给出的 header 名不存在时将会返回 null 值。你可以使用大写，小写或者大小写字母混合结合破折号或下划线的方式来指定 header 名。请使用你最喜欢的命名方式。
 
+**Response Body**
+
+返回给客户端的 HTTP 响应可以可以包含 body（正文）。HTTP body 是 HTTP 响应传递给客户端的实际内容。你可以使用 Slim 应用的 response 对象来设置 HTTP 响应的正文：
+
+    <?php
+    $app = new \Slim\Slim();
+    // 重写响应正文
+    $app->response->setBody('Foo');
+    // 追加响应正文
+    $app->response->write('Bar');
+
+当你重写或者追加 response 对象 body 时，response 对象会自动根据新响应正文长度来设置 Content-Length 头信息。
+
+你可以这样获取 response 对象的 body 内容：
+
+    <?php
+    $body = $app->response->getBody();
+
+通常来说，你不需要手动调用 setBody() 或者 write() 函数来设置响应正文；相应的，Slim 应用会自动帮你完成。无论何时你在路由的回调函数中 echo() 了内容，这些 echo() 的内容都会在输出缓冲中被捕获并在 HTTP 响应被返回客户端之前追加到响应正文中。
+
+**Response Cookies**
+
+Slim 应用提供了在 HTTP 响应中发送 cookies 的辅助函数。
+
+**Set Cookie**
+
+下面这个例子演示了怎么使用 Slim 应用的 setCookie() 函数来创建一个在 HTTP 响应被发送的 HTTP cookie：
+
+    <?php
+    $app->setCookie('foo', 'bar', '2 days');
+
 -- EOF --
 
