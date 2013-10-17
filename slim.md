@@ -1410,5 +1410,49 @@ Slim 应用提供了在 HTTP 响应中发送 cookies 的辅助函数。
     <?php
     $app->setCookie('foo', 'bar', '2 days');
 
+上面的例子创建了一个名为“foo”，值为“bar”,从现在开始两天后过期的 HTTP cookie。你也给 cookie 添加一些附加属性，包括它的 path（路径），domain（域名），secure 以及 httponly 设置。Slim 应用的 setCookie() 方法采用了和 PHP 原生的 setCookie() 函数相同的参数标识。
+
+    <?php
+    $app->setCookie(
+            $name,
+            $value,
+            $expiresAt,
+            $path,
+            $domain,
+            $secure,
+            $httponly
+        );
+
+**设置加密 Cookie**
+
+你可以通过把 Slim 应用的 cookies.encrypt 设置为 true 来告诉 Slim 应用加密响应 cookies。当该设置为 true，Slim 会在把响应信息返回给 HTTP 客户端之前自动加密 cookies。
+
+下面是 Slim 应用 cookie 加密的相关有效设置：
+
+    <?php
+    $app = new \Slim\Slim(array(
+                        'cookies.encrypt' => true,
+                        'cookies.secret_key' => 'my_secret_key',
+                        'cookies.cipher' => MCRYPT_RIJNDAEL_256,
+                        'cookies.cipher_mode' => MCRYPT_MODE_CBC
+                    ));
+
+**删除 Cookie**
+
+你可以使用 Slim 应用的 deleteCookie() 方法来删除一个 cookie。它会在下一次 HTTP 请求之前从 HTTP 客户端移除 cookie。这个方法接受与 Slim 应用的 setCookie() 函数除 $expires 之外相同的参数标识。只有第一个参数是必选的。
+
+    <?php
+    $app->deleteCookie('foo');
+
+如果你需要指定 path 和 domain：
+
+    <?php
+    $app->deleteCookie('foo', '/', 'foo.com');
+
+你同样可以更详细的指定 secure 和 httponly 属性：
+
+    <?php
+    $app->deleteCookie('foo', '/', 'foo.com', true, true);
+
 -- EOF --
 
