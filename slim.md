@@ -1454,5 +1454,41 @@ Slim 应用提供了在 HTTP 响应中发送 cookies 的辅助函数。
     <?php
     $app->deleteCookie('foo', '/', 'foo.com', true, true);
 
+**Response Helpers**
+
+response 对象提供了一些辅助函数用来检查和操作基本的 HTTP 响应。
+
+**Finalize**
+
+response 对象的 finalize() 函数会返回一个索引数组 array(status, header, body)。status  是一个整数；header 是一个可迭代的数据结构；body是一个字符串。你是否在 Slim 应用或它的中间件中创建了一个新的 \Slim\Http\Response 对象，你可以调用 response 对象的 finalize() 方法来生成基础 HTTP 响应的 status，header 和 body。
+
+    <?php
+    /**
+     * Prepare new response object
+     */
+    $res = new \Slim\Http\Response();
+    $res->setStatus(400);
+    $res->write('You made a bad request');
+    $res->headers->set('Content-Type', 'text/plain');
+
+    /**
+     * Finalize
+     * @return [
+     *     200,
+     *     ['Content-type' => 'text/plain'],
+     *     'You made a bad request'
+     * ]
+     */
+    $array = $res->finalize();
+
+**Redirect**
+
+response 对象的 redirect() 方法可以设置 response 状态码和 Location：header 需要返回一个 3xx Redirect 响应。
+
+    <?php
+    $app->response->redirect('/foo', 303);
+
+
+
 -- EOF --
 
