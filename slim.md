@@ -1522,11 +1522,52 @@ Slim 应用把模板渲染任务委托给它的 view 对象。Slim 应用的视�
     <?php
     public render(string $template);
 
-view 对象的 render 函数必须返回指定模板用它的参数（$template）渲染过后的内容。
+view 对象的 render 函数必须返回模板用给定参数（$template）渲染过后的内容。
 
 **Rendering**
 
-你可以使用 Slim 应用的 render() 函数让当前的 view 对象根据给出的参数设置来渲染一个模板。
+你可以使用 Slim 应用的 render() 函数让当前的 view 对象根据给出的参数设置来渲染一个模板。Slim 应用的 render() 函数会 echo() 从输出缓冲中捕捉 view 对象返回的输出并自动追加到 response 对象的 body 中。它并不关心模板是如何渲染的，而是全部交给 view 对象处理。
+
+    <?php
+    $app = new \Slim\Slim();
+    $app->get('/books/:id', function($id) use($app){
+                    $app->render('myTemplate.php', array('id' => $id));
+                });
+
+如果你需要在路由的回调函数中向 view 对象传递数据，你必须把需要的数据以用数组形式作为 Slim 应用 render() 函数的第二个参数：
+
+    <?php
+    $app->render(
+            'myTemplate.php',
+            array('name'=> 'Josh')
+    );
+
+你也可以在渲染模板的时候同时设置 HTTP 响应的状态码：
+
+    <?php
+    $app->render(
+            'myTemplate.php',
+            array('name' => 'Josh'),
+            404
+    );
+
+**自定义视图类**
+
+Slim 应用把渲染模板的工作交给它的 view 对象处理。自定义的视图类须是 \Slim\View 的子类并实现了以下接口：
+
+    <?php
+    public render(string $template);
+
+view 对象的 render 函数必须返回模板用给定的 $template 参数渲染后的内容。当自定视图类的 render 函数被调用时，会把需要渲染的模板路径（相对于 Slim 应用的‘templates.path’设置）作为它的参数。下面是一个自定义视图类的例子：
+
+    <?php
+    class CustomView extends \Slim\View
+    {
+        public function render($template)
+        {
+            return 'The final rendered template';
+        }
+    }
 
 -- EOF --
 
