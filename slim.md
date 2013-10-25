@@ -1569,5 +1569,67 @@ view 对象的 render 函数必须返回模板用给定的 $template 参数渲�
         }
     }
 
+自定义视图类可以在其内部做任何需要的操作只要它返回模板被渲染后的输出的字符串。自定义视图类可以非常方便的整合 Twig 或者 Smarty 这些流行的 PHP 模板系统。
+
+    注意！自定义视图类可以通过访问 $this->data 来获取 Slim 应用的 render() 函数传递给它的参数。
+
+你可以在 GitHub 的 Slim-Extras 库里找到采用了流行 PHP 模板引擎的预设自定义类。
+
+**View 示例**
+
+    <?php
+    class CustomView extends \Slim\View
+    {
+        public function render($template)
+        {
+            // $template === 'show.php';
+            // $this->data['title'] === 'Sahara';
+        }
+    }
+
+**整合示例**
+
+    <?php
+    require 'CustomView.php';
+    $app = new \Slim\Slim(array(
+                        'view' => new CustomView()
+                    ));
+    $app->get('/book/:id', function($id) use($app){
+                    $app->render('show.php', array('title' => 'Sahara'));
+                });
+    $app->run();
+
+**View 数据**
+
+    注意！不建议你直接在 view 对象上设置或者追加数据。通常来说，你应该直接通过 Slim 应用的 render() 函数来向视图传递数据。请查看 Rendering Templates 文档。
+
+view 对象的 setData() 和 appendData() 函数可以把数据注入 view 对象；被注入的数据可以被 view 模板使用。视图数据是以键值数组存储的。
+
+**设置数据**
+
+view 对象的 setData() 方法会覆盖以存在的视图数据。你可以使用这个函数为一个变量赋值：
+
+    <?php
+    $app->view->setData('color', 'red');
+
+那么视图数据现在就包含一个关键词为“color”值为“red”的数据。你也可以使用 view 对象的 setData() 函数一次性申明整个数组数据：
+
+    <?php
+    $app->view->setData(array(
+                        'color' => 'red',
+                        'size' => 'medium'
+                    ));
+
+请记住，view 的 setData() 函数会替换之前的所有数据。
+
+**追加数据**
+
+view 对象的也有一个向已存的视图数据中追加数据的 appendData() 函数。这个函数只接受一个数组作为唯一参数：
+
+    <?php
+    $app->view->appendData(array(
+                        'foo' => 'bar'
+                    ));
+
 -- EOF --
 
