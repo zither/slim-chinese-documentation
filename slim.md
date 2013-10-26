@@ -1589,6 +1589,8 @@ view 对象的 render 函数必须返回模板用给定的 $template 参数渲�
 
 **整合示例**
 
+如果自定义视图类无法被自动加载类加载，那么它必须在 Slim 应用实例化之前被载入。
+
     <?php
     require 'CustomView.php';
     $app = new \Slim\Slim(array(
@@ -1630,6 +1632,16 @@ view 对象的也有一个向已存的视图数据中追加数据的 appendData(
     $app->view->appendData(array(
                         'foo' => 'bar'
                     ));
+
+##HTTP Caching
+
+**HTTP 缓存概述**
+
+Slim 应用通过提供 etag()，lastModified() 和 expires() 等辅助函数对 HTTP 缓存进行内置支持。在每个路由中最好使用 etag() 或 lastModified() 中的一个与 expires() 结合使用；请不要在同一个路由回调函数中同时使用 etag() 和 lastModified()。
+
+在路由回调函数中，etag() 和 lastModified() 应该在其他代码之前被调用；这样可以让 Slim 在执行路由回调函数的其他代码之前对 GET 请求的条件进行检查。
+
+etag() 和 lastModified() 都会命令 HTTP 客户端把资源响应存储在客户端缓存中。expires() 函数则通知 HTTP 客户端客户端缓存应该在何时过期。
 
 -- EOF --
 
