@@ -1639,9 +1639,48 @@ view 对象的也有一个向已存的视图数据中追加数据的 appendData(
 
 Slim 应用通过提供 etag()，lastModified() 和 expires() 等辅助函数对 HTTP 缓存进行内置支持。在每个路由中最好使用 etag() 或 lastModified() 中的一个与 expires() 结合使用；请不要在同一个路由回调函数中同时使用 etag() 和 lastModified()。
 
-在路由回调函数中，etag() 和 lastModified() 应该在其他代码之前被调用；这样可以让 Slim 在执行路由回调函数的其他代码之前对 GET 请求的条件进行检查。
+在路由回调函数中，etag() 和 lastModified() 应该在其他代码之前被调用；这样可以让 Slim 在执行路由回调函数的其他代码之前对 GET 请求的缓存协商进行检查。
 
 etag() 和 lastModified() 都会命令 HTTP 客户端把资源响应存储在客户端缓存中。expires() 函数则通知 HTTP 客户端客户端缓存应该在何时过期。
+
+**ETag**
+
+Slim 应用使用 ETags 来内置对 HTTP caching 的支持。一个 ETag 就是资源 URI 的唯一标识符。当 Slim 应用使用 etag() 函数设置了一个 ETag 信息头的时候，HTTP 客户端会在以后的同一个资源 URI 的每个 HTTP 请求中发送一个 If-None-Match 头。如果资源 URI 的 ETag 值和 HTTP 请求中的 If-None-Match 头相匹配，Slim 应用会返回一个 304 Not Modified HTTP 响应来命令 HTTP 客户端继续使用它的缓存；这也防止了 Slim 应用对资源 URI 的所有请求进行处理，可以节省带宽和响应时间。
+
+在 Slim 中设置一个 ETag 是非常简单的。在你的路由回调函数中调用 Slim 应用的 etag() 方法，并传递一个唯一 ID 作为它的唯一参数即可。
+
+    <?php
+    $app->get('/foo', function() use($app){
+        $app->etag('unique-id');
+        echo "This will be cached after the initial request!";
+    });
+
+就像这样。请确保资源的 ETag ID 是唯一的。也要确保在请求资源改变之后同时改变它的 ETag ID，否则 HTTP 客户端会一直使用过时的缓存。
+
+**Last Modified**
+
+Slim 应用通过使用资源的最后修改时间来内置对 HTTP caching 的支持。当你指定一个最后修改时间，Slim 会告诉 HTTP 客户端该资源最后修改的日期和时间。HTTP 客户端将在给出的资源 URI 的 HTTP 请求中发送一个 If-Modified-Since 头。如果你指定的最后修改日期和 HTTP 请求的 If-Modified-Since 头相匹配，Slim 应用就会返回一个 304 Not Modified HTTP 响应来命令 HTTP 客户端使用它的缓存；这也防止了 Slim 应用对资源 URI 的所有请求进行处理，可以节省带宽和响应时间。
+
+在 Slim 中设置一个最后修改时间非常简单，你只需要在你的路由回调函数中调用 Slim 应用的 lastModified() 方法并传递资源最后修改时间的 UNIX timestamp 作为参数即可。请确保 lastModified() 方法的 timestamp 和资源的最后修改时间一起更新，否则浏览器会继续使用过时的缓存。
+
+    <?php
+    $app->get('/foo', function() use($app){
+        $app->lastModified(1286139652);
+        echo "This will be cached after the inital request!";
+    });
+
+**Expires**
+
+expires() 需要与 Slim 应用的 etag() 或者 lastModifed() 方法结合使用，它会在 HTTP 响应中设置一个 Expires 头来通知客户端当前资源的缓存应该何时过期。HTTP 客户端在发送给 Slim 应用的缓存协商的过期日期到达之前一直使用客户端缓存。
+
+expires() 方法接受一个参数：一个 UNIX timestamp 整数或者一个可以用 strtotime() 转换的字符串。
+
+    <?php
+    $app->get('/foo', function() use($app){
+        $app->etag('unique-resource-id');
+        $app->expires('+1 week');
+        echo "This will be cached client-side for one week";
+    });
 
 -- EOF --
 
