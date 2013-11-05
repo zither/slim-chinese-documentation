@@ -1682,5 +1682,15 @@ expires() 方法接受一个参数：一个 UNIX timestamp 整数或者一个可
         echo "This will be cached client-side for one week";
     });
 
+##Middleware
+
+**中间件概述**
+
+Slim 框架实现了一个版本的 Rack 协议。因此 Slim 应用可以使用中间件在 Slim 应用被调用之前或之后检查，分析或者修改应用的环境，请求和响应内容。
+
+**中间件结构**
+
+把 Slim 应用当作洋葱的最中心，那么洋葱的每一层都是中间件。当你在调用 Slim 应用的 run() 方法时，最外面的中间件层会先被调用。
+
 -- EOF --
 
