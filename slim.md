@@ -1690,7 +1690,32 @@ Slim 框架实现了一个版本的 Rack 协议。因此 Slim 应用可以使用
 
 **中间件结构**
 
-把 Slim 应用当作洋葱的最中心，那么洋葱的每一层都是中间件。当你在调用 Slim 应用的 run() 方法时，最外面的中间件层会先被调用。
+把 Slim 应用当作洋葱的最中心，那么洋葱的每一层都是中间件。当你在调用 Slim 应用的 run() 方法时，最外面的中间件层会先被调用。调用完毕之后，由改中间件层决定是否调用被它包裹的下一层中间件。整个过程通过每层中间件的调用逐步向中心深入，直到最核心的 Slim 应用被调用。整个过程会依次执行是因为每个中间件和 Slim 应用自身都实现了一个公共的 call() 方法。当你为 Slim 应用添加一个中间件，新添加的中间件就会就成为新的外层，包裹之前的最外中间件层（如果存在）或者 Slim 应用自身。
+
+**应用的引用**
+
+中间件的目的是为了检查，分析或者修改 Slim 应用被调用之前和之后的应用环境，请求和响应内容。应用引用让每个中间件非常容易的获取原 Slim 应用的一个引用以及它的环境，请求，响应的引用：
+
+    <?php
+    class MyMiddleware extends \Slim\Middleware
+    {
+        public function call()
+        {
+            // The Slim application
+            $app = $this->app;
+            
+            // The Environment object
+            $env = $app->environment;
+
+            // The Request object
+            $req = $app->request;
+
+            // The Response object
+            $res = $app->response;
+        }
+    }
+
+对环境，请求和响应对象作出的修改会立即传递给整个应用以及它的其他中间件层。这是因为所有的中间件层获取的都是同一个 Slim 应用对象的引用。
 
 -- EOF --
 
