@@ -1717,5 +1717,20 @@ Slim 框架实现了一个版本的 Rack 协议。因此 Slim 应用可以使用
 
 对环境，请求和响应对象作出的修改会立即传递给整个应用以及它的其他中间件层。这是因为所有的中间件层获取的都是同一个 Slim 应用对象的引用。
 
+**里层中间件引用**
+
+每个中间件层都可以通过 $this->next 来引用更里层的中间件。决定是否调用里层中间件是每个中间件的责任。这样就可以让 Slim 应用完成整个循环。如果一个中间件层选择不调用里层中间件，那么更里层的中间件以及 Slim 应用本身都将不会运行，应用的响应信息会原样返回给 HTTP 客户端。
+
+    <?php
+
+    class MyMiddleware extends \Slim\Middleware
+    {
+        public function call()
+        {
+            // Optionally call the next middleware
+            $this->next->call();
+        }
+    }
+
 -- EOF --
 
