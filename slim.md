@@ -340,7 +340,7 @@ Slim 应用模板文件所在文件目录的相对或者绝对地址。这个路
 
 **http.version**
 
-默认情况下，Slim 会想客户端返回 HTTP/1.1 响应头。如果你需要返回 HTTP/1.0，可以修改此设置。当你使用 PHPFog 或 nginx 服务器，要使用代理而非直接与 HTTP 客户端通信时，此设置尤为有用。
+默认情况下，Slim 会想客户端返回 HTTP/1.1 首行。如果你需要返回 HTTP/1.0，可以修改此设置。当你使用 PHPFog 或 nginx 服务器，要使用代理而非直接与 HTTP 客户端通信时，此设置尤为有用。
 
     <?php
     // During instantiation
@@ -802,7 +802,7 @@ Slim 提供了一些辅助函数（通过 Slim 实例调用）来帮助你控制
 
 **Halt**
 
-Slim 应用的 halt() 函数会立即返回给定的 HTTP 响应状态码（status code）和正文（body）。该函数接受两个参数：HTTP 状态码和可选消息。Slim 会立即停止当前应用并把HTTP 响应以及指定的状态码和可选消息（作为响应正文）发送到客户端。它会覆盖已存在的 \Slim\Http\Response 对象。
+Slim 应用的 halt() 函数会立即返回给定的 HTTP 响应状态码（status code）和报文主体（body）。该函数接受两个参数：HTTP 状态码和可选消息。Slim 会立即停止当前应用并把HTTP 响应以及指定的状态码和可选消息（作为响应正文）发送到客户端。它会覆盖已存在的 \Slim\Http\Response 对象。
 
     <?php
     $app = new \Slim\Slim();
@@ -1016,11 +1016,11 @@ Slim 应用的环境是指一系列解析后能够被 Slim 应用和它的中间
     SERVER_PORT
         当把它和 SCRIPT_NAME 以及 PATH_INFO 连接在一起，就可以建立一个指向应用资源的完整 URL。该变量是必要的且不能为空。
     HTTP_*
-        与客户端发送的 HTTP 请求头相匹配的变量。这些变量与当前 HTTP 请求发送的相一致。
+        与客户端发送的 HTTP 请求首部字段相匹配的变量。这些变量与当前 HTTP 请求发送的相一致。
     slim.url_scheme
         根据 HTTP 请求 URL 来决定变量是“http”或者“https”。
     slim.input
-        以字符串形式表现的原始的 HTTP 请求正文。如果 HTTP 请求正文为空（比如：GET 请求），该变量也为空。
+        以字符串形式表现的原始的 HTTP 请求报文主体。如果 HTTP 请求报文主体为空（比如：GET 请求），该变量也为空。
     slim.errors
         必须是可写入的资源；默认情况下，该变量为 php://stderr 的一个可写资源句柄。
 
@@ -1112,11 +1112,11 @@ Slim 应用会自动解析所有的 HTTP 请求头。你可以使用 request 对
 
 在第二个例子中，如果给出的名字不存在，headers() 函数可能会返回字符串或者 null。
 
-HTTP 规范声明 HTTP 请求头名称可以是大写、小写或者大小写混合。无论你获取一个大写、小写或者大小写混合名称的请求头，Slim 都能正确的返回请求头的值。因此你可以使用你最喜欢的命名方式。
+HTTP 规范声明 HTTP 请求首行名称可以是大写、小写或者大小写混合。无论你获取一个大写、小写或者大小写混合名称的请求头，Slim 都能正确的返回请求头的值。因此你可以使用你最喜欢的命名方式。
 
 **Requst Body**
 
-使用 request 对象的 getBody() 函数获取从 HTTP 客户端发送来的原始 HTTP 请求正文。这在 Slim  应用处理 JSON 或者 XML 请求时特别有用。
+使用 request 对象的 getBody() 函数获取从 HTTP 客户端发送来的原始 HTTP 请求报文主体。这在 Slim  应用处理 JSON 或者 XML 请求时特别有用。
 
     <?php
     $request = $app->request();
@@ -1209,7 +1209,7 @@ resource URI 是应用资源的虚拟路径。resource URI 会被用来与 Slim 
 
 **XMLHttpRequest**
 
-当使用像 MooTools 或者 JQuery 这样的 javascript 框架执行一个 XMLHttpRequest，XMLHttpReqest 通常会自动附带发送一个 X-Requested-With 的 HTTP 请求头。Slim 应用会检查 HTTP 请求的 X-Requested-With 请求头并把它标记为 XMLHttpRequest 请求。如果由于某些原因 XMLHttpRequest 不能发送 X-Requested-With 请求头，你可以通过在 GET、POST 或者 PUT 的请求参数中设置一个名为“isajax”的真值来强制让 Slim 应用认定 HTTP 请求为 XMLHttpRequest。
+当使用像 MooTools 或者 JQuery 这样的 javascript 框架执行一个 XMLHttpRequest，XMLHttpReqest 通常会自动附带发送一个 X-Requested-With 的 HTTP 请求首部字段。Slim 应用会检查 HTTP 请求的 X-Requested-With 首部字段并把它标记为 XMLHttpRequest 请求。如果由于某些原因 XMLHttpRequest 不能发送 X-Requested-With 首部字段，你可以通过在 GET、POST 或者 PUT 的请求参数中设置一个名为“isajax”的真值来强制让 Slim 应用认定 HTTP 请求为 XMLHttpRequest。
 
 可以通过 request 对象的 isAjax() 或者 isXhr() 函数来判断当前请求是否是一个 XHR/Ajax 请求：
 
@@ -1239,7 +1239,7 @@ Slim 应用的 request 对象提供了一些获取常用 HTTP 请求信息的辅
 
 **Media Type Params**
 
-获取请求的 media type 参数（比如charset => "utf-8"）：
+获取请求的 media type （比如charset => "utf-8"）：
 
     <?php 
     $req = $app->request;
@@ -1366,7 +1366,7 @@ response 对象提供了辅助函数（会面会讲到）来帮助你与这些 H
 
 **Response Headers**
 
-返回给 HTTP 客户端的 HTTP 响应可以包含响应头信息。HTTP 头信息是提供 HTTP 响应相关元信息的一个键值列表。你可以使用 Slim 应用的 response 对象来设置 HTTP 响应头。response 对象包含一个公有属性 headers，它是 \Slim\Helper\Set 的实例，该属性提供了一个简单的标准接口来操作 HTTP 响应头。
+返回给 HTTP 客户端的 HTTP 响应可以包含首部字段。HTTP 首部字段是提供 HTTP 响应相关元信息的一个键值列表。你可以使用 Slim 应用的 response 对象来设置 HTTP 响应的首部字段。response 对象包含一个公有属性 headers，它是 \Slim\Helper\Set 的实例，该属性提供了一个简单的标准接口来操作 HTTP 响应首部字段。
 
     <?php
     $app = new \Slim\Slim();
@@ -1381,23 +1381,23 @@ response 对象提供了辅助函数（会面会讲到）来帮助你与这些 H
 
 **Response Body**
 
-返回给客户端的 HTTP 响应可以可以包含 body（正文）。HTTP body 是 HTTP 响应传递给客户端的实际内容。你可以使用 Slim 应用的 response 对象来设置 HTTP 响应的正文：
+返回给客户端的 HTTP 响应可以可以包含 body（报文主体）。HTTP body 是 HTTP 响应传递给客户端的实际内容。你可以使用 Slim 应用的 response 对象来设置 HTTP 响应的报文主体：
 
     <?php
     $app = new \Slim\Slim();
-    // 重写响应正文
+    // 重写响应报文主体
     $app->response->setBody('Foo');
-    // 追加响应正文
+    // 追加响应报文主体
     $app->response->write('Bar');
 
-当你重写或者追加 response 对象 body 时，response 对象会自动根据新响应正文长度来设置 Content-Length 头信息。
+当你重写或者追加 response 对象 body 时，response 对象会自动根据新响应正文长度来设置 Content-Length 首部字段。
 
 你可以这样获取 response 对象的 body 内容：
 
     <?php
     $body = $app->response->getBody();
 
-通常来说，你不需要手动调用 setBody() 或者 write() 函数来设置响应正文；相应的，Slim 应用会自动帮你完成。无论何时你在路由的回调函数中 echo() 了内容，这些 echo() 的内容都会在输出缓冲中被捕获并在 HTTP 响应被返回客户端之前追加到响应正文中。
+通常来说，你不需要手动调用 setBody() 或者 write() 函数来设置响应报文主体；相应的，Slim 应用会自动帮你完成。无论何时你在路由的回调函数中 echo() 了内容，这些 echo() 的内容都会在输出缓冲中被捕获并在 HTTP 响应被返回客户端之前追加到响应报文主体中。
 
 **Response Cookies**
 
@@ -1639,13 +1639,13 @@ view 对象的也有一个向已存的视图数据中追加数据的 appendData(
 
 Slim 应用通过提供 etag()，lastModified() 和 expires() 等辅助函数对 HTTP 缓存进行内置支持。在每个路由中最好使用 etag() 或 lastModified() 中的一个与 expires() 结合使用；请不要在同一个路由回调函数中同时使用 etag() 和 lastModified()。
 
-在路由回调函数中，etag() 和 lastModified() 应该在其他代码之前被调用；这样可以让 Slim 在执行路由回调函数的其他代码之前对 GET 请求的缓存协商进行检查。
+在路由回调函数中，etag() 和 lastModified() 应该在其他代码之前被调用；这样可以让 Slim 在执行路由回调函数的其他代码之前对 GET 请求的缓存设置进行检查。
 
 etag() 和 lastModified() 都会命令 HTTP 客户端把资源响应存储在客户端缓存中。expires() 函数则通知 HTTP 客户端客户端缓存应该在何时过期。
 
 **ETag**
 
-Slim 应用使用 ETags 来内置对 HTTP caching 的支持。一个 ETag 就是资源 URI 的唯一标识符。当 Slim 应用使用 etag() 函数设置了一个 ETag 信息头的时候，HTTP 客户端会在以后的同一个资源 URI 的每个 HTTP 请求中发送一个 If-None-Match 头。如果资源 URI 的 ETag 值和 HTTP 请求中的 If-None-Match 头相匹配，Slim 应用会返回一个 304 Not Modified HTTP 响应来命令 HTTP 客户端继续使用它的缓存；这也防止了 Slim 应用对资源 URI 的所有请求进行处理，可以节省带宽和响应时间。
+Slim 应用使用 ETags 来内置对 HTTP caching 的支持。一个 ETag 就是资源 URI 的唯一标识符。当 Slim 应用使用 etag() 函数设置了一个 ETag 首部字段的时候，HTTP 客户端会在以后的同一个资源 URI 的每个 HTTP 请求中发送一个 If-None-Match 首部字段。如果资源 URI 的 ETag 值和 HTTP 请求中的 If-None-Match 首部字段相匹配，Slim 应用会返回一个 304 Not Modified HTTP 响应来命令 HTTP 客户端继续使用它的缓存；这也防止了 Slim 应用对资源 URI 的所有请求进行处理，可以节省带宽和响应时间。
 
 在 Slim 中设置一个 ETag 是非常简单的。在你的路由回调函数中调用 Slim 应用的 etag() 方法，并传递一个唯一 ID 作为它的唯一参数即可。
 
@@ -1659,7 +1659,7 @@ Slim 应用使用 ETags 来内置对 HTTP caching 的支持。一个 ETag 就是
 
 **Last Modified**
 
-Slim 应用通过使用资源的最后修改时间来内置对 HTTP caching 的支持。当你指定一个最后修改时间，Slim 会告诉 HTTP 客户端该资源最后修改的日期和时间。HTTP 客户端将在给出的资源 URI 的 HTTP 请求中发送一个 If-Modified-Since 头。如果你指定的最后修改日期和 HTTP 请求的 If-Modified-Since 头相匹配，Slim 应用就会返回一个 304 Not Modified HTTP 响应来命令 HTTP 客户端使用它的缓存；这也防止了 Slim 应用对资源 URI 的所有请求进行处理，可以节省带宽和响应时间。
+Slim 应用通过使用资源的最后修改时间来内置对 HTTP caching 的支持。当你指定一个最后修改时间，Slim 会告诉 HTTP 客户端该资源最后修改的日期和时间。HTTP 客户端将在给出的资源 URI 的 HTTP 请求中发送一个 If-Modified-Since 首部字段。如果你指定的最后修改日期和 HTTP 请求的 If-Modified-Since 首部字段相匹配，Slim 应用就会返回一个 304 Not Modified HTTP 响应来命令 HTTP 客户端使用它的缓存；这也防止了 Slim 应用对资源 URI 的所有请求进行处理，可以节省带宽和响应时间。
 
 在 Slim 中设置一个最后修改时间非常简单，你只需要在你的路由回调函数中调用 Slim 应用的 lastModified() 方法并传递资源最后修改时间的 UNIX timestamp 作为参数即可。请确保 lastModified() 方法的 timestamp 和资源的最后修改时间一起更新，否则浏览器会继续使用过时的缓存。
 
@@ -1671,7 +1671,7 @@ Slim 应用通过使用资源的最后修改时间来内置对 HTTP caching 的�
 
 **Expires**
 
-expires() 需要与 Slim 应用的 etag() 或者 lastModifed() 方法结合使用，它会在 HTTP 响应中设置一个 Expires 头来通知客户端当前资源的缓存应该何时过期。HTTP 客户端在发送给 Slim 应用的缓存协商的过期日期到达之前一直使用客户端缓存。
+expires() 需要与 Slim 应用的 etag() 或者 lastModifed() 方法结合使用，它会在 HTTP 响应中设置一个 Expires 头来通知客户端当前资源的缓存应该何时过期。HTTP 客户端在发送给 Slim 应用的缓存设置的过期日期到达之前一直使用客户端缓存。
 
 expires() 方法接受一个参数：一个 UNIX timestamp 整数或者一个可以用 strtotime() 转换的字符串。
 
