@@ -1719,7 +1719,7 @@ Slim 框架实现了一个版本的 Rack 协议。因此 Slim 应用可以使用
 
 **里层中间件引用**
 
-每个中间件层都可以通过 $this->next 来引用更里层的中间件。决定是否调用里层中间件是每个中间件的责任。这样就可以让 Slim 应用完成整个循环。如果一个中间件层选择不调用里层中间件，那么更里层的中间件以及 Slim 应用本身都将不会运行，应用的响应信息会原样返回给 HTTP 客户端。
+每个中间件层都可以通过 $this->next 来引用更里层的中间件。每个中间件都需要选择是否需要调用里层中间件。这样就可以让 Slim 应用完成整个循环。如果一个中间件层选择不调用里层中间件，那么更里层的中间件以及 Slim 应用本身都将不会运行，应用的响应信息会原样返回给 HTTP 客户端。
 
     <?php
 
@@ -1728,6 +1728,61 @@ Slim 框架实现了一个版本的 Rack 协议。因此 Slim 应用可以使用
         public function call()
         {
             // Optionally call the next middleware
+            $this->next->call();
+        }
+    }
+
+**如何使用中间件**
+
+可以使用 Slim 应用实例的 add() 方法向 Slim 应用添加一个新的中间件。新的中间件会包裹之前添加的中间件，如果之前未添加中间件则会包裹 Slim 应用本身。
+
+**中间件示例**
+
+这个中间件示例会将 Slim 应用的 HTTP 响应报文主体转换为大写。
+
+    <?php
+    class AllCapsMiddleware extends \Slim\Middleware 
+    {
+        public function call()
+        {
+            // 获取应用的引用
+            $app = $this->app;
+
+            // 调用里层中间件和应用
+            $this->next->call();
+
+            // 将报文主体转换为大写
+            $res = $app->response;
+            $body = $res->getBody();
+            $res->setBody(strtoupper($body));
+        }
+    }
+
+**添加中间件**
+
+    <?php
+    $app = new \Slim\Slim();
+    $app->add(new \AllCapsMiddleware());
+    $app->get('/foo', function() use ($app) {
+        echo "Hello";                
+    });
+    $app->run();
+
+Slim 应用实例的 add() 方法接受一个参数： 一个中间件实例。如果该中间件实例需要特殊配置，可以调用自己的构造函数，那样就可以在其被添加到 Slim 应用之前进行配置。
+
+当上面示例中的 Slim 应用运行后，HTTP 响应报文主体会变成语气更加热情的 “HELLO”。
+
+**如何编写中间件**
+
+Slim 应用的中间件必须是 \Slim\Middleware 的子类并且实现了 call() 方法。call() 方法不接受参数。中间件可以实现自己的构造函数，属性和方法。我推荐你阅读 Slim 内置的中间件代码，并将它们作为编写模板（e.g. Slim/Middleware/ContentTpyes.php 或者 Slim/Middleware/SessionCookie.php）。
+
+这个示例是对 Slim 应用中间件的最简单实现。它继承于 \Slim\Middleware，实现了一个公有方法 call()，并在该方法中调用了里层中间件。
+
+    <?php
+    class MyMiddleware extends \Slim\Middleware
+    {
+        public function call()
+        {
             $this->next->call();
         }
     }
