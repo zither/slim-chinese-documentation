@@ -1867,5 +1867,38 @@ Slim 应用可以创建和调用自定义钩子。当一个自定义钩子被 ap
 
 你应该在钩子被应用之前把回调函数注册到钩子中。你可以这样认为：当你调用 Slim 应用的 applyHook() 方法，你其实是在请求 Slim 去调用所有注册给这个钩子名字的回调函数。
 
+##Flash 消息
+
+**Flash 消息概述**
+
+    注意！ 使用 Flash 消息需要 sessions。如果你没有使用 \Slim\Middleware\SessionCookie 中间件，你就必须自己开启原生的 PHP session。
+
+Slim 像 Rails 和其他大型 web 框架一样支持 flash 消息。Flash 消息允许你定义一条只在下一个 HTTP 请求中有效的消息。这可以让你在执行事件或遇到错误后非常方便的向用户打印消息。
+
+如下所示，Slim 应用的 flash() 和 flashNow() 方法接受两个参数：一个关键词（key）和一条消息。这个关键词可以是任何你想要的字符，并且它定义了在视图模板中如何访问这条消息。例如，如果我在调用了 Slim 应用的 flash('foo', 'The foo message') 方法时传递了这几个参数，就可以在下一个请求的模板中通过 `flash['foo']` 访问这条消息。
+
+Flash 消息通过 sessions 来实现持久性；sessions 是 flash 消息实现的必要部分。Flash 消息都保存在 `$_SESSION['slim.flash']` 中。
+
+**Flash Next**
+
+Slim 应用的 flash() 方法设置了一条在下次请求的视图模板中有效的消息。例子中的消息可以通过模板变量 `flash['error']` 访问。
+
+    <?php
+    $app->flash('error', 'User email is required');
+
+**Flash Now**
+
+Slim 应用的 flashNow() 方法设置了一条将在当前请求的视图模板中有效的消息。通过应用实例的 flashNow() 方法设置的消息在下次请求中无效。下面例子中的消息可以用模板变量 `flash['info']` 来访问。
+
+    <?php
+    $app->flashNow('info', 'Your credit card is expired');
+
+**Flash Keep**
+
+这个方法告诉 Slim 应用保存上次请求中设置的 flash 消息，它们会在下次请求中继续有效。这个方法在处理 HTTP 跳转时对保持消息的持久性非常有用。 
+
+    <?php
+    $app->flashKeep();
+
 -- EOF --
 
