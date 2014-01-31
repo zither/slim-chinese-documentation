@@ -1900,5 +1900,44 @@ Slim 应用的 flashNow() 方法设置了一条将在当前请求的视图模板
     <?php
     $app->flashKeep();
 
+##Sessions
+
+**原生会话存储**
+
+Slim 应用不会假定任何与会话（sessions）有关的内容。如果你喜欢使用 PHP session，你必须在实例化 Slim 应用之前设置并通过 session_start() 来启用原生 PHP
+session。
+
+同时你也应该关闭 PHP 的会话缓存限制器（session cache limiter），那样 PHP 就不会在 HTTP 响应报文中发送相冲突的缓存过期首部。你可以这样关闭 PHP 的会话缓存限制器：
+
+    <?php
+    session_cache_limiter(false);
+    session_start();
+
+**Cookie Session Store**
+
+你也可以使用 \Slim\Middleware\SessionCookie 中间件把会话数据储存到经过加密和散列的 HTTP cookies中。想要启用 session cookie 中间件，需要把 \Slim\Middleware\SeesionCookie 中间件添加到你的 Slim 应用中：
+
+    <?php
+    $app = new Slim();
+    $app->add(new \Slim\Middleware\SessionCookie(array(
+        'expires' => '20 minutes',
+        'path' => '/',
+        'domain' => null,
+        'secure' => false,
+        'httponly' => false,
+        'name' =>'slim_session',
+        'secret' => 'CHANGE_ME',
+        'cipher' => MCRYPT_RIJNDAEL_256,
+        'cipher_mode' => MCRYPT_MODE_CBC
+    )));
+
+SessionCookie实例化时的数组参数是可选的，把它写到这里是让你看到默认的中间件设置。这个 session cookie 中间件可以和超全局变量 `$_SESSION` 无缝结合， 因此你可以非常容易的迁移到这个会话存储中间件，而不需要修改应用的任何代码。
+
+如果你使用 session cookie 中间件，你不需要开启原生的 PHP session。超全局变量 `$_SESSION` 依然有效，它会被中间件层储存到一个 HTTP cookie 中，而不是使用 PHP 原生的会话管理。
+
+请记住，HTTP cookies 内容大小被固定限制在4千个字节。如果你的加密 session 数据超过了这个长度，你应该使用 PHP 原生会话或者其他替代会话储存。
+
+    请注意，如果你需要处理敏感信息，不推荐在客户端储存中保存会话数据，即使是使用 Slim 加密的 session cookie 中间件。如果你需要保存敏感信息，你应该把会话信息加密并储存到服务器上。
+
 -- EOF --
 
