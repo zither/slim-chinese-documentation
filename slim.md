@@ -1939,5 +1939,130 @@ SessionCookie实例化时的数组参数是可选的，把它写到这里是让�
 
     请注意，如果你需要处理敏感信息，不推荐在客户端储存中保存会话数据，即使是使用 Slim 加密的 session cookie 中间件。如果你需要保存敏感信息，你应该把会话信息加密并储存到服务器上。
 
+##Logging
+
+**Logging 概述**
+
+Slim 应用提供了一个 log 对象用于把数据写入到指定输出。但数据写入操作实际是被委托给一个 log writer。
+
+**如何记录数据**
+
+在 Slim 应用中记录数据需要先获取 log 对象：
+
+    <?php 
+    $log = $app->log;
+
+log 对象提供了遵循 PSR-3 的接口
+
+    $app->log->debug(mix $object);
+    $app->log->info(mix $object);
+    $app->log->notice(mix $object);
+    $app->log->warning(mix $object);
+    $app->log->error(mix $object);
+    $app->log->critical(mix $object);
+    $app->log->alert(mix $object);
+    $app->log->emergency(mix $object);
+
+log 对象的每个方法都接受一个混合型参数。这个参数通常是一个字符串，但是这个参数也可以是其他任何类型。log 对象会将参数传递给它的 log writer。然后由 log writer 负责将输入写入到适当的地方。
+
+**启用 Logging**
+
+Slim 应用的 log 对象提供了下面这两个公有方法在运行时启用或者禁用 logging。
+
+    <?php
+    // 启用 logging
+    $app->log->setEnabled(true);
+
+    // 禁用 logging
+    $app->log->setEnabled(false);
+
+你也可以在应用初始化时采用如下设置来启用或禁用 log 对象：
+
+    <?php 
+    $app = new Slim(array(
+        'log.enabled' => true                
+    ));
+
+如果 logging 被禁用，log 对象会在启用前忽略所有记录信息。
+
+**Log Levels**
+
+    注意！在设置 log 级别的时候请使用 \Slim\Log 常量来代替原始数字。
+
+Slim 应用的 log 对象会根据 log level 设置来记录或忽略记录信息。当你调用 log 对象的方法时，你已经为记录的信息设置了一个级别。有效的 log 级别有：
+
+    \Slim\Log::EMERGENCY
+    Level 1
+    \Slim\Log::ALERT
+    Level 2
+    \Slim\Log::CRITICAL
+    Level 3
+    \Slim\Log::ERROR
+    Level 4
+    \Slim\Log::WARN
+    Level 5
+    \Slim\Log::NOTICE
+    Level 6
+    \Slim\Log::INFO
+    Level 7
+    \Slim\Log::DEBUG
+    \Level 8
+
+只有那些低于当前 log 对象的记录级别的信息会被记录。例如，如果 log 对象的级别为 \Slim\Log::WARN(5)，那么 log 对象会忽略 \Slim\Log::DEBUG 和 \Slim\Log::INFO 消息而会接受 \Slim\Log::WARN，\Slim\Log::ERROR 和 \Slim\Log::CRITICAL 消息。
+
+**如何设置 log level**
+
+    <?php
+    $app->log->setLevel(\Slim\Log::WARN);
+
+你也可以在应用初始化时设置 log 对象的级别：
+
+    <?php
+    $app new \Slim\Slim(array(
+        'log.level' => \Slim\Log::WARN                
+    ));
+
+**Log Writer**
+
+Slim 应用的 log 对象包含一个 log writer。log writer 负责将记录的信息写入到适当的输出中（例如 STDERR、日志文件、远程服务器、Twitter 或者 数据库）。Slim 应用 log 对象的默认 log writer 来自于 \Slim\LogFileWriter 类，这个 log writer 把输出指向应用环境设置 slim.error 所引用的资源句柄（默认设置为“php://stderr”）。你也可以使用一个自定义的 log writer。
+
+**如何使用自定义 log writer**
+
+自定义 log writer 必须实现一下公有接口：
+
+    <?php
+    public function write(mixed $message);
+
+你必须告诉 Slim 应用的 log 对象使用你自定义的 log writer。你可以在应用初始时使用如下设置：
+
+    <?php
+    $app = new \Slim\Slim(array(
+        'log.writer' => new MyLogWriter()                
+    ));
+
+你也可以通过中间件来设置自定义的 log writer：
+
+    <?php 
+    class CustomLogWriterMiddleware extends \Slim\Middleware
+    {
+        public function call()
+        {
+            // 设置新的 log write
+            $this->app->log->setWriter(new \MyLogWriter());
+
+            // 调用里层中间件
+            $this->next->call();
+        }
+    }
+
+你同样还可以在应用钩子中或者路由回调函数中设置 log writer：
+
+    <?php
+    $app->hook('slim.before', function() use($app){
+        $app->log->setWriter(new \MyLogWriter());            
+    });
+
+如果你只需要把错误信息重定向到不同的资源句柄，可以直接使用 Slim 默认的 log writer，它会把日志信息写入到资源句柄中。你所需要做的只是把 slim.errors 环境变量设置为一个有效的资源句柄即可。
+
 -- EOF --
 
