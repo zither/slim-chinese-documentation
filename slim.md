@@ -2079,7 +2079,53 @@ Slim 应用在 debug 设置为真时会使用内置的错误处理，其他时�
 
 **错误处理程序**
 
-你可以使用 Slim 的 error() 方法指定一个自定义的错误处函数，它将在错误和异常发生时被调用。
+你可以使用 Slim 的 error() 方法指定一个自定义的错误处函数，它将在错误和异常发生时被调用。自定义错误处理程序只会在应用的调试设置关闭时调用。
+
+自定义错误处理程序应该渲染一个用户友好的消息以减少用户的困惑。和 Slim 应用的 notFound() 方法一样，error() 方法同时充当 getter 和 setter。
+
+**设置自定义错误处理程序**
+
+你可以通过传递一个可调用函数作为 error() 方法的第一个参数来设置自定义错误处理程序。
+
+    <?php
+    $app = new \Slim\Slim();
+    $app->error(function(\Exception $e) use($app){
+        $app->render('error.php');            
+    });
+
+在这个例子中，自定义错误处理函数以一个被捕捉的异常作为参数。这让你可以正确的响应不同异常。
+
+**调用错误处理程序**
+
+通常，Slim 应用会在错误或异常发生时自动调用错误处理程序。但是你可以通过 Slim 应用的 error() 方法（不带参数）来手动调用错误处理程序。
+
+**Not Found Handler**
+
+通常我们无法避免用户请求访问一个不存在的页面。Slim 应用可以让你非常容易的通过 notFound() 方法自定义一个 Not Found 处理程序。Not Found 处理程序会在 HTTP 请求不能与路由匹配时调用。这个方法同时充当了 getter 和 setter。
+
+**设置 not found 处理程序**
+
+如果你在调用 Slim 应用的 notFound() 方法时传递了一个可调用对象作为参数，这个方法会把可调用对象注册为 Not Found 处理函数，而之前注册的处理函数将不会被调用。
+
+    <?php
+    $app = new \Slim\Slim();
+    $app->notFound(function() use($app){
+        $app->render('404.html');            
+    });
+
+**调用 not found 处理程序**
+
+如果你无参调用 Slim 应用的 notFound() 方法，这个方法会调用之前注册的 Not Found 处理函数。
+
+    <?php
+    $app = new \Slim\Slim();
+    $app->get('/hello/:name', function($name) use($app){
+        if ($name === 'waldo') {
+            $app->notFound();
+        } else {
+            echo "Hello,$name";
+        }            
+    });
 
 -- EOF --
 
