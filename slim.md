@@ -2127,5 +2127,110 @@ Slim 应用在 debug 设置为真时会使用内置的错误处理，其他时�
         }            
     });
 
+**Debugging**
+
+你可以在应用初始化时通过设置启用调试：
+
+    <?php
+    $app = new \Slim\Slim(array(
+        'debug' => true                
+    ));
+
+你也可以在运行时通过 Slim 应用的 config() 方法来启用调试：
+
+    <?php
+    $app = new \Slim\Slim();
+
+    //启用调试（默认设置）
+    $app->config('debug', true);
+
+    // 禁用调试
+    $app->config('debug', false);
+
+如果启用了调试模式，异常或错误发生时会显示一个带有错误说明的诊断页面，包括出错的文件、错误所在文件行数以及一个错误跟踪栈。如果调试被禁用，自定义错误处理程序会被调用。
+
+**Output Redirection**
+
+Slim 应用的环境变量总会包含一个关键词为 slim.errors 的变量，它是日志和错误信息被写入的资源句柄。当捕捉到异常或者手动调用 log 对象时，Slim 应用的 log 对象会将日志信息写入到 slim.errors中。
+
+如果你想要把错误输出重定向到不同的位置，你可以通过修改 Slim 应用的环境变量设置来定义自己的可写资源句柄。我推荐你使用中间件来更新环境设置：
+
+    <?php
+    class CustomErrorMiddleware extends \Slim\Middleware
+    {
+        public function call()
+        {
+            // 设置新的错误输出
+            $env = $this->app->environment;
+            $env['slim.errors'] = fopen('/path/to/output', 'w');
+
+            // 调用里程中间件
+            $this->next->call();
+        }
+    }
+
+请记住，slim.errors 并非必须指向一个文件，它可以指向任意可写的资源。
+
+##Dependency Injection
+
+**依赖注入概述**
+
+Slim 内置了一个资源定位器，为将对象注入到 Slim app 或重写 Slim app 内置对象（例如 Request、Response、Log）提供了一个非常简单的方法。
+
+**注入简单变量**
+
+如果你想把 Slim 作为键值对存储使用，只需要这样：
+
+    <?php
+    $app = new \Slim\Slim();
+    $app->foo = 'bar';
+
+现在，你可以在任何地方通过 `$app->foo` 获取该变量以及变量值。
+
+**使用资源定位器**
+
+你也可以把 Slim 作为一个资源定位器，把构造所需对象的闭包注入其中。当注入的闭包被请求时，它会被调用并返回闭包的返回值。
+
+    <?php
+    $app = new \Slim\Slim();
+
+    // 定义一个创建 UUID 的方法
+    $app->uuid = function(){
+        return exec('uuidgen');
+    };
+
+    // 获取一个新的 UUID
+    $uuid = $app->uuid;
+
+**单例资源**
+
+有时你想要定义的资源在每次请求时保持一致（例如在 Slim app 的作用域内他们应该是单例的）。这非常容易做到：
+
+    <?php
+    $app = new \Slim\Slim();
+
+    // 定义一个 log 资源
+    $app->container->singleton('log', function(){
+        return new \My\Custom\Log();            
+    });
+
+    // 获取 log 资源
+    $log = $app->log;
+
+每次你通过 `$app->log` 请求 log 资源，它都会返回同一个实例。
+
+**闭包资源**
+
+如果你想把闭包原样储存，并且不需要调用它，你可以这样做：
+
+    <?php
+    $app = new \Slim\Slim();
+
+    // 定义一个闭包
+    $app->myClosure = $app->container->portect(function(){});
+
+    // 返回没有调用的原始闭包
+    $myClosure = $app->myClosure;
+
 -- EOF --
 
