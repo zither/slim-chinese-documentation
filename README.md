@@ -3,6 +3,6 @@ slim-chinese-documentation
 
 Slim 框架中文文档
 
-每天都会翻译一些，以备自己查询。文档暂时并未格式化，待翻译完成后会调整格式并使用官方文档模板。
+中文文档初次翻译完毕，现在已经开始遵循官方文档格式整理中文文档，整理文档地址为：https://github.com/zither/Slim-Documentation。整理完毕后提交给官方文档。
 
-[在线阅读](http://minimee.org/php/slim)
+[临时阅读地址](http://minimee.org/php/slim)
