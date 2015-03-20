@@ -1,5 +1,3 @@
-%Slim 中文文档%
-
 #Slim 中文文档
 
 ##Slim 安装##
@@ -29,7 +27,7 @@
 
 **手动安装**
 
-下载并解压 Slim 框架到你的项目目录，然后在应用的 index.php 文件中 require Slim框架。同时你还需要注册 Slim 框架自带的自动加载类。
+下载并解压 Slim 框架到你的项目目录，然后在应用的 index.php 文件中载入 Slim 框架。同时你还需要注册 Slim 框架自带的自动加载类。
 
     <?php
     require 'Slim/Slim.php';
@@ -38,19 +36,19 @@
 ##系统依赖
 
     PHP >= 5.3.0
-    如果你需要对cookies进行加密，则还需要 mcrypt 拓展。
+    如果你需要对cookies进行加密，那么还需要安装 mcrypt 拓展。
 
 ##Hello World
 
-生成一个 Slim 应用实例：
+生成一个 Slim 实例：
 
     $app = new \Slim\Slim();
 
 定义一个 HTTP GET 请求路由：
 
     $app->get('/hello/:name', function($name){
-                    echo "Hello, $name";
-                });
+        echo "Hello, $name";
+    });
 
 执行 Slim 应用
 
@@ -68,8 +66,8 @@ Slim 框架提供了两种方式对其进行配置。一种是在生成实例的
 
     <?php
     $app = new Slim(array(
-                        'debug' => true
-                    ));
+        'debug' => true
+    ));
 
 **实例生成之后**
 
@@ -82,9 +80,9 @@ Slim 框架提供了两种方式对其进行配置。一种是在生成实例的
 
     <?php
     $app->config(array(
-                    'debug' => true,
-                    'templates.path' => ' ../templates'
-                    ));
+        'debug' => true,
+        'templates.path' => ' ../templates'
+    ));
 
 当你想要获取应用某项设置时，你同样可以使用 config 函数；不过这时你只需要传递一个参数 - 你需要检查的设置名称。如果你请求的设置不存在时将返回 null 值。
 
@@ -103,8 +101,8 @@ Slim 框架提供了两种方式对其进行配置。一种是在生成实例的
 
     <?php
     $app = new \Slim\Slim(array(
-                        'mode' => 'development'
-                    ));
+        'mode' => 'development'
+    ));
     // 数据类型：string，默认值：“development”。
 
 **debug**
@@ -115,8 +113,8 @@ Slim 框架提供了两种方式对其进行配置。一种是在生成实例的
 
     <?php
     $app = new \Slim\Slim(array(
-                        'debug' => true
-                    ));
+        'debug' => true
+    ));
     // 数据类型：boolean, 默认值：true
     
 **log.writer**
@@ -132,8 +130,8 @@ write() 函数主要负责发送日志信息（不一定是字符串）发送到
     <?php
     // During instantiation
     $app = new \Slim\Slim(array(
-                        'log.writer' => new \My\LogWriter()
-                    ));
+        'log.writer' => new \My\LogWriter()
+    ));
 
     // After instantiation
     $log = $app->getLog();
@@ -160,8 +158,8 @@ Slim 有5个日志信息等级：
     <?php
     // During instantiation
     $app = new \Slim\Slim(array(
-                        'log.level' => \Slim\Log::DEBUG
-                    ));
+        'log.level' => \Slim\Log::DEBUG
+    ));
 
     // After instantiation
     $log = $app->getLog();
@@ -176,8 +174,8 @@ Slim 有5个日志信息等级：
     <?php
     // During instantiation
     $app = new \Slim\Slim(array(
-                        'log.enabled' => true
-                    ));
+        'log.enabled' => true
+    ));
 
     // After instantiation
     $log = $app->getLog();
@@ -194,8 +192,8 @@ Slim 应用模板文件所在文件目录的相对或者绝对地址。这个路
     <?php
     // During instantiation
     $ap = new \Slim\Slim(array(
-                        'templates.path' => './templates'
-                    ));
+        'templates.path' => './templates'
+    ));
 
     // After instantiation
     $view = $app->view();
@@ -210,8 +208,8 @@ Slim 应用模板文件所在文件目录的相对或者绝对地址。这个路
     <?php
     // During instantiation
     $app = new \Slim\Slim(array(
-                        'view' => new \My\View()
-                    ));
+        'view' => new \My\View()
+    ));
 
     // After instantiation
     $app->view(new \My\View());
@@ -225,8 +223,8 @@ Slim 应用模板文件所在文件目录的相对或者绝对地址。这个路
     <?php
     // During instantiation
     $app = new \Slim\Slim(array(
-                        'cookies.lifetime' => '20 minutes'
-                    ));
+        'cookies.lifetime' => '20 minutes'
+    ));
 
     // After instantiation
     $app->config('cookies.lifetime', '20 minutes');
@@ -240,8 +238,8 @@ Slim 应用模板文件所在文件目录的相对或者绝对地址。这个路
     <?php
     // During instantation
     $app = new \Slim\Slim(array(
-                        'cookies.path' => '/'
-                    ));
+        'cookies.path' => '/'
+    ));
 
     // After instantiation
     $app->config('cookies.path', '/');
@@ -255,8 +253,8 @@ Slim 应用模板文件所在文件目录的相对或者绝对地址。这个路
     <?php
     // During instantiation
     $app = new \Slim\Slim(array(
-                        'cookies.domain' => 'domain.com'
-                    ));
+        'cookies.domain' => 'domain.com'
+    ));
 
     // After instantiation
     $app->config('cookies.domain', 'domain.com');
@@ -270,8 +268,8 @@ Slim 应用模板文件所在文件目录的相对或者绝对地址。这个路
     <?php
     // During instantiation
     $app = new \Slim\Slim(array(
-                        'cookies.secure' => false
-                    ));
+        'cookies.secure' => false
+    ));
 
     // After instantiation
     $app->config('cookies.secure', false);
@@ -285,8 +283,8 @@ Slim 应用模板文件所在文件目录的相对或者绝对地址。这个路
     <?php
     // During instantiation
     $app = new \Slim\Slim(array(
-                        'cookies.httponly' => false
-                    ));
+        'cookies.httponly' => false
+    ));
 
     // After instantiation
     $app->config('cookies.httponly', false);
@@ -300,8 +298,8 @@ Slim 应用模板文件所在文件目录的相对或者绝对地址。这个路
     <?php
     // During instantiation
     $app = new \Slim\Slim(array(
-                        'cookies.secret_key' => 'secret'
-                    ));
+        'cookies.secret_key' => 'secret'
+    ));
 
     // After instantiation
     $app->config('cookies.secret_key', 'secret');
@@ -315,8 +313,8 @@ Slim 应用模板文件所在文件目录的相对或者绝对地址。这个路
     <?php
     // During instantiation
     $app = new \Slim\Slim(array(
-                        'cookies.cipher' => MCRYPT_DIJNDAEL_256
-                    ));
+        'cookies.cipher' => MCRYPT_DIJNDAEL_256
+    ));
 
     //After instantiation
     $app->config('cookies.cipher', MCRYPT_DIJNDAEL_256);
@@ -330,8 +328,8 @@ Slim 应用模板文件所在文件目录的相对或者绝对地址。这个路
     <?php
     // During instantiation
     $app = new \Slim\Slim(array(
-                        'cookies.cipher_mode' => MCRYPT_MODE_CBC
-                    ));
+        'cookies.cipher_mode' => MCRYPT_MODE_CBC
+    ));
 
     // After instantiation
     $app->config('cookies.cipher_mode', MCRYPT_MODE_CBC);
@@ -345,8 +343,8 @@ Slim 应用模板文件所在文件目录的相对或者绝对地址。这个路
     <?php
     // During instantiation
     $app = new \Slim\Slim(array(
-                        'http.version' => '1.1'
-                    ));
+        'http.version' => '1.1'
+    ));
 
     // After instantiation
     $app->config('http.version', '1.1');
@@ -376,8 +374,8 @@ Slim 应用模板文件所在文件目录的相对或者绝对地址。这个路
     <?php
     $app = new \Slim\Slim();
     $app->get('/foo', function(){
-                    $app->render('foo.php'); // <---- 错误
-                });
+        $app->render('foo.php'); // <---- 错误
+    });
 
 这个例子运行错误是因为 $app 变量在路由回调函数的函数作用域中是未定义的。
 
@@ -388,8 +386,8 @@ Slim 应用模板文件所在文件目录的相对或者绝对地址。这个路
     <?php
     $app = new \Slim\Slim();
     $app->get('/foo', function() use($app){
-                    $app->render('foo.php'); // <---- 成功
-                });
+        $app->render('foo.php'); // <---- 成功
+    });
 
 **按名称获取**
 
@@ -430,8 +428,8 @@ Slim 提供了应用模式的概念，你可以定义需要的模式以便 Slim 
 
     <?php
     $app = new \Slim\Slim(array(
-                        'mode' => 'production'
-                    ));
+        'mode' => 'production'
+    ));
 
 **默认模式**
 
@@ -446,24 +444,24 @@ Slim 提供了应用模式的概念，你可以定义需要的模式以便 Slim 
     <?php
     // 设置当前模式
     $app = new \Slim\Slim(array(
-                        'mode' => 'production'
-                    ));
+        'mode' => 'production'
+    ));
 
     // 只在“production”模式中执行
     $app->configureMode('production', function() use($app){
-                    $app->config(array(
-                                'log.enable' => true,
-                                'debug' => false
-                            ));
-                });
+        $app->config(array(
+            'log.enable' => true,
+            'debug' => false
+        ));
+    });
 
     // 只在“development”模式中执行
     $app->configureMode('development', function() use($app){
-                    $app->config(array(
-                                'log.enable' => false,
-                                'debug' => true
-                            ));
-                });
+        $app->config(array(
+            'log.enable' => false,
+                'debug' => true
+        ));
+    });
 
 ##路由
 
@@ -480,8 +478,8 @@ Slim 框架帮助你将应用 URIs 映射到特定 HTTP 请求方法（比如：
     <?php
     $app = new \Slim\Slim();
     $app->get('/book/:id', function($id){
-                    // 根据书籍 $id 显示数据
-                });
+        // 根据书籍 $id 显示数据
+    });
 
 在这个例子中，当使用 HTTP GET 向“/books/1” 发送请求时，与它相关联的回调函数将会被执行，并会把“1”作为参数传递给回调函数。
 
@@ -494,8 +492,8 @@ Slim 应用 get() 函数的第一个参数是资源 URI。最后一个参数是�
     <?php
     $app = new \Slim\Slim();
     $app->post('/books', function(){
-                    // 创建书籍
-                });
+        // 创建书籍
+    });
 
 在这个例子中，当使用 HTTP POST 向“/books”发送请求时，与它相关的回调函数将会被执行。
 
@@ -508,8 +506,8 @@ Slim 应用 post() 函数的第一个参数是资源 URI。最后一个参数是
     <?php
     $app = new \Slim\Slim();
     $app->put('/books/:id', function($id){
-                    // 更新 $id 对应的书籍
-                });
+        // 更新 $id 对应的书籍
+    });
 
 在这个例子中，当使用 HTTP PUT 向“/books/1” 发送请求时，与它相关联的回调函数将会被执行，并会把“1”作为参数传递给回调函数。
 
@@ -534,8 +532,8 @@ Slim 应用 put() 函数的第一个参数是资源 URI。最后一个参数是�
     <?php
     $app = new \Slim\Slim();
     $app->delete('/books/:id', function($id){
-                    // 删除 $id 对应的书籍
-                });
+        // 删除 $id 对应的书籍
+    });
 
 在这个例子中，当使用 HTTP DELETE 向“/books/1” 发送请求时，与它相关联的回调函数将会被执行，并会把“1”作为参数传递给回调函数。
 
@@ -560,8 +558,8 @@ Slim 应用 delete() 函数的第一个参数是资源 URI。最后一个参数�
     <?php
     $app = new \Slim\Slim();
     $app->options('/books/:id', function($id){
-                    // 返回响应头
-                });
+        // 返回响应头
+    });
 
 在这个例子中，当使用 HTTP OPTIONS 向“/books/1” 发送请求时，与它相关联的回调函数将会被执行，并会把“1”作为参数传递给回调函数。
 
@@ -588,8 +586,8 @@ Slim 应用 options() 函数的第一个参数是资源 URI。最后一个参数
     <?php
     $app = new \Slim\Slim();
     $app->map('/foo/bar', function(){
-                    echo "I respond to multiple HTTP methods!";
-                })->via('GET', 'POST');
+        echo "I respond to multiple HTTP methods!";
+    })->via('GET', 'POST');
     $app->run();
 
 这个例子中定义的路由将会同时响应请求资源定位符 “/foo/bar” 的 GET 和 POST 两种方法。只需要把每个 HTTP 请求方法以字符串的形式作为参数传递给路由对象 via() 函数。同路由的其他函数一样（比如：name() 和 conditions()），via() 函数也支持链式调用。
@@ -597,8 +595,8 @@ Slim 应用 options() 函数的第一个参数是资源 URI。最后一个参数
     <?php
     $app = new \Slim\Slim();
     $app->map('/foo/bar', function(){
-                    echo "Fancy,huh?";
-                })->via('GET', 'POST')->name('foo');
+        echo "Fancy,huh?";
+    })->via('GET', 'POST')->name('foo');
     $app->run();
 
 **路由参数**
@@ -608,9 +606,9 @@ Slim 应用 options() 函数的第一个参数是资源 URI。最后一个参数
     <?php
     $app = new \Slim\Slim();
     $app->get('/books/:one/:two', function($one, $two){
-                    echo "The first paramter is " . $one;
-                    echo "The second paramter is " . $two;
-                });
+        echo "The first paramter is " . $one;
+        echo "The second paramter is " . $two;
+    });
 
 创建路由参数时，只需要在路由 URI 的参数前面加上“:”。当路由和当前 HTTP 请求相匹配时，路由中的每个参数都会从 HTTP 请求 URI 中提取出来，并把它们按照适当的顺序传递给相关联的回调函数。
 
@@ -621,8 +619,8 @@ Slim 应用 options() 函数的第一个参数是资源 URI。最后一个参数
     <?php
     $app = new \Slim\Slim();
     $app->get('/hello/:name+', function($name){
-                    // Do something
-                });
+        // Do something
+    });
 
 当你用“/hello/Josh/T/Lockhart”作为资源 URI 调用上面这个应用，回调函数的 $name 参数就等于 array('Josh', 'T', 'Lockhart')。
 
@@ -635,8 +633,8 @@ Slim 应用 options() 函数的第一个参数是资源 URI。最后一个参数
     <?php
     $app = new \Slim\Slim();
     $app->get('/archive(/:year(/:month(/:day)))', function($year = 2010, $month = 12, $day = 05){
-                    echo sprintf('%s-%s-%s', $year, $month, $day);
-                });
+        echo sprintf('%s-%s-%s', $year, $month, $day);
+    });
 
 每个路由字段都是可选的，这个路由将会接受如下 HTTP 请求：
 
@@ -651,21 +649,21 @@ Slim 应用 options() 函数的第一个参数是资源 URI。最后一个参数
 
 **路由名称**
 
-Slim 允许你为路由单独命名。为路由命名可以让你使用 urlFor 帮助函数来动态生成 URLs。当你使用 Slim 应用的 urlFor() 函数来创建应用 URLs，你可以自由的在不破坏应用的情况下修改路由参数。下面是一个命名路由：
+Slim 允许你为路由命名。为路由命名后你可以使用 urlFor 方法动态生成 URL。当你使用 Slim 的 urlFor() 方法来创建应用 URL，你可以自由的在不破坏应用的情况下修改路由参数。下面是一个命名路由：
 
     <?php
     $app = new \Slim\Slim();
     $app->get('/hello/:name', function($name){
-                    echo "Hello, $name!";
-                })->name('hello');
+        echo "Hello, $name!";
+    })->name('hello');
 
 现在你可以使用 urlFor() 函数来生成 URLs，这点会在后面讲解。路由的 name() 函数同样支持链式调用：
 
     <?php
     $app = new \Slim\Slim();
     $app->get('/hello/:name', function($name){
-                    echo "Hello, $name!";
-                })->name('hello')->conditions(array('name' => '\w+'));
+        echo "Hello, $name!";
+    })->name('hello')->conditions(array('name' => '\w+'));
 
 **路由条件**
 
@@ -674,8 +672,8 @@ Slim 可以让你指定路由参数的满足条件。如果未满足指定条件
     <?php
     $app = new \Slim\Slim();
     $app->get('archive/:year', function($year){
-                    echo "You are viewing archives from $year";
-                })->conditions(array('year' => '(19|20)\d\d'));
+        echo "You are viewing archives from $year";
+    })->conditions(array('year' => '(19|20)\d\d'));
 
 调用路由对象的 conditions() 函数，第一个也是唯一一个参数是一个关联数组，关键字是所有匹配的路由参数，值为正则表达式。
 
@@ -685,8 +683,8 @@ Slim 可以让你指定路由参数的满足条件。如果未满足指定条件
 
     <?php
     \Slim\Route::setDefaultConditions(array(
-                        'firstName' => '[a-zA-Z]{3,}'
-                    ));
+        'firstName' => '[a-zA-Z]{3,}'
+    ));
 
 在你定义应用路由之前定义应用的泛路由条件。当你定义了一个路由，它将自动指定由 \Slim\Route::setDefaultCondtions() 定义的所有泛路由条件。不管出于什么原因，你都可以使用 \Slim\Route::getDefaultConditions() 来获取已定义的应用泛路由条件。这个函数将返回所有已定义的默认路由条件。
 
@@ -719,8 +717,8 @@ Slim 可以让你为指定路由关联中间件。当路由和当前 HTTP 请求
     <?php
     $app = new \Slim\Slim();
     $app->get('/foo', function(){
-                    // Do something
-                });
+        // Do something
+    });
 
 在上面的例子中，第一个参数是路由模式，最后一个参数时与当前 HTTP 请求匹配时要调用的回调函数。路由模式必须时第一个参数，回调函数必须是最后一个参数。
 
@@ -735,8 +733,8 @@ Slim 可以让你为指定路由关联中间件。当路由和当前 HTTP 请求
     }
     $app = new \Slim\Slim();
     $app->get('/foo', 'mw1', 'mw2', function(){
-                    // Do something
-                });
+        // Do something
+    });
 
 当/foo 路由被调用时，mw1 和 mw2 函数也将会在路由回调函数调用之前按顺序执行。
 
@@ -755,8 +753,8 @@ Slim 可以让你为指定路由关联中间件。当路由和当前 HTTP 请求
     };
     $app = new \Slim\Slim();
     $app->get('/foo', $authenticateForRole('admin'), function(){
-                    // Display admin control panel
-                });
+        // Display admin control panel
+    });
 
 **什么参数会被传递给每个路由中间件函数？**
 
@@ -767,8 +765,8 @@ Slim 可以让你为指定路由关联中间件。当路由和当前 HTTP 请求
         echo "Current route is " . $route->getName();
     };
     $app->get('/foo', $aBitOfInfo, function(){
-                    echo "foo";
-                });
+        echo "foo";
+    });
 
 **路由辅助函数**
 
@@ -778,27 +776,27 @@ Slim 提供了一些辅助函数（通过 Slim 实例调用）来帮助你控制
 
     <?php
     $app->get('/', function() use($app, $obj){
-                    try {
-                        $obj->thisMightThrowException();
-                        $app->redirect('/success');
-                    } catch(\Exception $e) {
-                        $app->flass('error', $e->geMessage());
-                        $app->redirect('/error');
-                    }
-                });
+        try {
+            $obj->thisMightThrowException();
+            $app->redirect('/success');
+        } catch(\Exception $e) {
+            $app->flass('error', $e->geMessage());
+            $app->redirect('/error');
+        }
+    });
 
 如果 $obj->thisMightThrowException() 抛出了一个异常，那么代码会按预想的情况运行。但是如果它没有抛出异常，$app->redirect('/success')在调用时也会抛出一个 \Slim\Exception\Stop 异常并被 catch 模块捕获，然后框架会将浏览器跳转到“/error”页面。你应该在应用需要抛出异常的地方使用不同类型的异常，那么 catch 模块就会捕捉指定异常而不是捕获所有的异常。在一些特殊情况下，thisMightThrowException 可能是你无法控制的外部组件，在这种情况下要抛出所有类型的异常是不可能的。那么我们可以细微的调整下代码，把 $app->redirect('/success') 移动到 try/catch 模块后面来解决这个问题。现在代码会按照预想的流程执行，除非捕获到 error redirect 抛出的异常。
 
     <?php
     $app->get('/', function() use($app, $obj){
-                    try {
-                        $obj->thisMightThrowException();
-                    } catch(Exception $e) {
-                        $app->flash('error', $e->getMessage());
-                        $app->redirect('/error');
-                    }
-                    $app->redirect('/success');
-                });
+        try {
+            $obj->thisMightThrowException();
+        } catch(Exception $e) {
+            $app->flash('error', $e->getMessage());
+            $app->redirect('/error');
+        }
+        $app->redirect('/success');
+    });
 
 **Halt**
 
@@ -818,9 +816,9 @@ Slim 应用的 halt() 函数会立即返回给定的 HTTP 响应状态码（stat
     <?php
     $app = new \Slim\Slim();
     $app->get('/foo', function() use($app){
-                    $errorData = array('error' => 'Permission Denied');
-                    $app->render('errorTemplate.php', $errorData, 403);
-                });
+        $errorData = array('error' => 'Permission Denied');
+        $app->render('errorTemplate.php', $errorData, 403);
+    });
     $app->run();
 
 halt() 函数可以发送任何类型的 HTTP 响应到客户端：infomational，success，redirect，not found，client error，或者 server error。
@@ -832,12 +830,12 @@ halt() 函数可以发送任何类型的 HTTP 响应到客户端：infomational�
     <?php
     $app = new \Slim\Slim();
     $app->get('/hello/Frank', function() use($app){
-                    echo "You wont see this ...";
-                    $app->pass();
-                });
+        echo "You wont see this ...";
+        $app->pass();
+    });
     $app->get('/hello/:name', function($name) use($app){
-                    echo "But you will see this!";
-                });
+        echo "But you will see this!";
+    });
     $app->run();
 
 **Redirect**
@@ -847,8 +845,8 @@ halt() 函数可以发送任何类型的 HTTP 响应到客户端：infomational�
     <?php
     $app = new \Slim\Slim();
     $app->get('/foo', function() use($app){
-                    $app->redirect('/bar');
-                });
+        $app->redirect('/bar');
+    });
     $app->run();
 
 但是如果你想要使用永久跳转，你必须指定把目标 URL 作为第一个参数然后把 HTTP 状态码作为第二个参数。
@@ -856,8 +854,8 @@ halt() 函数可以发送任何类型的 HTTP 响应到客户端：infomational�
     <?php
     $app = new \Slim\Slim();
     $app->get('/old', function() use($app){
-                    $app->redirect('/new', 301);
-                });
+        $app->redirect('/new', 301);
+    });
     $app->run();
 
 这个函数会自动设置 Location:header。HTTP 跳转响应会被立即发送到客户端。
@@ -868,27 +866,27 @@ Slim 应用的 stop() 函数会停止 Slim 应用并发送当前 HTTP 响应到�
 
     <?php
     $app = new \Slim\Slim();
-    $app->get('/foo', function() use($app){
-                    echo "You will see this...";
-                    $app->stop();
-                    echo "But not this";
-                });
+    $app->get('/foo', function () use ($app) {
+        echo "You will see this...";
+        $app->stop();
+        echo "But not this";
+    });
     $app->run();
 
 **URL For**
 
-Slim 应用的 urlFor() 函数可以让你为一个已命名路由动态的创建 URLs，当路由字段改变时，你的 URLs 也会在不破坏程序的情况下自动更新。下面的例子演示如何为已命名路由生成 URLs：
+Slim 的 urlFor() 方法可以让你为一个已命名路由动态的创建 URL，当路由匹配模式改变时，你的 URL 也会自动更新，不必担心会影响到应用程序。下面的例子演示如何为命名路由生成 URL：
 
     <?php
     $app = new \Slim\Slim();
     // Create a named route
-    $app->get('/hello/:name', function($name) use($app){
-                    echo "Hello $name";
-                })->name('hello');
+    $app->get('/hello/:name', function ($name) use ($app) {
+        echo "Hello $name";
+    })->name('hello');
     // Generate a URL for the named route
     $url = $app->urlFor('hello', array('name' => 'Josh'));
 
-在这个例子中，$url 是“/hello/Josh”.当你使用 urlFor() 函数时，你必须首先为路由命名，然后再调用 urlFor() 函数。它的第一个参数是路由名称，第二个参数是用来替换路由 URL 参数实际值的关联数组；数组的 key 值必须和路由 URI 字段参数相匹配，数组的值才会被替换使用。
+在这个例子中，$url 的值是“/hello/Josh”。当你使用 urlFor() 方法时，你必须先为路由命名，然后再调用 urlFor() 方法。它的第一个参数是路由名称，第二个参数是一个关联数组，它包含替换路由 URL 所需要的实际值；数组的 key 必须和路由 URI 中的参数匹配，数组的 value 会作为替换值。
 
 **路由 URL 重写**
 
@@ -934,8 +932,8 @@ Slim 应用的 urlFor() 函数可以让你为一个已命名路由动态的创�
     <?php
     $app = new \Slim\Slim();
     $app->get('/foo', function(){
-                    echo "Foo";
-                });
+        echo "Foo";
+    });
     $app->run();
 
 **nginx**
@@ -978,8 +976,8 @@ Slim 也可以在不使用 URL 重写的情况下使用。在这种脚本中，�
     <?php
     $app = new \Slim\Slim();
     $app->get('/foo', function(){
-                    echo "Foo!";
-                });
+        echo "Foo!";
+    });
     $app->run();
 
 你可以使用“index.php/foo”来访问定义的路由。如果同样的应用被定义在 blog/ 子目录的 index.php 文件中，你可以通过 “/blog/index.php/foo” 来访问定义的路由。
@@ -1414,14 +1412,14 @@ Slim 应用提供了在 HTTP 响应中发送 cookies 的辅助函数。
 
     <?php
     $app->setCookie(
-            $name,
-            $value,
-            $expiresAt,
-            $path,
-            $domain,
-            $secure,
-            $httponly
-        );
+        $name,
+        $value,
+        $expiresAt,
+        $path,
+        $domain,
+        $secure,
+        $httponly
+    );
 
 **设置加密 Cookie**
 
@@ -1431,11 +1429,11 @@ Slim 应用提供了在 HTTP 响应中发送 cookies 的辅助函数。
 
     <?php
     $app = new \Slim\Slim(array(
-                        'cookies.encrypt' => true,
-                        'cookies.secret_key' => 'my_secret_key',
-                        'cookies.cipher' => MCRYPT_RIJNDAEL_256,
-                        'cookies.cipher_mode' => MCRYPT_MODE_CBC
-                    ));
+        'cookies.encrypt' => true,
+        'cookies.secret_key' => 'my_secret_key',
+        'cookies.cipher' => MCRYPT_RIJNDAEL_256,
+        'cookies.cipher_mode' => MCRYPT_MODE_CBC
+    ));
 
 **删除 Cookie**
 
@@ -1531,24 +1529,24 @@ view 对象的 render 函数必须返回模板用给定参数（$template）渲�
     <?php
     $app = new \Slim\Slim();
     $app->get('/books/:id', function($id) use($app){
-                    $app->render('myTemplate.php', array('id' => $id));
-                });
+        $app->render('myTemplate.php', array('id' => $id));
+    });
 
 如果你需要在路由的回调函数中向 view 对象传递数据，你必须把需要的数据以用数组形式作为 Slim 应用 render() 函数的第二个参数：
 
     <?php
     $app->render(
-            'myTemplate.php',
-            array('name'=> 'Josh')
+        'myTemplate.php',
+        array('name'=> 'Josh')
     );
 
 你也可以在渲染模板的时候同时设置 HTTP 响应的状态码：
 
     <?php
     $app->render(
-            'myTemplate.php',
-            array('name' => 'Josh'),
-            404
+        'myTemplate.php',
+        array('name' => 'Josh'),
+        404
     );
 
 **自定义视图类**
@@ -1594,11 +1592,11 @@ view 对象的 render 函数必须返回模板用给定的 $template 参数渲�
     <?php
     require 'CustomView.php';
     $app = new \Slim\Slim(array(
-                        'view' => new CustomView()
-                    ));
+        'view' => new CustomView()
+    ));
     $app->get('/book/:id', function($id) use($app){
-                    $app->render('show.php', array('title' => 'Sahara'));
-                });
+        $app->render('show.php', array('title' => 'Sahara'));
+    });
     $app->run();
 
 **View 数据**
@@ -1618,9 +1616,9 @@ view 对象的 setData() 方法会覆盖以存在的视图数据。你可以使�
 
     <?php
     $app->view->setData(array(
-                        'color' => 'red',
-                        'size' => 'medium'
-                    ));
+        'color' => 'red',
+        'size' => 'medium'
+    ));
 
 请记住，view 的 setData() 函数会替换之前的所有数据。
 
@@ -1630,8 +1628,8 @@ view 对象的也有一个向已存的视图数据中追加数据的 appendData(
 
     <?php
     $app->view->appendData(array(
-                        'foo' => 'bar'
-                    ));
+        'foo' => 'bar'
+    ));
 
 ##HTTP Caching
 
