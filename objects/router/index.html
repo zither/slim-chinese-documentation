@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>路由器 - Slim 框架</title>
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/highlight.css">
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
+  <script src="../../js/theme.js"></script>
+
+  <style>
+    body {font-size: 90%;}
+    pre, code {font-size: 100%;}
+    h3, h4, h5, h6 {color: #2980b9; font-weight: 300}
+  </style> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> Slim 框架</a>
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+      <ul class="current">
+    
+        
+        <span>开始</span>
+            
+                <li class="toctree-l1 ">
+                    <a class="" href="../../start/installation">安装</a>
+                    
+                </li>
+            
+                <li class="toctree-l1 ">
+                    <a class="" href="../../start/web-servers">Web 服务器</a>
+                    
+                </li>
+            
+        
+
+    
+        
+        <span>基本概念</span>
+            
+                <li class="toctree-l1 ">
+                    <a class="" href="../../concepts/objects">对象</a>
+                    
+                </li>
+            
+                <li class="toctree-l1 ">
+                    <a class="" href="../../concepts/di">依赖注入</a>
+                    
+                </li>
+            
+                <li class="toctree-l1 ">
+                    <a class="" href="../../concepts/middleware">中间件</a>
+                    
+                </li>
+            
+                <li class="toctree-l1 ">
+                    <a class="" href="../../concepts/value-objects">值对象</a>
+                    
+                </li>
+            
+                <li class="toctree-l1 ">
+                    <a class="" href="../../concepts/life-cycle">生命周期</a>
+                    
+                </li>
+            
+        
+
+    
+        
+        <span>对象</span>
+            
+                <li class="toctree-l1 ">
+                    <a class="" href="../environment">环境</a>
+                    
+                </li>
+            
+                <li class="toctree-l1 ">
+                    <a class="" href="../request">请求</a>
+                    
+                </li>
+            
+                <li class="toctree-l1 ">
+                    <a class="" href="../response">响应</a>
+                    
+                </li>
+            
+                <li class="toctree-l1 current">
+                    <a class="current" href=".">路由器</a>
+                    
+                        <ul>
+                        
+                            <li class="toctree-l2"><a href="#_1">路由对象</a></li>
+                            
+                                <li><a class="toctree-l3" href="#_2">如何创建路由</a></li>
+                            
+                                <li><a class="toctree-l3" href="#_3">路由回调</a></li>
+                            
+                                <li><a class="toctree-l3" href="#_4">路由占位符</a></li>
+                            
+                                <li><a class="toctree-l3" href="#_5">路由命名</a></li>
+                            
+                        
+                        </ul>
+                    
+                </li>
+            
+        
+
+    
+        
+        <span>特性</span>
+            
+                <li class="toctree-l1 ">
+                    <a class="" href="../../features/templates">视图和模板</a>
+                    
+                </li>
+            
+        
+
+    
+        
+            <li class="toctree-l1 ">
+                <a class="" href="../../caching">缓存</a>
+            </li>
+        
+
+    
+        
+        <span>错误处理</span>
+            
+                <li class="toctree-l1 ">
+                    <a class="" href="../../handlers/error">500 Server Error</a>
+                    
+                </li>
+            
+                <li class="toctree-l1 ">
+                    <a class="" href="../../handlers/not-found">404 Not Found</a>
+                    
+                </li>
+            
+                <li class="toctree-l1 ">
+                    <a class="" href="../../handlers/not-allowed">405 Not Allowed</a>
+                    
+                </li>
+            
+        
+
+    
+        
+        <span>贡献者</span>
+            
+                <li class="toctree-l1 ">
+                    <a class="" href="../../contributors/strategy">分支策略</a>
+                    
+                </li>
+            
+        
+
+    
+</ul>
+
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="icon icon-reorder"></i>
+        <a href="../.."></a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    <li>路由器</li>
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              <h1 id="_1">路由对象</h1>
+<p>The Slim Framework's router is built on top of the <a href="https://github.com/nikic/FastRoute">nikic/fastroute</a> component, and it is remarkably fast and stable. </p>
+<h2 id="_2">如何创建路由</h2>
+<p>You can define application routes using proxy methods on the <code>\Slim\App</code> instance. The Slim Framework provides methods for the most popular HTTP methods.</p>
+<h3 id="get-route">GET Route</h3>
+<p>You can add a route that handles only <code>GET</code> HTTP requests with the Slim
+application's <code>get()</code> method. It accepts two arguments:</p>
+<ol>
+<li>The route pattern (with optional named placeholders)</li>
+<li>The route callback</li>
+</ol>
+<pre><code class="php">$app = new \Slim\App();
+$app-&gt;get('/books/{id}', function ($request, $response, $args) {
+    // Show book identified by $args['id']
+});
+</code></pre>
+
+<h3 id="post-route">POST Route</h3>
+<p>You can add a route that handles only <code>POST</code> HTTP requests with the Slim
+application's <code>post()</code> method. It accepts two arguments:</p>
+<ol>
+<li>The route pattern (with optional named placeholders)</li>
+<li>The route callback</li>
+</ol>
+<pre><code class="php">$app = new \Slim\App();
+$app-&gt;post('/books', function ($request, $response, $args) {
+    // Create new book
+});
+</code></pre>
+
+<h3 id="put-route">PUT Route</h3>
+<p>You can add a route that handles only <code>PUT</code> HTTP requests with the Slim
+application's <code>put()</code> method. It accepts two arguments:</p>
+<ol>
+<li>The route pattern (with optional named placeholders)</li>
+<li>The route callback</li>
+</ol>
+<pre><code class="php">$app = new \Slim\App();
+$app-&gt;put('/books/{id}', function ($request, $response, $args) {
+    // Update book identified by $args['id']
+});
+</code></pre>
+
+<h3 id="delete-route">DELETE Route</h3>
+<p>You can add a route that handles only <code>DELETE</code> HTTP requests with the Slim
+application's <code>delete()</code> method. It accepts two arguments:</p>
+<ol>
+<li>The route pattern (with optional named placeholders)</li>
+<li>The route callback</li>
+</ol>
+<pre><code class="php">$app = new \Slim\App();
+$app-&gt;delete('/books/{id}', function ($request, $response, $args) {
+    // Delete book identified by $args['id']
+});
+</code></pre>
+
+<h3 id="options-route">OPTIONS Route</h3>
+<p>You can add a route that handles only <code>OPTIONS</code> HTTP requests with the Slim
+application's <code>options()</code> method. It accepts two arguments:</p>
+<ol>
+<li>The route pattern (with optional named placeholders)</li>
+<li>The route callback</li>
+</ol>
+<pre><code class="php">$app = new \Slim\App();
+$app-&gt;options('/books/{id}', function ($request, $response, $args) {
+    // Return response headers
+});
+</code></pre>
+
+<h3 id="patch-route">PATCH Route</h3>
+<p>You can add a route that handles only <code>PATCH</code> HTTP requests with the Slim
+application's <code>patch()</code> method. It accepts two arguments:</p>
+<ol>
+<li>The route pattern (with optional named placeholders)</li>
+<li>The route callback</li>
+</ol>
+<pre><code class="php">$app = new \Slim\App();
+$app-&gt;patch('/books/{id}', function ($request, $response, $args) {
+    // Apply changes to book identified by $args['id']
+});
+</code></pre>
+
+<h3 id="custom-route">Custom Route</h3>
+<p>You can add a route that handles multiple HTTP request methods with the Slim application's <code>map()</code> method. It accepts three arguments:</p>
+<ol>
+<li>Array of HTTP methods</li>
+<li>The route pattern (with optional named placeholders)</li>
+<li>The route callback</li>
+</ol>
+<pre><code class="php">$app = new \Slim\App();
+$app-&gt;map(['GET', 'POST'], '/books', function ($request, $response, $args) {
+    // Create new book or list all books
+});
+</code></pre>
+
+<h2 id="_3">路由回调</h2>
+<p>Each routing method described above accepts a callback routine as its final argument. This argument can be any PHP callable, and it accepts three arguments.</p>
+<dl>
+<dt><strong>Request</strong></dt>
+<dd>The first argument is a <code>Psr\Http\Message\RequestInterface</code> object that represents the current HTTP request.</dd>
+<dt><strong>Response</strong></dt>
+<dd>The second argument is a <code>Psr\Http\Message\ResponseInterface</code> object that represents the current HTTP response.</dd>
+<dt><strong>Arguments</strong></dt>
+<dd>The third argument is an associative array that contains values for the current route's named placeholders.</dd>
+</dl>
+<p>There are two ways you can write content to the HTTP response. First, you can simply <code>echo()</code> content from the route callback. This content will be appended to the current HTTP response object. Second, you can return a <code>Psr\Http\Message\ResponseInterface</code> object.</p>
+<h3 id="closure-binding">Closure binding</h3>
+<p>If you use a <code>Closure</code> instance as the route callback, the closure's state is bound to the <code>\Slim\App</code> instance. This means you can access the <code>\Slim\App</code> object from inside the route callback with <code>$this</code>. Becaues the <code>\Slim\App</code> is itself an instance of <code>\Pimple\Container</code>, you can quickly access any registered Pimple services from inside the Closure callback like this:</p>
+<pre><code class="php">$app = new \Slim\App();
+$app-&gt;get('/hello/{name}', function ($request, $response, $args) {
+    // Use app HTTP cookie service
+    $this['cookies']-&gt;set('name', [
+        'name' =&gt; $args['name'],
+        'expires' =&gt; '7 days'
+    ]);
+});
+</code></pre>
+
+<h2 id="_4">路由占位符</h2>
+<p>Each routing method described above accepts a URL pattern that is matched against the current HTTP request URI. Route patterns may use named placeholders to dynamically match HTTP request URI segments.</p>
+<h3 id="format">Format</h3>
+<p>A route pattern placeholder starts with a <code>{</code>, followed by the placeholder name, ending with a <code>}</code>. This is an example placeholder named <code>name</code>:</p>
+<pre><code class="php">$app = new \Slim\App();
+$app-&gt;get('/hello/{name}', function ($request, $response, $args) {
+    echo &quot;Hello, &quot; . $args['name'];
+});
+</code></pre>
+
+<h3 id="regular-expression-matching">Regular expression matching</h3>
+<p>By default the place holders are written inside <code>{}</code> and can accept any
+values. However, placeholders can also require the HTTP request URI to match a particular regular expression. If the current HTTP request URI does not match a placeholder regular expression, the route is not invoked. This is an example placeholder named <code>id</code> that requires a digit.</p>
+<pre><code class="php">$app = new \Slim\App();
+$app-&gt;get('/users/{id:[0-9]+}', function ($request, $response, $args) {
+    // Find user identified by $args['id']
+});
+</code></pre>
+
+<h2 id="_5">路由命名</h2>
+<p>Application route's can be assigned a name. This is useful if you want to programmatically generate a URL to a specific route with the router's <code>urlFor()</code> method. Each routing method described above returns a <code>\Slim\Route</code> object, and this object exposes a <code>setName()</code> method.</p>
+<pre><code class="php">$app = new \Slim\App();
+$app-&gt;get('/hello/{name}', function ($request, $response, $args) {
+    echo &quot;Hello, &quot; . $args['name'];
+})-&gt;setName('hello');
+</code></pre>
+
+<p>You can generate a URL for this named route with the application router's <code>urlFor()</code>  method.</p>
+<pre><code class="php">echo $app['router']-&gt;urlFor('hello', [
+    'name' =&gt; 'Josh'
+]);
+// Outputs &quot;/hello/Josh&quot;
+</code></pre>
+
+<p>The router's <code>urlFor()</code> method accepts two arguments:</p>
+<ol>
+<li>The route name</li>
+<li>Associative array of route pattern placeholders and replacement values</li>
+</ol>
+
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../../features/templates" class="btn btn-neutral float-right" title="视图和模板"/>Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../response" class="btn btn-neutral" title="响应"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+    <!-- Copyright etc -->
+    </p>
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+<div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+        
+      <span><a href="../response" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      <span style="margin-left: 15px"><a href="../../features/templates" style="color: #fcfcfc">Next &raquo;</a></span>
+    </span>
+</div>
+</body>
+</html>
