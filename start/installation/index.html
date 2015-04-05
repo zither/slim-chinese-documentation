@@ -208,24 +208,24 @@
             <div class="section">
               <h1 id="_1">系统需求</h1>
 <ul>
-<li>Web server with URL rewriting</li>
-<li>PHP 5.4.0 or newer</li>
+<li>支持 URL 重写的 Web 服务器</li>
+<li>PHP 5.4.0 或者更新版本</li>
 </ul>
 <h1 id="composer">Composer 安装</h1>
-<p>The preferred installation method is <a href="https://getcomposer.org/">Composer</a>. Navigate into your project directory and execute the following bash command. This command downloads the Slim Framework and its third-party dependencies into your project's <code>vendor/</code> directory.</p>
+<p>推荐使用 Composer 来安装 Slim 框架，你只需要切换到项目目录并执行以下 bash 命令，就可以将 Slim 框架及其第三方依赖都下载到项目的 <code>vendor/</code> 目录中。</p>
 <pre><code>composer require slim/slim
 </code></pre>
-<p>Next, require the Composer autoloader into your PHP script.</p>
+<p>然后在你的 PHP 脚本中载入 Composer 的自动加载器。</p>
 <pre><code>&lt;?php
 require 'vendor/autoload.php';
 </code></pre>
 <h1 id="_2">手动安装</h1>
-<p>You can install the Slim Framework without Composer. Download the Slim Framework files into your project directory. Next, require the <code>Slim/Autoloader.php</code> file into your PHP script and invoke its static <code>register()</code> method.</p>
+<p>在没有 Composer 的环境中，同样可以安装 Slim 框架。先将 Slim 框架的所有文件下载到项目目录，然后在 PHP 脚本中载入 <code>Slim\Autoloader.php</code> 并调用它的 <code>register()</code> 静态方法。</p>
 <pre><code>&lt;?php
 require 'Slim/Autoloader.php';
 \Slim\Autoloader::register();
 </code></pre>
-<p>If you install Slim manually, you are responsible for installing and autoloading these third-party dependencies:</p>
+<p>如果你采用手工安装 Slim 的方式，还必须安装下面这些第三方依赖，并解决自动加载的相关问题：</p>
 <ul>
 <li><a href="http://pimple.sensiolabs.org/">Pimple 3.x</a></li>
 <li><a href="https://github.com/php-fig/http-message">PSR HTTP Message 0.x</a></li>
