@@ -1,11 +1,11 @@
-# The Request Object
+# 请求对象
 
 The Request object encapsulates the HTTP request data from the current Environment object. Each Slim application has one Request object. You use the Request object to inspect the current HTTP request's method, headers, and body. The Request object is registered as a Pimple service on the application instance. You can fetch the Request object like this:
 
     <?php
     $request = $app['request'];
 
-## Request Method
+## 请求方法
 
 You can inspect the current HTTP request method with the Request object's `getMethod()` method. This returns a string value equal to `GET`, `POST`, `PUT`, `DELETE`, `HEAD`, `OPTIONS`, or `PATCH`.
 
@@ -87,7 +87,7 @@ Include a `_METHOD` parameter in a `POST` request body. You must use the `applic
 
 You may also include the `X-HTTP-Method-Override` header in the HTTP request.
 
-## Request URL
+## 请求 URL
 
 The Request object provides several methods to inspect the HTTP request URL.
 
@@ -140,7 +140,7 @@ You can fetch the HTTP request's raw query string with the Request object's `get
     <?php
     $queryString = $app['request']->getQueryString();
 
-## Request Headers
+## 请求头部
 
 There are several ways to inspect the Request object's headers.
 
@@ -167,7 +167,7 @@ You can fetch a single header value with the Request object's `getHeader($key)` 
     <?php
     $headerValue = $app['request']->getHeader('Accept');
 
-## Request Cookies
+## 请求 Cookies
 
 There are several ways to inspect the Request object's cookies.
 
@@ -194,7 +194,7 @@ You can fetch a single cookie value with the Request object's `getCookie($key)` 
     <?php
     $cookieValue = $app['request']->getCookie('user_name');
 
-## Request Body
+## 请求主体
 
 You can fetch the raw HTTP request body with the Request object's `getBody()` method. Bear in mind this returns a string value containing the HTTP request body _exactly_ as sent by the HTTP client.
 
@@ -231,7 +231,7 @@ The Request object also provides `put()` and `delete()` methods. These are alias
 The Request object's <code>post()</code>, <code>put()</code>, and <code>delete()</code> methods work only if the HTTP request content type is <code>application/x-www-form-urlencoded</code>.
 </div>
 
-## Request Helpers
+## 辅助方法
 
 The Request object provides additional methods to inspect the HTTP request metadata (e.g., content type, charset, length, IP, and referrer).
 

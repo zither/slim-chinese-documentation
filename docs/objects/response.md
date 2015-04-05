@@ -1,4 +1,4 @@
-# The Response Object
+# 响应对象
 
 The Response object encapsulates the HTTP response returned by the Slim application. You use the Response object to set the HTTP response status, headers, and body that are ultimately returned to the HTTP client.
 
@@ -6,7 +6,7 @@ The Response object is a _value object_, and it is immutable. You can never chan
 
 Whereever you are within a Slim application (e.g. a middleware layer, a route callable, or a Not Found handler), you will be given the latest Request and Response objects.
 
-## Response Status
+## 响应状态
 
 The Response object has a numeric HTTP status code. The default status code is `200`. You can fetch the status code with the Response object's `getStatusCode()` method.
 
@@ -18,7 +18,7 @@ If you need to change a Response object's status code, you must request a new Re
     <?php
     $newResponse = $oldResponse->withStatus(404);
 
-## Response Headers
+## 响应头部
 
 The Response object manages a collection of headers that will be returned to the HTTP client. Each Response object provides the following methods to curate its collection of HTTP headers. Remember, the Response object is immutable, and you must use the appropriate `with*()` methods to fetch a _new_ Response object with modified headers.
 
@@ -105,7 +105,7 @@ You can remove a header with the Response object's `withoutHeader($name)` method
     <?php
     $newResponse = $oldResponse->withoutHeader('Allow');
 
-## Response Cookies
+## 响应 Cookies
 
 The Response object manages a collection of cookies that will be serialized into the response header and returned to the HTTP client. Each Response object provides the following methods to curate its collection of HTTP cookies. Remember, the Response object is immutable, and you must use the appropriate `with*()` methods to fetch a _new_ Response object with modified cookies.
 
@@ -179,7 +179,7 @@ You can remove a cookie with the Response object's `withoutCookie($name)` method
 
 Technically, this method _sets_ a new cookie whose value is empty and whose expiration date is in the past. This prompts the HTTP client to invalidate and destroy its local copy of the cookie.
 
-## Response Body
+## 响应主体
 
 The Response object's body is a streamable object that implements the [\Psr\Http\Message\StreamableInterface](https://github.com/php-fig/fig-standards/blob/master/proposed/http-message.md#34-psrhttpmessagestreamableinterface) interface. This makes it possible to deliver content that may not otherwise fit into available system memory. By default, the Response object body opens a readable, writable, and seekable handle to `php://temp`. However, you can point the Response object's body to _any_ valid PHP resource handle. Think about that for a second. You can point the Response object's body to a local filesystem file, to a remote file hosted on Amazon S3, to a remote API, or to the output of a local system process.
 

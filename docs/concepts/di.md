@@ -1,10 +1,10 @@
-# Container
+# 容器
 
 Each Slim application has _dependencies_. Examples include the Environment, Request, Response, and Router objects described above.
 
 Out of the box, Slim provides a first-party implementation for each dependency. However, it's possible to provide custom implementations for each dependency because the Slim application is an instance of the [Pimple](http://pimple.sensiolabs.org/) dependency injection container. Each application dependency is a Pimple service that lazily instantiates and returns an  appropriate object upon request.
 
-# Services
+# 服务（Services）
 
 To override a Slim application dependency, inject your own Pimple service before you invoke the Slim application's `run()` method. You may override any of these default application services:
 
@@ -45,7 +45,7 @@ notAllowedHandler
 
 You most likely **do not** need to replace these dependencies. However, you can if necessary. Slim's default service implementations live in the Slim application's `__construct()` function.
 
-# Service providers
+# 服务提供者（Service providers）
 
 Each Slim application extends the `\Pimple\Container` class. This means each Slim application can accept and register [Pimple Service Providers](http://pimple.sensiolabs.org/#extending-a-container). You register Pimple Service Providers with the Slim application's `register()` method.
 

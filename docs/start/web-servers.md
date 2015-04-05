@@ -1,4 +1,4 @@
-# Apache configuration
+# Apache 配置
 
 Ensure the `.htaccess` and `index.php` files are in the same public-accessible directory. The `.htaccess` file
 should contain this code:
@@ -12,7 +12,7 @@ Additionally, make sure your virtual host is configured with the `AllowOverride`
 
     AllowOverride All
 
-# Nginx configuration
+# Nginx 配置
 
 The nginx configuration file should contain this code (along with other settings you may need) in your `location` block:
 
@@ -20,7 +20,7 @@ The nginx configuration file should contain this code (along with other settings
 
 This assumes that Slim's `index.php` is in the root folder of your project (www root).
 
-# HipHop Virtual Machine
+# HHVM
 
 Your HipHop Virtual Machine configuration file should contain this code (along with other settings you may need). Be sure you change the `ServerRoot` setting to point to your Slim app's document root directory.
 

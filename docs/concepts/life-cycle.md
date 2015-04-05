@@ -1,4 +1,4 @@
-# Application Lifecycle
+# 应用生命周期
 
 ## 1. Instantiation
 

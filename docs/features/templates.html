@@ -1,11 +1,11 @@
-# Overview
+# 概览
 
 A Slim Framework application's view _is the HTTP response_. If you
 want to send content to the HTTP client, you must write the appropriate
 content to the HTTP response body. There are two ways you can write
 content to the HTTP response body.
 
-## The HTTP response
+## HTTP 响应
 
 ### Write to the Response object
 
@@ -43,7 +43,7 @@ $app->get('/user/{id:\d+}', function ($request, $response, $args) {
 });
 ```
 
-# Templates
+# 模板
 
 The Slim Framework does not provide a built-in templating system.
 Instead, you may generate output using third-party template-related tools most
@@ -56,7 +56,7 @@ Some great third-party tools for generating templated output include:
 * [league/plates](http://platesphp.com/)
 * [slim/twig-view](https://github.com/slimphp/Twig-View)
 
-## The slim/twig-view component
+## slim/twig-view 组件
 
 The Slim Framework does provide an optional, standalone
 component named [slim/twig-view](https://github.com/slimphp/Twig-View). This

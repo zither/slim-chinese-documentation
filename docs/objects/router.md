@@ -1,8 +1,8 @@
-# The Router Object
+# 路由对象
 
 The Slim Framework's router is built on top of the [nikic/fastroute](https://github.com/nikic/FastRoute) component, and it is remarkably fast and stable. 
 
-## How to create routes
+## 如何创建路由
 
 You can define application routes using proxy methods on the `\Slim\App` instance. The Slim Framework provides methods for the most popular HTTP methods.
 
@@ -111,7 +111,7 @@ $app->map(['GET', 'POST'], '/books', function ($request, $response, $args) {
 });
 ```
 
-## Route callbacks
+## 路由回调
 
 Each routing method described above accepts a callback routine as its final argument. This argument can be any PHP callable, and it accepts three arguments.
 
@@ -141,7 +141,7 @@ $app->get('/hello/{name}', function ($request, $response, $args) {
 });
 ```
 
-## Route placeholders
+## 路由占位符
 
 Each routing method described above accepts a URL pattern that is matched against the current HTTP request URI. Route patterns may use named placeholders to dynamically match HTTP request URI segments.
 
@@ -168,7 +168,7 @@ $app->get('/users/{id:[0-9]+}', function ($request, $response, $args) {
 });
 ```
 
-## Route names
+## 路由命名
 
 Application route's can be assigned a name. This is useful if you want to programmatically generate a URL to a specific route with the router's `urlFor()` method. Each routing method described above returns a `\Slim\Route` object, and this object exposes a `setName()` method.
 

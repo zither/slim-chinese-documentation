@@ -1,4 +1,4 @@
-# The Environment Object
+# 环境对象
 
 The Environment object encapsulates the `$_SERVER` superglobal array and decouples the Slim application from the PHP global environment. Decoupling the Slim application from the PHP global environment lets us create HTTP requests that may (or may not) resemble the global environment. This is particuarly useful for unit testing and initiating sub-requests. You can fetch the current Environment object anywhere in your Slim application like this:
 
@@ -6,11 +6,11 @@ The Environment object encapsulates the `$_SERVER` superglobal array and decoupl
 $environment = $app['environment'];
 ```
 
-## Environment Properties
+## 环境属性 
 
 Each Slim application has an Environment object with various properties that determine application behavior. Many of these properties mirror those found in the `$_SERVER` superglobal array. Some properties are required. Other properties are optional.
 
-### Required Properties
+### 必要属性
 
 REQUEST_METHOD
 :   The HTTP request method. This must be one of "GET", "POST", "PUT", "DELETE", "HEAD", "PATCH", or "OPTIONS".
@@ -33,7 +33,7 @@ SERVER_PORT
 HTTPS
 :   Set to a non-empty value if the script was queried through the HTTPS protocol.
 
-### Optional Properties
+### 可选属性
 
 CONTENT_TYPE
 :   The HTTP request content type (e.g., `application/json;charset=utf8`)
@@ -56,7 +56,7 @@ PHP_AUTH_DIGEST
 AUTH_TYPE
 :   The HTTP `Authentication` header's authentication type (e.g., "Basic" or "Digest").
 
-## Mock Environments
+## 环境模拟
 
 Each Slim application instantiates an Environment object using information from the current global environment. However, you may also create mock environment objects with custom information. Mock Environment objects are only useful when writing unit tests.
 
