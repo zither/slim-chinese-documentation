@@ -1,6 +1,6 @@
 # Slim 中文文档
 
-由于 Slim 3.0 正处于开发状态，官方文档还未写完，中文翻译刚刚启动，欢迎提交 Pull Request。
+Slim 3.0 正处于开发状态，官方文档还未写完，中文翻译也才刚刚启动，欢迎提交 Pull Request。
 
 在线阅读：[http://slim-docs.shouhuiben.net/](http://slim-docs.shouhuiben.net/)，有什么问题或建议，可以提交 [Github Issue](https://github.com/zither/slim-chinese-documentation/issues/new)。
 
