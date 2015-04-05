@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Request - Slim Framework</title>
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/highlight.css">
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
+  <script src="../../js/theme.js"></script>
+
+  <style>
+    body {font-size: 90%;}
+    pre, code {font-size: 100%;}
+    h3, h4, h5, h6 {color: #2980b9; font-weight: 300}
+  </style> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> Slim Framework</a>
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+      <ul class="current">
+    
+        
+        <span>Get Started</span>
+            
+                <li class="toctree-l1 ">
+                    <a class="" href="../../start/installation">Installation</a>
+                    
+                </li>
+            
+                <li class="toctree-l1 ">
+                    <a class="" href="../../start/web-servers">Web Servers</a>
+                    
+                </li>
+            
+        
+
+    
+        
+        <span>Concepts</span>
+            
+                <li class="toctree-l1 ">
+                    <a class="" href="../../concepts/objects">Objects</a>
+                    
+                </li>
+            
+                <li class="toctree-l1 ">
+                    <a class="" href="../../concepts/di">Dependency Injection</a>
+                    
+                </li>
+            
+                <li class="toctree-l1 ">
+                    <a class="" href="../../concepts/middleware">Middleware</a>
+                    
+                </li>
+            
+                <li class="toctree-l1 ">
+                    <a class="" href="../../concepts/value-objects">Value Objects</a>
+                    
+                </li>
+            
+                <li class="toctree-l1 ">
+                    <a class="" href="../../concepts/life-cycle">Lifecycle</a>
+                    
+                </li>
+            
+        
+
+    
+        
+        <span>Objects</span>
+            
+                <li class="toctree-l1 ">
+                    <a class="" href="../environment">Environment</a>
+                    
+                </li>
+            
+                <li class="toctree-l1 current">
+                    <a class="current" href=".">Request</a>
+                    
+                        <ul>
+                        
+                            <li class="toctree-l2"><a href="#the-request-object">The Request Object</a></li>
+                            
+                                <li><a class="toctree-l3" href="#request-method">Request Method</a></li>
+                            
+                                <li><a class="toctree-l3" href="#request-url">Request URL</a></li>
+                            
+                                <li><a class="toctree-l3" href="#request-headers">Request Headers</a></li>
+                            
+                                <li><a class="toctree-l3" href="#request-cookies">Request Cookies</a></li>
+                            
+                                <li><a class="toctree-l3" href="#request-body">Request Body</a></li>
+                            
+                                <li><a class="toctree-l3" href="#request-helpers">Request Helpers</a></li>
+                            
+                        
+                        </ul>
+                    
+                </li>
+            
+                <li class="toctree-l1 ">
+                    <a class="" href="../response">Response</a>
+                    
+                </li>
+            
+                <li class="toctree-l1 ">
+                    <a class="" href="../router">Router</a>
+                    
+                </li>
+            
+        
+
+    
+        
+        <span>Features</span>
+            
+                <li class="toctree-l1 ">
+                    <a class="" href="../../features/templates">Views and Templates</a>
+                    
+                </li>
+            
+        
+
+    
+        
+            <li class="toctree-l1 ">
+                <a class="" href="../../caching">Caching</a>
+            </li>
+        
+
+    
+        
+        <span>Error Handling</span>
+            
+                <li class="toctree-l1 ">
+                    <a class="" href="../../handlers/error">500 Server Error</a>
+                    
+                </li>
+            
+                <li class="toctree-l1 ">
+                    <a class="" href="../../handlers/not-found">404 Not Found</a>
+                    
+                </li>
+            
+                <li class="toctree-l1 ">
+                    <a class="" href="../../handlers/not-allowed">405 Not Allowed</a>
+                    
+                </li>
+            
+        
+
+    
+        
+        <span>Contributors</span>
+            
+                <li class="toctree-l1 ">
+                    <a class="" href="../../contributors/strategy">Branching Strategy</a>
+                    
+                </li>
+            
+        
+
+    
+</ul>
+
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="icon icon-reorder"></i>
+        <a href="../.."></a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    <li>Request</li>
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              <h1 id="the-request-object">The Request Object</h1>
+<p>The Request object encapsulates the HTTP request data from the current Environment object. Each Slim application has one Request object. You use the Request object to inspect the current HTTP request's method, headers, and body. The Request object is registered as a Pimple service on the application instance. You can fetch the Request object like this:</p>
+<pre><code>&lt;?php
+$request = $app['request'];
+</code></pre>
+<h2 id="request-method">Request Method</h2>
+<p>You can inspect the current HTTP request method with the Request object's <code>getMethod()</code> method. This returns a string value equal to <code>GET</code>, <code>POST</code>, <code>PUT</code>, <code>DELETE</code>, <code>HEAD</code>, <code>OPTIONS</code>, or <code>PATCH</code>.</p>
+<pre><code>&lt;?php
+$method = $app['request']-&gt;getMethod();
+</code></pre>
+<h3 id="get-method">GET Method</h3>
+<p>You can detect HTTP <code>GET</code> requests with the Request object's <code>isGet()</code> method.</p>
+<pre><code>&lt;?php
+if ($app['request']-&gt;isGet() === true) {
+    // Do something
+}
+</code></pre>
+<h3 id="post-method">POST Method</h3>
+<p>You can detect HTTP <code>POST</code> requests with the Request object's <code>isPost()</code> method.</p>
+<pre><code>&lt;?php
+if ($app['request']-&gt;isPost() === true) {
+    // Do something
+}
+</code></pre>
+<h3 id="put-method">PUT Method</h3>
+<p>You can detect HTTP <code>PUT</code> requests with the Request object's <code>isPut()</code> method.</p>
+<pre><code>&lt;?php
+if ($app['request']-&gt;isPut() === true) {
+    // Do something
+}
+</code></pre>
+<h3 id="delete-method">DELETE Method</h3>
+<p>You can detect HTTP <code>DELETE</code> requests with the Request object's <code>isDelete()</code> method.</p>
+<pre><code>&lt;?php
+if ($app['request']-&gt;isDelete() === true) {
+    // Do something
+}
+</code></pre>
+<h3 id="head-method">HEAD Method</h3>
+<p>You can detect HTTP <code>HEAD</code> requests with the Request object's <code>isHead()</code> method.</p>
+<pre><code>&lt;?php
+if ($app['request']-&gt;isHead() === true) {
+    // Do something
+}
+</code></pre>
+<h3 id="options-method">OPTIONS Method</h3>
+<p>You can detect HTTP <code>OPTIONS</code> requests with the Request object's <code>isOptions()</code> method.</p>
+<pre><code>&lt;?php
+if ($app['request']-&gt;isOptions() === true) {
+    // Do something
+}
+</code></pre>
+<h3 id="patch-method">PATCH Method</h3>
+<p>You can detect HTTP <code>PATCH</code> requests with the Request object's <code>isPatch()</code> method.</p>
+<pre><code>&lt;?php
+if ($app['request']-&gt;isPatch() === true) {
+    // Do something
+}
+</code></pre>
+<h3 id="method-override">Method Override</h3>
+<p>There are two ways to override the HTTP request method. You can override the HTTP request method using the <code>_METHOD</code> parameter, or you can send a custom <code>X-HTTP-Method-Override</code> header. This is particularly useful if, for example, you need to mimic a <code>PUT</code> request using a traditional web browser that only supports <code>POST</code> requests. You can always fetch the <em>original</em> (non-overridden) HTTP method with the Request object's <code>getOriginalMethod()</code> method.</p>
+<h4 id="with-a-body-parameter">With a body parameter</h4>
+<p>Include a <code>_METHOD</code> parameter in a <code>POST</code> request body. You must use the <code>application/x-www-form-urlencoded</code> content type.</p>
+<h4 id="with-a-header">With a header</h4>
+<p>You may also include the <code>X-HTTP-Method-Override</code> header in the HTTP request.</p>
+<h2 id="request-url">Request URL</h2>
+<p>The Request object provides several methods to inspect the HTTP request URL.</p>
+<h3 id="scheme">Scheme</h3>
+<p>You can fetch the HTTP request scheme (e.g., HTTP or HTTPS) with the Request object's <code>getScheme()</code> method.</p>
+<pre><code>&lt;?php
+$scheme = $app['request']-&gt;getScheme();
+</code></pre>
+<h3 id="host">Host</h3>
+<p>You can fetch the HTTP request's host (e.g., example.com) with the Request object's <code>getHost()</code> method.</p>
+<pre><code>&lt;?php
+$host = $app['request']-&gt;getHost();
+</code></pre>
+<h3 id="port">Port</h3>
+<p>You can fetch the HTTP request's port number (e.g., 443) with the Request object's <code>getPort()</code> method.</p>
+<pre><code>&lt;?php
+$port = $app['request']-&gt;getPort();
+</code></pre>
+<h3 id="url-physical-path">URL (physical path)</h3>
+<p>You can fetch the HTTP request's physical directory path (relative to the document root) with the Request object's <code>getScriptName()</code> method. This will be an empty string unless the Slim application is installed in a physical subdirectory beneath your document root.</p>
+<pre><code>&lt;?php
+$realPath = $app['request']-&gt;getScriptName();
+</code></pre>
+<h3 id="url-virtual-path">URL (virtual path)</h3>
+<p>You can fetch the HTTP request's virtual directory path with the Request object's <code>getPathInfo()</code> method. This will return a string value that likely matches a Slim application route path.</p>
+<pre><code>&lt;?php
+$virtualPath = $app['request']-&gt;getPathInfo();
+</code></pre>
+<h3 id="url-physical-virtual-paths">URL (physical + virtual paths)</h3>
+<p>You can fetch the complete physical and virtual path with the Request object's <code>getPath()</code> method. This is useful if you must create an application link URL to an application resource to be rendered in an application template.</p>
+<pre><code>&lt;?php
+$fullPath = $app['request']-&gt;getPath();
+</code></pre>
+<h3 id="query-string">Query String</h3>
+<p>You can fetch the HTTP request's raw query string with the Request object's <code>getQueryString()</code> method. You probably want to use the Request object's <code>get()</code> method instead.</p>
+<pre><code>&lt;?php
+$queryString = $app['request']-&gt;getQueryString();
+</code></pre>
+<h2 id="request-headers">Request Headers</h2>
+<p>There are several ways to inspect the Request object's headers.</p>
+<h3 id="all-headers">All Headers</h3>
+<p>You can fetch an associative array of all headers with the Request object's <code>getHeaders()</code> method.</p>
+<pre><code>&lt;?php
+$headers = $app['request']-&gt;getHeaders();
+</code></pre>
+<h3 id="detect-header">Detect Header</h3>
+<p>You can test for the presence of a header with the Request object's <code>hasHeader($key)</code> method.</p>
+<pre><code>&lt;?php
+if ($app['request']-&gt;hasHeader('Accept') === true) {
+    // Do something
+}
+</code></pre>
+<h3 id="fetch-single-header">Fetch Single Header</h3>
+<p>You can fetch a single header value with the Request object's <code>getHeader($key)</code> method.</p>
+<pre><code>&lt;?php
+$headerValue = $app['request']-&gt;getHeader('Accept');
+</code></pre>
+<h2 id="request-cookies">Request Cookies</h2>
+<p>There are several ways to inspect the Request object's cookies.</p>
+<h3 id="all-cookies">All Cookies</h3>
+<p>You can fetch an associative array of all cookies with the Request object's <code>getCookies()</code> method.</p>
+<pre><code>&lt;?php
+$cookies = $app['request']-&gt;getCookies();
+</code></pre>
+<h3 id="detect-cookie">Detect Cookie</h3>
+<p>You can test for the presence of a cookie with the Request object's <code>hasCookie()</code> method.</p>
+<pre><code>&lt;?php
+if ($app['request']-&gt;hasCookie('logged_in') === true) {
+    // Do something
+}
+</code></pre>
+<h3 id="fetch-single-cookie">Fetch Single Cookie</h3>
+<p>You can fetch a single cookie value with the Request object's <code>getCookie($key)</code> method.</p>
+<pre><code>&lt;?php
+$cookieValue = $app['request']-&gt;getCookie('user_name');
+</code></pre>
+<h2 id="request-body">Request Body</h2>
+<p>You can fetch the raw HTTP request body with the Request object's <code>getBody()</code> method. Bear in mind this returns a string value containing the HTTP request body <em>exactly</em> as sent by the HTTP client.</p>
+<pre><code>&lt;?php
+$body = $app['request']-&gt;getBody();
+</code></pre>
+<p>This is useful if you need to fetch and decode a JSON request, for example. However, you're probably more familiar with traditional HTML form submissions. Slim provides the following helper methods to inspect HTTP request parameters submitted via HTML forms.</p>
+<h3 id="get-data">GET data</h3>
+<p>You can inspect GET request parameters (e.g., query string data) with the Request object's <code>get()</code> method. If you invoke the method <em>without</em> an argument, it returns an associative array for all GET request data. If you invoke the method <em>with</em> an argument, it returns a single string value for the specified parameter name.</p>
+<pre><code>&lt;?php
+// All GET data
+$data = $app['request']-&gt;get();
+
+// Single GET parameter
+$value = $app['request']-&gt;get('id');
+</code></pre>
+<h3 id="post-delete-data">POST &amp; DELETE data</h3>
+<p>You can inspect POST request parameters with the Request object's <code>post()</code> method. If you invoke the method <em>without</em> an argument, it returns an associative array for all POST request data. If you invoke the method <em>with</em> an argument, it returns a single string value for the specified parameter name.</p>
+<pre><code>&lt;?php
+// All POST data
+$data = $app['request']-&gt;post();
+
+// Single POST parameter
+$value = $app['request']-&gt;post('id');
+</code></pre>
+<p>The Request object also provides <code>put()</code> and <code>delete()</code> methods. These are aliases of the <code>post()</code> method.</p>
+<div class="wy-alert wy-alert-info">
+The Request object's <code>post()</code>, <code>put()</code>, and <code>delete()</code> methods work only if the HTTP request content type is <code>application/x-www-form-urlencoded</code>.
+</div>
+
+<h2 id="request-helpers">Request Helpers</h2>
+<p>The Request object provides additional methods to inspect the HTTP request metadata (e.g., content type, charset, length, IP, and referrer).</p>
+<h3 id="detect-ajax-xhr-requests">Detect AJAX / XHR requests</h3>
+<p>You can detect AJAX/XHR requests with the Request object's <code>isAjax()</code> and <code>isXhr()</code> methods. Both methods do the same thing, so choose only one. These methods detect the presence of the <code>X-Requested-With</code> HTTP request header and ensure its value is <code>XMLHttpRequest</code>. These methods also return <code>true</code> if the <code>isajax</code> parameter is provided in the HTTP request query string or body.</p>
+<pre><code>&lt;?php
+if ($app['request']-&gt;isAjax() === true) {
+    // Do something
+}
+</code></pre>
+<h3 id="content-type">Content Type</h3>
+<p>You can fetch the HTTP request content type with the Request object's <code>getContentType()</code> method. This returns the <code>Content-Type</code> header's full value as provided by the HTTP client.</p>
+<pre><code>&lt;?php
+$contentType = $app['request']-&gt;getContentType();
+</code></pre>
+<h3 id="media-type">Media Type</h3>
+<p>You may not want the complete <code>Content-Type</code> header. What if, instead, you only want the media type? You can fetch the HTTP request media type with the Request object's <code>getMediaType()</code> method.</p>
+<pre><code>&lt;?php
+$mediaType = $app['request']-&gt;getMediaType();
+</code></pre>
+<p>You can fetch the appended media type parameters as an associative array with the Request object's <code>getMediaTypeParams()</code> method.</p>
+<pre><code>&lt;?php
+$mediaParams = $app['request']-&gt;getMediaTypeParams();
+</code></pre>
+<h3 id="character-set">Character Set</h3>
+<p>One of the most common media type parameters is the HTTP request character set. The Request object provides a dedicated method to retrieve this media type parameter.</p>
+<pre><code>&lt;?php
+$charset = $app['request']-&gt;getContentCharset();
+</code></pre>
+<h3 id="content-length">Content Length</h3>
+<p>You can fetch the HTTP request content length with the Request object's <code>getContentLength()</code> method.</p>
+<pre><code>&lt;?php
+$length = $app['request']-&gt;getContentLength();
+</code></pre>
+<h3 id="ip-address">IP Address</h3>
+<p>You can fetch the HTTP request's source IP address with the Request object's <code>getClientIp()</code> method. This method respects values provided by the <code>X-Forwarded-For</code> and <code>X-Client-IP</code> headers if present.</p>
+<pre><code>&lt;?php
+$ip = $app['request']-&gt;getClientIp();
+</code></pre>
+<h3 id="referrer">Referrer</h3>
+<p>You can fetch the HTTP request referrer (if present) with the Request object's <code>getReferrer()</code> and <code>getReferer()</code> methods.</p>
+<pre><code>&lt;?php
+$ref = $app['request']-&gt;getReferer();
+</code></pre>
+<h3 id="user-agent">User Agent</h3>
+<p>You can fetch the HTTP user agent string with the Request object's <code>getUserAgent()</code> method.</p>
+<pre><code>&lt;?php
+$agent = $app['request']-&gt;getUserAgent();
+</code></pre>
+
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../response" class="btn btn-neutral float-right" title="Response"/>Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../environment" class="btn btn-neutral" title="Environment"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+    <!-- Copyright etc -->
+    </p>
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+<div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+        
+      <span><a href="../environment" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      <span style="margin-left: 15px"><a href="../response" style="color: #fcfcfc">Next &raquo;</a></span>
+    </span>
+</div>
+</body>
+</html>

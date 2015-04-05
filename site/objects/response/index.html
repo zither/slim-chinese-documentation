@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Response - Slim Framework</title>
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../../css/highlight.css">
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
+  <script src="../../js/theme.js"></script>
+
+  <style>
+    body {font-size: 90%;}
+    pre, code {font-size: 100%;}
+    h3, h4, h5, h6 {color: #2980b9; font-weight: 300}
+  </style> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> Slim Framework</a>
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+      <ul class="current">
+    
+        
+        <span>Get Started</span>
+            
+                <li class="toctree-l1 ">
+                    <a class="" href="../../start/installation">Installation</a>
+                    
+                </li>
+            
+                <li class="toctree-l1 ">
+                    <a class="" href="../../start/web-servers">Web Servers</a>
+                    
+                </li>
+            
+        
+
+    
+        
+        <span>Concepts</span>
+            
+                <li class="toctree-l1 ">
+                    <a class="" href="../../concepts/objects">Objects</a>
+                    
+                </li>
+            
+                <li class="toctree-l1 ">
+                    <a class="" href="../../concepts/di">Dependency Injection</a>
+                    
+                </li>
+            
+                <li class="toctree-l1 ">
+                    <a class="" href="../../concepts/middleware">Middleware</a>
+                    
+                </li>
+            
+                <li class="toctree-l1 ">
+                    <a class="" href="../../concepts/value-objects">Value Objects</a>
+                    
+                </li>
+            
+                <li class="toctree-l1 ">
+                    <a class="" href="../../concepts/life-cycle">Lifecycle</a>
+                    
+                </li>
+            
+        
+
+    
+        
+        <span>Objects</span>
+            
+                <li class="toctree-l1 ">
+                    <a class="" href="../environment">Environment</a>
+                    
+                </li>
+            
+                <li class="toctree-l1 ">
+                    <a class="" href="../request">Request</a>
+                    
+                </li>
+            
+                <li class="toctree-l1 current">
+                    <a class="current" href=".">Response</a>
+                    
+                        <ul>
+                        
+                            <li class="toctree-l2"><a href="#the-response-object">The Response Object</a></li>
+                            
+                                <li><a class="toctree-l3" href="#response-status">Response Status</a></li>
+                            
+                                <li><a class="toctree-l3" href="#response-headers">Response Headers</a></li>
+                            
+                                <li><a class="toctree-l3" href="#response-cookies">Response Cookies</a></li>
+                            
+                                <li><a class="toctree-l3" href="#response-body">Response Body</a></li>
+                            
+                        
+                        </ul>
+                    
+                </li>
+            
+                <li class="toctree-l1 ">
+                    <a class="" href="../router">Router</a>
+                    
+                </li>
+            
+        
+
+    
+        
+        <span>Features</span>
+            
+                <li class="toctree-l1 ">
+                    <a class="" href="../../features/templates">Views and Templates</a>
+                    
+                </li>
+            
+        
+
+    
+        
+            <li class="toctree-l1 ">
+                <a class="" href="../../caching">Caching</a>
+            </li>
+        
+
+    
+        
+        <span>Error Handling</span>
+            
+                <li class="toctree-l1 ">
+                    <a class="" href="../../handlers/error">500 Server Error</a>
+                    
+                </li>
+            
+                <li class="toctree-l1 ">
+                    <a class="" href="../../handlers/not-found">404 Not Found</a>
+                    
+                </li>
+            
+                <li class="toctree-l1 ">
+                    <a class="" href="../../handlers/not-allowed">405 Not Allowed</a>
+                    
+                </li>
+            
+        
+
+    
+        
+        <span>Contributors</span>
+            
+                <li class="toctree-l1 ">
+                    <a class="" href="../../contributors/strategy">Branching Strategy</a>
+                    
+                </li>
+            
+        
+
+    
+</ul>
+
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="icon icon-reorder"></i>
+        <a href="../.."></a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    <li>Response</li>
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              <h1 id="the-response-object">The Response Object</h1>
+<p>The Response object encapsulates the HTTP response returned by the Slim application. You use the Response object to set the HTTP response status, headers, and body that are ultimately returned to the HTTP client.</p>
+<p>The Response object is a <em>value object</em>, and it is immutable. You can never change a given Response object, but you can create a cloned Response object with new property values using any of the Response object's <code>with*()</code> methods.</p>
+<p>Whereever you are within a Slim application (e.g. a middleware layer, a route callable, or a Not Found handler), you will be given the latest Request and Response objects.</p>
+<h2 id="response-status">Response Status</h2>
+<p>The Response object has a numeric HTTP status code. The default status code is <code>200</code>. You can fetch the status code with the Response object's <code>getStatusCode()</code> method.</p>
+<pre><code>&lt;?php
+$status = $response-&gt;getStatusCode();
+</code></pre>
+<p>If you need to change a Response object's status code, you must request a new Response object that has the new status code with the Response object's <code>withStatus($code)</code> method.</p>
+<pre><code>&lt;?php
+$newResponse = $oldResponse-&gt;withStatus(404);
+</code></pre>
+<h2 id="response-headers">Response Headers</h2>
+<p>The Response object manages a collection of headers that will be returned to the HTTP client. Each Response object provides the following methods to curate its collection of HTTP headers. Remember, the Response object is immutable, and you must use the appropriate <code>with*()</code> methods to fetch a <em>new</em> Response object with modified headers.</p>
+<h3 id="get-all-headers">Get All Headers</h3>
+<p>You can fetch an associative array of HTTP response headers with the Response object's <code>getHeaders()</code> method. This returns an associative array whose keys are header names. The array's values are single dimensional arrays that contain one or more string values associated with each header name. This is an example data structure potentially returned by the Response object's <code>getHeaders()</code> method.</p>
+<pre><code>[
+    'Allow' =&gt; [
+        'GET',
+        'HEAD',
+        'DELETE'
+    ]
+]
+</code></pre>
+<p>This example demonstrates how to fetch and iterate the Response object's headers.</p>
+<pre><code>&lt;?php
+// Iterate response headers
+foreach ($response-&gt;getHeaders() as $name =&gt; $values) {
+    echo $name, PHP_EOL;
+    foreach ($values as $value) {
+        echo $value, PHP_EOL;
+    }
+}
+</code></pre>
+<h3 id="detect-header">Detect Header</h3>
+<p>You can detect the presence of an HTTP header with the Response object's <code>hasHeader($name)</code> method. This method returns <code>true</code> or <code>false</code>.</p>
+<pre><code>&lt;?php
+if ($response-&gt;hasHeader('Allow') === true) {
+    // Do something
+}
+</code></pre>
+<h3 id="get-header">Get Header</h3>
+<p>You can fetch a single HTTP response header with the Response object's <code>getHeader($name)</code> method.</p>
+<pre><code>&lt;?php
+$headerValue = $response-&gt;getHeader('Allow');
+</code></pre>
+<p>This returns a string value. The returned string is a comma-concatenated string containing all values associated with the header name. For example, <code>$response-&gt;getHeader('Allow')</code> may return this string value:</p>
+<pre><code>"GET,HEAD,DELETE"
+</code></pre>
+<p>Use the Response object's <code>getHeaderLines($name)</code> method to return the single-dimensional array associated with a given header name. </p>
+<pre><code>&lt;?php
+$headerValue = $response-&gt;getHeaderLines('Allow');
+</code></pre>
+<p>This code may return this single-dimensional array:</p>
+<pre><code>[
+    'GET',
+    'HEAD',
+    'DELETE'
+]
+</code></pre>
+<h3 id="set-header">Set Header</h3>
+<p>You can set a new header value with the Response object's <code>withHeader($name, $value)</code> method. Remember, the Response object is immutable. This method returns a new <em>copy</em> of the Response object that has the new header value. <strong>This method is destructive</strong>, and it <em>replaces</em> any existing header values that are associated with the same header name.</p>
+<pre><code>&lt;?php
+$newResponse = $oldResponse-&gt;withHeader(
+    'Content-type',
+    'application/json'
+);
+</code></pre>
+<h3 id="add-header">Add Header</h3>
+<p>You can add a new header value with the Response object's <code>withAddedHeader($name, $value)</code> method. Remember, the Response object is immutable. This method returns a new <em>copy</em> of the Response object that has the added header value. <strong>This method is non-destructive</strong>, and it <em>appends</em> the new header value to any existing header values that are `associated with the same header name.</p>
+<pre><code>&lt;?php
+$newResponse = $oldResponse-&gt;withAddedHeader(
+    'Content-type',
+    'application/json'
+);
+</code></pre>
+<h3 id="remove-header">Remove Header</h3>
+<p>You can remove a header with the Response object's <code>withoutHeader($name)</code> method. Remember, the Response object is immutable. This method returns a new <em>copy</em> of the Response object that does not have the specified header.</p>
+<pre><code>&lt;?php
+$newResponse = $oldResponse-&gt;withoutHeader('Allow');
+</code></pre>
+<h2 id="response-cookies">Response Cookies</h2>
+<p>The Response object manages a collection of cookies that will be serialized into the response header and returned to the HTTP client. Each Response object provides the following methods to curate its collection of HTTP cookies. Remember, the Response object is immutable, and you must use the appropriate <code>with*()</code> methods to fetch a <em>new</em> Response object with modified cookies.</p>
+<p>Unlike Response headers, Response cookies have a name that is associated with a fixed set of properties. Specifically, each Response cookie always has these exact properties:</p>
+<dl>
+<dt>value</dt>
+<dd>A string.</dd>
+<dt>expires</dt>
+<dd>An integer unix timestamp, or a string to be converted with <code>strtotime()</code>.</dd>
+<dt>path</dt>
+<dd>Absolute URI path string beneath which the cookie is valid.</dd>
+<dt>domain</dt>
+<dd>Domain name string beneath which the cookie is valid.</dd>
+<dt>secure</dt>
+<dd>Is this cookie transmitted over HTTPS only?</dd>
+<dt>httponly</dt>
+<dd>Is this cookie transmitted via HTTP protocol only?</dd>
+</dl>
+<p>Fortunately, you don't have to define these settings every time you set a new cookie. Instead, you define the default cookie settings when you instantiate a Slim application. Then you simply pass the desired cookie value when you set a new Response cookie. Look for examples below.</p>
+<h3 id="get-all-cookies">Get All Cookies</h3>
+<p>You can fetch an associative array of HTTP response cookies with the Response object's <code>getCookies()</code> method. This returns an associative array whose keys are cookie names. The array's values are single dimensional arrays that contain the properties listed above. This is an example data structure potentially returned by the Response object's <code>getCookies()</code> method.</p>
+<pre><code>[
+    'user' =&gt; [
+        'value' =&gt; 'Bob',
+        'expires' =&gt; '2 days',
+        'path' =&gt; '/',
+        'domain' =&gt; 'example.com',
+        'secure' =&gt; true,
+        'httponly' =&gt; true
+    ]
+]
+</code></pre>
+<h3 id="detect-cookie">Detect Cookie</h3>
+<p>You can detect the presence of an HTTP cookie with the Response object's <code>hasCookie($name)</code> method. This method returns <code>true</code> or <code>false</code>.</p>
+<pre><code>&lt;?php
+if ($response-&gt;hasCookie('user') === true) {
+    // Do something
+}
+</code></pre>
+<h3 id="set-cookie">Set Cookie</h3>
+<p>You can set a new cookie with the Response object's <code>withCookie($name, $value)</code> method. Remember, the Response object is immutable. This method returns a new <em>copy</em> of the Response object that has the new cookie.</p>
+<pre><code>&lt;?php
+$newResponse = $oldResponse-&gt;withCookie('user', 'Bob');
+</code></pre>
+<p>This example creates a new cookie whose name is "user". The cookie's <em>value</em> property is "Bob". Its other properties assume the default values provided during application instantiation. However, you <em>can</em> override the default cookie properties by passing an associative array as the second argument to the <code>withCookie()</code> method. This array should contain only the properties different from the default cookie properties.</p>
+<pre><code>&lt;?php
+$newResponse = $oldResponse-&gt;withCookie('user', [
+    'value' =&gt; 'Bob',
+    'expires' =&gt; '7 days'
+]);
+</code></pre>
+<h3 id="remove-cookie">Remove Cookie</h3>
+<p>You can remove a cookie with the Response object's <code>withoutCookie($name)</code> method. Remember, the Response object is immutable. This method returns a new <em>copy</em> of the Response object that does not have the specified cookie.</p>
+<pre><code>&lt;?php
+$newResponse = $oldResponse-&gt;withoutCookie('user');
+</code></pre>
+<p>Technically, this method <em>sets</em> a new cookie whose value is empty and whose expiration date is in the past. This prompts the HTTP client to invalidate and destroy its local copy of the cookie.</p>
+<h2 id="response-body">Response Body</h2>
+<p>The Response object's body is a streamable object that implements the <a href="https://github.com/php-fig/fig-standards/blob/master/proposed/http-message.md#34-psrhttpmessagestreamableinterface">\Psr\Http\Message\StreamableInterface</a> interface. This makes it possible to deliver content that may not otherwise fit into available system memory. By default, the Response object body opens a readable, writable, and seekable handle to <code>php://temp</code>. However, you can point the Response object's body to <em>any</em> valid PHP resource handle. Think about that for a second. You can point the Response object's body to a local filesystem file, to a remote file hosted on Amazon S3, to a remote API, or to the output of a local system process.</p>
+<h3 id="get-body">Get Body</h3>
+<p>You can get the Response object body with the <code>getBody()</code> method.</p>
+<pre><code>&lt;?php
+$body = $response-&gt;getBody();
+</code></pre>
+<h3 id="write-body">Write Body</h3>
+<p>You can write to the Response object's body with the Response object's <code>write()</code> method. This method is a simple proxy to the Body object's <code>write()</code> method and is available as a convenience.</p>
+<pre><code>&lt;?php
+$response-&gt;write('New content');
+</code></pre>
+<h3 id="set-body">Set Body</h3>
+<p>You can <em>replace</em> the Response object's body with the Response object's <code>withBody()</code> method. Remember, the Response object is immutable. This method returns a new <em>copy</em> of the Response object that uses the new Body. This method's argument MUST be an instance of <code>\Psr\Http\Message\StreamableInterface</code>.</p>
+<pre><code>&lt;?php
+$newResponse = $oldResponse-&gt;withBody(
+    new Body(fopen('s3://bucket/key', 'r'));
+);
+</code></pre>
+
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../router" class="btn btn-neutral float-right" title="Router"/>Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../request" class="btn btn-neutral" title="Request"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+    <!-- Copyright etc -->
+    </p>
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+<div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+        
+      <span><a href="../request" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      <span style="margin-left: 15px"><a href="../router" style="color: #fcfcfc">Next &raquo;</a></span>
+    </span>
+</div>
+</body>
+</html>
