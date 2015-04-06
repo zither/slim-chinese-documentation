@@ -1,28 +1,25 @@
 # Apache 配置
 
-Ensure the `.htaccess` and `index.php` files are in the same public-accessible directory. The `.htaccess` file
-should contain this code:
+请确保 `.htaccess` 和 `index.php` 这两个文件位于同一个可公开访问的目录中。`.htaccess` 包含的代码如下：
 
     RewriteEngine On
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule ^ index.php [QSA,L]
 
-Additionally, make sure your virtual host is configured with the `AllowOverride` option so that the `.htaccess` rewrite rules can be used:
+此外，为了保证 `.htaccess` 文件中的重写规则（rewrite rules）能够生效，虚拟服务器必须启用 `AllowOverride` 选项：
 
     AllowOverride All
 
 # Nginx 配置
 
-The nginx configuration file should contain this code (along with other settings you may need) in your `location` block:
+假设 Slim 的 `index.php` 文件位于项目的根目录（www root），将下面的代码和其他需要的设置一起写入到 nginx 配置文件的 `location` 块中：
 
     try_files $uri $uri/ /index.php?$args;
 
-This assumes that Slim's `index.php` is in the root folder of your project (www root).
-
 # HHVM
 
-Your HipHop Virtual Machine configuration file should contain this code (along with other settings you may need). Be sure you change the `ServerRoot` setting to point to your Slim app's document root directory.
+将下面设置代码中的 `SourceRoot` 修改为 Slim 应用的文档根目录，然后和其他需要的设置一起写入到 HHVM 配置文件中：
 
     Server {
         SourceRoot = /path/to/public/directory
@@ -47,7 +44,7 @@ Your HipHop Virtual Machine configuration file should contain this code (along w
 
 # IIS
 
-Ensure the `Web.config` and `index.php` files are in the same public-accessible directory. The `Web.config` file should contain this code:
+请确保 `Web.config` 和 `index.php` 这两个文件位于同一个可公开访问的目录中。`Web.config` 包含的代码如下：
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -71,8 +68,6 @@ Ensure the `Web.config` and `index.php` files are in the same public-accessible 
 
 # lighttpd
 
-Your lighttpd configuration file should contain this code (along with other settings you may need). This code requires lighttpd >= 1.4.24.
+假设 Slim 的 `index.php` 文件位于项目的根目录（www root），将下面的代码和其他需要的设置一起写入到 lighttpd（>= 1.4.24）配置文件中：
 
     url.rewrite-if-not-file = ("(.*)" => "/index.php/$0")
-
-This assumes that Slim's `index.php` is in the root folder of your project (www root).
