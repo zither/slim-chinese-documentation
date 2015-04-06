@@ -213,23 +213,21 @@
           <div role="main">
             <div class="section">
               <h1 id="apache">Apache 配置</h1>
-<p>Ensure the <code>.htaccess</code> and <code>index.php</code> files are in the same public-accessible directory. The <code>.htaccess</code> file
-should contain this code:</p>
+<p>请确保 <code>.htaccess</code> 和 <code>index.php</code> 这两个文件位于同一个可公开访问的目录中。<code>.htaccess</code> 文件包含以下代码：</p>
 <pre><code>RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^ index.php [QSA,L]
 </code></pre>
-<p>Additionally, make sure your virtual host is configured with the <code>AllowOverride</code> option so that the <code>.htaccess</code> rewrite rules can be used:</p>
+<p>此外，为了保证 <code>.htaccess</code> 文件中的重写规则（rewrite rules）能够生效，虚拟服务器必须启用 <code>AllowOverride</code> 选项：</p>
 <pre><code>AllowOverride All
 </code></pre>
 <h1 id="nginx">Nginx 配置</h1>
-<p>The nginx configuration file should contain this code (along with other settings you may need) in your <code>location</code> block:</p>
+<p>假设 Slim 的 <code>index.php</code> 文件位于项目的根目录（www root），将以下代码和其他需要的设置一起写入到 nginx 配置文件的 <code>location</code> 块中：</p>
 <pre><code>try_files $uri $uri/ /index.php?$args;
 </code></pre>
-<p>This assumes that Slim's <code>index.php</code> is in the root folder of your project (www root).</p>
 <h1 id="hhvm">HHVM</h1>
-<p>Your HipHop Virtual Machine configuration file should contain this code (along with other settings you may need). Be sure you change the <code>ServerRoot</code> setting to point to your Slim app's document root directory.</p>
+<p>将以下设置代码中的 <code>SourceRoot</code> 修改为 Slim 应用的文档根目录，然后和其他需要的设置一起写入到 HHVM 配置文件中：</p>
 <pre><code>Server {
     SourceRoot = /path/to/public/directory
 }
@@ -252,7 +250,7 @@ VirtualHost {
 }
 </code></pre>
 <h1 id="iis">IIS</h1>
-<p>Ensure the <code>Web.config</code> and <code>index.php</code> files are in the same public-accessible directory. The <code>Web.config</code> file should contain this code:</p>
+<p>请确保 <code>Web.config</code> 和 <code>index.php</code> 这两个文件位于同一个可公开访问的目录中。<code>Web.config</code> 文件包含以下代码：</p>
 <pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;configuration&gt;
     &lt;system.webServer&gt;
@@ -273,10 +271,9 @@ VirtualHost {
 </code></pre>
 
 <h1 id="lighttpd">lighttpd</h1>
-<p>Your lighttpd configuration file should contain this code (along with other settings you may need). This code requires lighttpd &gt;= 1.4.24.</p>
+<p>假设 Slim 的 <code>index.php</code> 文件位于项目的根目录（www root），将以下代码和其他需要的设置一起写入到 lighttpd（&gt;= 1.4.24）配置文件中：</p>
 <pre><code>url.rewrite-if-not-file = ("(.*)" =&gt; "/index.php/$0")
 </code></pre>
-<p>This assumes that Slim's <code>index.php</code> is in the root folder of your project (www root).</p>
 
             </div>
           </div>
