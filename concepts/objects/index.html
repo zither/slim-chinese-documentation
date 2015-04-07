@@ -210,17 +210,17 @@
           <div role="main">
             <div class="section">
               <h1 id="_1">环境对象</h1>
-<p>This object encapsulates the current PHP global environment, including the HTTP request method, URI, headers, and body. It also contains server variables found in the <code>$_SERVER</code> superglobal array. The Environment object effectively decouples a Slim application from the global PHP environment.</p>
-<p><a href="../../environment">Learn more</a></p>
+<p>环境对象是对当前请求 PHP 全局环境的封装，不仅包括了 HTTP 请求的方法、URI、头部和主体，还包括了超全局数组 <code>$_SERVER</code> 中的服务器变量。环境对象实现了 Slim 应用和 PHP 全局环境之间的有效解耦。</p>
+<p><a href="../..//objects/environment">Learn more</a></p>
 <h1 id="_2">请求对象</h1>
 <p>This object encapsulates the current HTTP request using the information provided by the Environment object. The Request object provides the HTTP request method, headers, parameters, and body.</p>
-<p><a href="../../request">Learn more</a></p>
+<p><a href="../..//objects/request">Learn more</a></p>
 <h1 id="_3">响应对象</h1>
 <p>This object encapsulates an HTTP response to be returned to the HTTP client. It manages the HTTP response status, headers, and body.</p>
-<p><a href="../../response">Learn more</a></p>
+<p><a href="../..//objects/response">Learn more</a></p>
 <h1 id="_4">路由器对象</h1>
 <p>This object manages application routes. A <em>route</em> has three parts: a method, a URI path, and a callback. The Router object's routes are iterated when you invoke the Slim application's <code>run()</code> method. The Router object finds and invokes the first route that matches the current HTTP request method and URI. The Router can be accessed directly, but it is typically used via proxy methods on the application instance.</p>
-<p><a href="../../router">Learn more</a></p>
+<p><a href="../..//objects/router">Learn more</a></p>
 
             </div>
           </div>
