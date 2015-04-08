@@ -1,23 +1,23 @@
 # 环境对象
 
-环境对象是对当前请求 PHP 全局环境的封装，不仅包括了 HTTP 请求的方法、URI、头部和主体，还包括了超全局数组 `$_SERVER` 中的服务器变量。环境对象实现了 Slim 应用和 PHP 全局环境之间的有效解耦。
+环境对象是对当前请求 PHP 全局环境的封装，不仅包括了 HTTP 请求的方法、URI、头部和<del>主体</del>（译者注：环境对象未包含 body 部分），还包括了超全局数组 `$_SERVER` 中的服务器变量。环境对象实现了 Slim 应用和 PHP 全局环境之间的有效解耦。
 
-[Learn more](/objects/environment)
+[了解更多](/objects/environment)
 
 # 请求对象
 
-This object encapsulates the current HTTP request using the information provided by the Environment object. The Request object provides the HTTP request method, headers, parameters, and body.
+请求对象是依据环境对象提供的数据对当前 HTTP 请求的封装，提供了 HTTP 请求的方法、头部、参数（译者注：目前实现了 cookies 和环境变量）以及主体。
 
-[Learn more](/objects/request)
+[了解更多](/objects/request)
 
 # 响应对象
 
-This object encapsulates an HTTP response to be returned to the HTTP client. It manages the HTTP response status, headers, and body.
+响应对象是对需要返回给 HTTP 客户端的 HTTP 响应的封装，它管理着 HTTP 响应的状态、头部和主体。
 
-[Learn more](/objects/response)
+[了解更多](/objects/response)
 
 # 路由器对象
 
-This object manages application routes. A _route_ has three parts: a method, a URI path, and a callback. The Router object's routes are iterated when you invoke the Slim application's `run()` method. The Router object finds and invokes the first route that matches the current HTTP request method and URI. The Router can be accessed directly, but it is typically used via proxy methods on the application instance.
+路由器对象的职责是管理应用的所有路由。一个 _路由_ 包含三个部分：请求方法、URI 以及回调函数。当你调用 Slim 应用的 `run()` 方法时，路由器对象会遍历其管理的路由，然后调用第一个与当前 HTTP 请求方法和 URI 相匹配的路由。Slim 应用提供了一系列快捷简便的代理方法来操作路由器对象，因此不推荐直接访问路由器对象。
 
-[Learn more](/objects/router)
+[了解更多](/objects/router)
