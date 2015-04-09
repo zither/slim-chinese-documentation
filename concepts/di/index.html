@@ -207,15 +207,15 @@
           <div role="main">
             <div class="section">
               <h1 id="_1">容器</h1>
-<p>Each Slim application has <em>dependencies</em>. Examples include the Environment, Request, Response, and Router objects described above.</p>
-<p>Out of the box, Slim provides a first-party implementation for each dependency. However, it's possible to provide custom implementations for each dependency because the Slim application is an instance of the <a href="http://pimple.sensiolabs.org/">Pimple</a> dependency injection container. Each application dependency is a Pimple service that lazily instantiates and returns an  appropriate object upon request.</p>
+<p>每个 Slim 应用都有很多 <em>依赖</em>，比如在前面对象概念中所提到的环境、请求、响应以及路由器等对象。</p>
+<p>Slim 为每个依赖都提供了可以直接使用的自身实现。但由于 Slim 应用本身是 <a href="http://pimple.sensiolabs.org/">Pimple</a> 依赖注入容器的实例，你也可以提供自定义的依赖实现。Slim 应用的依赖都是通过具有延迟初始化特性的 Pimple 服务来实现的，只有在被调用时才会初始化并返回相应的对象。</p>
 <h1 id="services">服务（Services）</h1>
 <p>To override a Slim application dependency, inject your own Pimple service before you invoke the Slim application's <code>run()</code> method. You may override any of these default application services:</p>
 <dl>
 <dt>settings</dt>
 <dd>This service must return a new instance of <code>\Slim\Interfaces\ConfigurationInterface</code>（译者注：该接口已经从框架中移除。）.</dd>
 <dt>environment</dt>
-<dd>This service must return a new instance of <code>\Slim\Interfaces\EnvironmentInterface</code>.</dd>
+<dd>This service must return a new instance of <code>\Slim\Interfaces\Http\EnvironmentInterface</code>.</dd>
 <dt>request</dt>
 <dd>This service must return a new instance of <code>\Psr\Http\Message\RequestInterface</code>.</dd>
 <dt>response</dt>
