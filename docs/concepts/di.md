@@ -1,8 +1,8 @@
 # 容器
 
-Each Slim application has _dependencies_. Examples include the Environment, Request, Response, and Router objects described above.
+每个 Slim 应用都有许多_依赖_，比如在前面对象概念中所提到的环境、请求、响应以及路由器等对象。
 
-Out of the box, Slim provides a first-party implementation for each dependency. However, it's possible to provide custom implementations for each dependency because the Slim application is an instance of the [Pimple](http://pimple.sensiolabs.org/) dependency injection container. Each application dependency is a Pimple service that lazily instantiates and returns an  appropriate object upon request.
+Slim 为每个依赖都提供了可以直接使用的自身实现。但由于 Slim 应用本身是 [Pimple](http://pimple.sensiolabs.org/) 依赖注入容器的实例，你也可以提供自定义的依赖实现。Slim 应用的依赖都是通过具有延迟初始化特性的 Pimple 服务来实现的，只有在被调用时才会初始化并返回相应的对象。
 
 # 服务（Services）
 
@@ -12,7 +12,7 @@ settings
 :   This service must return a new instance of `\Slim\Interfaces\ConfigurationInterface`（译者注：该接口已经从框架中移除。）.
 
 environment
-:   This service must return a new instance of `\Slim\Interfaces\EnvironmentInterface`.
+:   This service must return a new instance of `\Slim\Interfaces\Http\EnvironmentInterface`.
 
 request
 :   This service must return a new instance of `\Psr\Http\Message\RequestInterface`.
