@@ -210,18 +210,18 @@
 <p>每个 Slim 应用都有很多 <em>依赖</em>，比如在前面对象概念中所提到的环境、请求、响应以及路由器等对象。</p>
 <p>Slim 为每个依赖都提供了可以直接使用的自身实现。但由于 Slim 应用本身是 <a href="http://pimple.sensiolabs.org/">Pimple</a> 依赖注入容器的实例，你也可以提供自定义的依赖实现。Slim 应用的依赖都是通过具有延迟初始化特性的 Pimple 服务来实现的，只有在被调用时才会初始化并返回相应的对象。</p>
 <h1 id="services">服务（Services）</h1>
-<p>To override a Slim application dependency, inject your own Pimple service before you invoke the Slim application's <code>run()</code> method. You may override any of these default application services:</p>
+<p>你可以在调用 Slim 应用的 <code>run()</code> 方法之前通过注入自定义的 Pimple 服务来覆写 Slim 应用的依赖，包括以下这些默认的应用服务：</p>
 <dl>
 <dt>settings</dt>
 <dd>This service must return a new instance of <code>\Slim\Interfaces\ConfigurationInterface</code>（译者注：该接口已经从框架中移除。）.</dd>
 <dt>environment</dt>
-<dd>This service must return a new instance of <code>\Slim\Interfaces\Http\EnvironmentInterface</code>.</dd>
+<dd>环境服务必须返回实现了 <code>\Slim\Interfaces\Http\EnvironmentInterface</code> 接口的 <em>共享</em> 实例（译者注：官方文档此处为新实例，尚未修正）。</dd>
 <dt>request</dt>
-<dd>This service must return a new instance of <code>\Psr\Http\Message\RequestInterface</code>.</dd>
+<dd>请求服务必须返回实现了 <code>\Psr\Http\Message\RequestInterface</code> 接口的新实例。</dd>
 <dt>response</dt>
-<dd>This service must return a new instance of <code>\Psr\Http\Message\ResponseInterface</code>.</dd>
+<dd>响应服务必须返回实现了 <code>\Psr\Http\Message\ResponseInterface</code> 接口的新实例.</dd>
 <dt>router</dt>
-<dd>This service must return a <em>shared</em> instance of <code>\Slim\Interfaces\RouterInterface</code>.</dd>
+<dd>路由器服务必须返回实现了 <code>\Slim\Interfaces\RouterInterface</code> 接口的 <em>共享</em> 实例。</dd>
 <dt>errorHandler</dt>
 <dd>This service must return a callable to be invoked if there is an application error. The callable <strong>MUST</strong> return an instance of <code>\Psr\Http\Message\ResponseInterface</code>. The callable <strong>SHOULD</strong> accept three arguments:</dd>
 </dl>
