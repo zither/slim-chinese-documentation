@@ -6,22 +6,22 @@ Slim 为每个依赖都提供了可以直接使用的自身实现。但由于 Sl
 
 # 服务（Services）
 
-To override a Slim application dependency, inject your own Pimple service before you invoke the Slim application's `run()` method. You may override any of these default application services:
+你可以在调用 Slim 应用的 `run()` 方法之前通过注入自定义的 Pimple 服务来覆写 Slim 应用的依赖，包括以下这些默认的应用服务：
 
 settings
 :   This service must return a new instance of `\Slim\Interfaces\ConfigurationInterface`（译者注：该接口已经从框架中移除。）.
 
 environment
-:   This service must return a new instance of `\Slim\Interfaces\Http\EnvironmentInterface`.
+:   环境服务必须返回实现了 `\Slim\Interfaces\Http\EnvironmentInterface` 接口的 _共享_ 实例（译者注：官方文档此处为新实例，尚未修正）。
 
 request
-:   This service must return a new instance of `\Psr\Http\Message\RequestInterface`.
+:   请求服务必须返回实现了 `\Psr\Http\Message\RequestInterface` 接口的新实例。
 
 response
-:   This service must return a new instance of `\Psr\Http\Message\ResponseInterface`.
+:   响应服务必须返回实现了 `\Psr\Http\Message\ResponseInterface` 接口的新实例.
 
 router
-:   This service must return a _shared_ instance of `\Slim\Interfaces\RouterInterface`.
+:   路由器服务必须返回实现了 `\Slim\Interfaces\RouterInterface` 接口的 _共享_ 实例。
 
 errorHandler
 :   This service must return a callable to be invoked if there is an application error. The callable **MUST** return an instance of `\Psr\Http\Message\ResponseInterface`. The callable **SHOULD** accept three arguments:
