@@ -211,7 +211,6 @@
 <p>Slim 为每个依赖都提供了可以直接使用的自身实现。但由于 Slim 应用本身是 <a href="http://pimple.sensiolabs.org/">Pimple</a> 依赖注入容器的实例，你也可以注入自定义的依赖实现。Slim 应用的依赖都是通过具有延迟初始化特性的 Pimple 服务来实现的，只有在被调用时才会初始化并返回相应的对象。</p>
 <h1 id="services">服务（Services）</h1>
 <p>Slim 应用默认的依赖服务都是可以被覆写的，你只需要在调用 <code>run()</code> 方法之前注入对应的自定义 Pimple 服务即可。这些默认服务包括：</p>
-<p>注入自定义</p>
 <dl>
 <dt>settings</dt>
 <dd>设置服务必须返回一个数组或者实现了 <code>\ArrayAccess</code> 接口的 <em>共享</em> 实例。</dd>
