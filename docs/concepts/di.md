@@ -2,14 +2,16 @@
 
 每个 Slim 应用都有很多 _依赖_，比如在前面对象概念中所提到的环境、请求、响应以及路由器等对象。
 
-Slim 为每个依赖都提供了可以直接使用的自身实现。但由于 Slim 应用本身是 [Pimple](http://pimple.sensiolabs.org/) 依赖注入容器的实例，你也可以提供自定义的依赖实现。Slim 应用的依赖都是通过具有延迟初始化特性的 Pimple 服务来实现的，只有在被调用时才会初始化并返回相应的对象。
+Slim 为每个依赖都提供了可以直接使用的自身实现。但由于 Slim 应用本身是 [Pimple](http://pimple.sensiolabs.org/) 依赖注入容器的实例，你也可以注入自定义的依赖实现。Slim 应用的依赖都是通过具有延迟初始化特性的 Pimple 服务来实现的，只有在被调用时才会初始化并返回相应的对象。
 
 # 服务（Services）
 
-你可以在调用 Slim 应用的 `run()` 方法之前通过注入自定义的 Pimple 服务来覆写 Slim 应用的依赖，包括以下这些默认的应用服务：
+Slim 应用默认的依赖服务都是可以被覆写的，你只需要在调用 `run()` 方法之前注入对应的自定义 Pimple 服务即可。这些默认服务包括：
+
+注入自定义
 
 settings
-:   This service must return a new instance of `\Slim\Interfaces\ConfigurationInterface`（译者注：该接口已经从框架中移除。）.
+:   设置服务必须返回一个数组或者实现了 `\ArrayAccess` 接口的 _共享_ 实例。
 
 environment
 :   环境服务必须返回实现了 `\Slim\Interfaces\Http\EnvironmentInterface` 接口的 _共享_ 实例（译者注：官方文档此处为新实例，尚未修正）。

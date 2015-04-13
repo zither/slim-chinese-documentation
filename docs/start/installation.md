@@ -9,20 +9,20 @@
 
     composer require slim/slim
 
-然后在你的 PHP 脚本中载入 Composer 的自动加载器。
+然后在 PHP 脚本中载入 Composer 的自动加载器。
 
     <?php
     require 'vendor/autoload.php';
 
 # 手动安装
 
-在没有 Composer 的环境中，同样可以安装 Slim 框架。先将 Slim 框架的所有文件下载到项目目录，然后在 PHP 脚本中载入 `Slim\Autoloader.php` 并调用它的 `register()` 静态方法。
+在没有 Composer 的环境中，同样可以安装 Slim 框架。先将 Slim 框架的所有文件下载到项目目录，然后在 PHP 脚本中载入 `Slim\Autoloader.php` 并调用 `register()` 静态方法。
 
     <?php
     require 'Slim/Autoloader.php';
     \Slim\Autoloader::register();
 
-如果你采用手工安装 Slim 的方式，还必须安装下面这些第三方依赖，并解决自动加载的相关问题：
+如果采用手工安装 Slim 的方式，还必须安装下面这些第三方依赖，并解决自动加载的相关问题：
 
 * [Pimple 3.x](http://pimple.sensiolabs.org/)
 * [PSR HTTP Message 0.x](https://github.com/php-fig/http-message)
