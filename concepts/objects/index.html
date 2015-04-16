@@ -210,7 +210,7 @@
           <div role="main">
             <div class="section">
               <h1 id="_1">环境对象</h1>
-<p>环境对象是对当前请求 PHP 全局环境的封装，不仅包括了 HTTP 请求的方法、URI、头部和<del>主体</del>（译者注：环境对象未包含 body 部分），还包括了超全局数组 <code>$_SERVER</code> 中的服务器变量。环境对象实现了 Slim 应用和 PHP 全局环境之间的有效解耦。</p>
+<p>环境对象是对当前请求 PHP 全局环境的封装，包括了 HTTP 请求的方法、URI、头部以及超全局数组 <code>$_SERVER</code> 中的服务器变量。环境对象实现了 Slim 应用和 PHP 全局环境之间的有效解耦。</p>
 <p><a href="../..//objects/environment">了解更多</a></p>
 <h1 id="_2">请求对象</h1>
 <p>请求对象是依据环境对象提供的数据对当前 HTTP 请求的封装，提供了 HTTP 请求的方法、头部、参数（译者注：目前实现了 cookies 和环境变量）以及主体。</p>
