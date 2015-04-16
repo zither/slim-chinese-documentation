@@ -12,7 +12,7 @@ settings
 :   设置服务必须返回一个数组或者实现了 `\ArrayAccess` 接口的 _共享_ 实例。
 
 environment
-:   环境服务必须返回实现了 `\Slim\Interfaces\Http\EnvironmentInterface` 接口的 _共享_ 实例（译者注：官方文档此处为新实例，尚未修正）。
+:   环境服务必须返回实现了 `\Slim\Interfaces\Http\EnvironmentInterface` 接口的 _共享_ 实例。
 
 request
 :   请求服务必须返回实现了 `\Psr\Http\Message\RequestInterface` 接口的新实例。
