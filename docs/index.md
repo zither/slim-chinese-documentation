@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/slimphp/Slim.svg?branch=develop)](https://travis-ci.org/slimphp/Slim)
 
-Slim 是一个 PHP 微型框架，可以帮助你快速编写简单但功能强大的网页应用和 API。通过以下链接了解更多：
+Slim 是一个非常优雅的 PHP 微框架，可以帮助你快速编写简单但功能强大的网页应用和 API 服务。通过以下链接可以了解更多信息：
 
 - [官方网站](http://www.slimframework.com)
 - [文档](http://docs.slimframework.com)
@@ -41,7 +41,7 @@ phpunit
 
 ## 安全
 
-如果你发现了任何与安全有关的问题，请勿使用 issue tracker，应该直接发送邮件到 security@slimframework.com。
+如果你发现了任何与安全有关的问题，请勿使用 issue tracker，请直接发送邮件到 security@slimframework.com。
 
 ## 感谢（Credits）
 
