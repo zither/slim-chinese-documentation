@@ -1,12 +1,12 @@
 # 什么是中间件？
 
-A middleware is a _callable_ that accepts three arguments: 
+Slim 中间件是一个需要接受三个参数的 _回调对象_（ _callable_ ），可以是 `Closure` 或者实现了 `__invoke` 方法的对象，其参数分别为：
 
-1. `\Psr\Http\Message\RequestInterface` - The request object
-2. `\Psr\Http\Message\ResponseInterface` - The response object
-3. `callable` - The next middleware callable
- 
-It can do whatever is appropriate with these objects. The only hard requirement is that a middleware **MUST** return an instance of `\Psr\Http\Message\ResponseInterface`. Each middleware **MAY** invoke the next middleware and pass it Request and Response objects as arguments.
+1. `\Psr\Http\Message\RequestInterface` - 请求对象
+2. `\Psr\Http\Message\ResponseInterface` - 响应对象
+3. `callable` - 下一层中间件的回调对象
+
+中间件可以根据需求对这些对象做出相应的修改或者替换，在调用之后 **必须** 返回一个实现了 `\Psr\Http\Message\ResponseInterface` 接口的对象。中间件在执行过程中 **可以** 将新的请求和响应对象作为参数，调用下一层中间件。
 
 # 中间件是如何工作的？
 
