@@ -2,7 +2,7 @@
 
 Slim 3.0 正处于开发状态，官方文档还未写完，中文翻译也才刚刚启动，欢迎提交 Pull Request。
 
-在线阅读：[http://slim-docs.shouhuiben.net/](http://slim-docs.shouhuiben.net/)（[Gitcafe 镜像](http://slim-docs-mirror.shouhuiben.net/)），有什么问题或建议，可以提交 [Github Issue](https://github.com/zither/slim-chinese-documentation/issues/new)。
+在线阅读：[http://slim-docs.shouhuiben.net/](http://slim-docs.shouhuiben.net/)，有什么问题或建议，可以提交 [Github Issue](https://github.com/zither/slim-chinese-documentation/issues/new)。
 
 ## 如何参与翻译
 
