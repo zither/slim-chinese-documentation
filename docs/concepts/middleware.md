@@ -10,9 +10,9 @@ Slim 中间件是一个需要接受三个参数的 _回调对象_（ _callable_ 
 
 # 中间件是如何工作的？
 
-Different frameworks use middleware differently. Slim adds middleware as concentric layers surrounding your core application. Each new middleware layer surrounds any existing middleware layers. The concentric structure expands outwardly as additional middleware layers are added.
+不同的框架使用中间件的方式不同。在 Slim 框架中，中间件层以同心圆的方式包裹着核心应用。由于新增的中间件层总会包裹所有已经存在的中间件层，所以同心圆结构会不断的向外扩展。
 
-When you run the Slim application, the Request and Response objects traverse the middleware structure from the outside in. They first enter the outer-most middleware, then the next outer-most middleware, (and so on), until they ultimately arrive at the Slim application itself. After the Slim application dispatches the appropriate route, the resultant Response object exits the Slim application and traverses the middleware structure from the inside out. Ultimately, a final Response object exits the outer-most middleware, is serialized into a raw HTTP response, and is returned to the HTTP client. Here's a diagram that hopefully illustrates the middleware process flow:
+当 Slim 应用运行时，请求对象和响应对象首先会进入最外层的中间件，然后不断向内深入，直到最后穿过整个中间件结构到达核心应用。在 Slim 应用分派了对应的路由之后，返回的响应对象又会以由内向外的方式穿过整个中间件结构。在离开最外层中间件之后，最终的响应对象会被序列化为一个原始的 HTTP 响应消息，然后返回给客户端。下面的图表很清晰的说明了中间件的执行流程：
 
 ![Middleware flow](/images/middleware.png 'Middleware')
 
