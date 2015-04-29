@@ -226,7 +226,7 @@
 <p>当 Slim 应用运行时，请求对象和响应对象首先会进入最外层的中间件，然后不断向内深入，直到最后穿过整个中间件结构到达核心应用。在 Slim 应用分派了对应的路由之后，返回的响应对象又会以由内向外的方式穿过整个中间件结构。在离开最外层中间件之后，最终的响应对象会被序列化为一个原始的 HTTP 响应消息，然后返回给客户端。下面的图表很清晰的说明了中间件的执行流程：</p>
 <p><img alt="Middleware flow" src="../..//images/middleware.png" title="Middleware" /></p>
 <h1 id="_3">如何编写中间件？</h1>
-<p>Middleware is a callable that accepts three arguments: a Request object, a Response object, and the next middleware. Each middleware <strong>MUST</strong> return an instance of <code>\Psr\Http\Message\ResponseInterface</code>. This example middleware is a Closure.</p>
+<p>中间件是一个可以接收三个参数的回调对象（callable），其参数分别为：请求对象、响应对象以及下一层中间件。中间件 <strong>必须</strong> 返回实现了 <code>\Psr\Http\Message\ResponseInterface</code> 接口的实例。以下是一个通过闭包实现的中间件示例：</p>
 <pre><code>&lt;?php
 function ($request, $response, $next) {
     $response-&gt;write('BEFORE');
@@ -236,7 +236,7 @@ function ($request, $response, $next) {
     return $response;
 };
 </code></pre>
-<p>This example middleware is an invokable class that implements the magic <code>__invoke()</code> method.</p>
+<p>这是一个通过是实现了 <code>__invoke()</code> 魔术方法的可调用类实现的中间件示例：</p>
 <pre><code>&lt;?php
 class ExampleMiddleware
 {
@@ -251,9 +251,9 @@ class ExampleMiddleware
 }
 </code></pre>
 <h1 id="_4">如何添加中间件？</h1>
-<p>You may add middleware to a Slim application or to an individual Slim application route. Both scenarios accept the same middleware and implement the same middleware interface.</p>
+<p>我们既可以将一个中间件添加到应用中，也可以将其添加到单独的路由中。这是因为 Slim 应用和路由实现了同样的中间件接口，可以接受同样的中间件。</p>
 <h2 id="_5">应用中间件</h2>
-<p>Application middleware is invoked for every HTTP request. Add application middleware with the Slim application instance's <code>add()</code> method. This example adds the Closure middleware example above:</p>
+<p>应用中间件可以通过 Slim 应用实例的 <code>add()</code> 方法添加，会被每一个 HTTP 请求调用。下面的代码演示了如何添加应用中间件：</p>
 <pre><code>&lt;?php
 $app = new \Slim\App();
 
@@ -266,16 +266,16 @@ $app-&gt;add(function ($request, $response, $next) {
 });
 
 $app-&gt;get('/', function ($req, $res, $args) {
-    echo ' Hello ';
+    return $res-&gt;write(' Hello ');
 });
 
 $app-&gt;run();
 </code></pre>
-<p>This would output this HTTP response body:</p>
+<p>输出的 HTTP 响应主体为：</p>
 <pre><code>BEFORE Hello AFTER
 </code></pre>
 <h2 id="_6">路由中间件</h2>
-<p>Route middleware is invoked <em>only if</em> its route matches the current HTTP request method and URI. Route middleware is specified immediately after you invoke any of the Slim application's routing methods (e.g., <code>get()</code> or <code>post()</code>). Each routing method returns an instance of <code>\Slim\Route</code>, and this class provides the same middleware interface as the Slim application instance. Add middleware to a Route with the Route instance's <code>add()</code> method. This example adds the Closure middleware example above:</p>
+<p>与应用中间件不同，路由中间件 <em>只有</em> 在当前 HTTP 请求的方法和 URI 都与中间件所在路由相匹配时才会被调用。由于 Slim 应用提供了一系列添加路由的辅助方法（例如：<code>get()</code> 和 <code>post()</code>），它们在调用后都会返回 <code>\Slim\Route</code> 实例，因此我们只要在调用路由方法之后立即调用 <code>add()</code> 方法就可以将中间件添加到对应的路由中。下面的代码演示了如何采用链式调用的方式添加路由中间件：</p>
 <pre><code>&lt;?php
 $app = new \Slim\App();
 
@@ -288,12 +288,12 @@ $mw = function ($request, $response, $next) {
 });
 
 $app-&gt;get('/', function ($req, $res, $args) {
-    echo ' Hello ';
+    return $res-&gt;write(' Hello ');
 })-&gt;add($mw);
 
 $app-&gt;run();
 </code></pre>
-<p>This would output this HTTP response body:</p>
+<p>输出的 HTTP 响应主体为：</p>
 <pre><code>BEFORE Hello AFTER
 </code></pre>
 
