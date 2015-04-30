@@ -24,7 +24,8 @@ $ composer require slim/slim
 ```php
 $app = new \Slim\App();
 $app->get('/hello/{name}', function ($request, $response, $args) {
-    echo "Hello, " . $args['name'];
+    $response->write('Hello, ' . $args['name']);
+    return $response;
 });
 $app->run();
 ```
