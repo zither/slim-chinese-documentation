@@ -1,10 +1,10 @@
 # 什么是中间件？
 
-Slim 中间件是一个需要接受三个参数的 _回调对象_（ _callable_ ），可以是 `Closure` 或者实现了 `__invoke` 方法的对象，其参数分别为：
+Slim 中间件是一个需要接受三个参数的 _调用对象_（ _callable_ ），可以是 `Closure` 或者实现了 `__invoke` 方法的对象，其参数分别为：
 
 1. `\Psr\Http\Message\RequestInterface` - 请求对象
 2. `\Psr\Http\Message\ResponseInterface` - 响应对象
-3. `callable` - 下一层中间件的回调对象
+3. `callable` - 下一层中间件的调用对象
 
 中间件可以根据需求对这些对象做出相应的修改或者替换，在调用之后 **必须** 返回一个实现了 `\Psr\Http\Message\ResponseInterface` 接口的对象。中间件在执行过程中 **可以** 将新的请求和响应对象作为参数，调用下一层中间件。
 
@@ -18,7 +18,7 @@ Slim 中间件是一个需要接受三个参数的 _回调对象_（ _callable_ 
 
 # 如何编写中间件？
 
-中间件是一个可以接收三个参数的回调对象（callable），其参数分别为：请求对象、响应对象以及下一层中间件。中间件 **必须** 返回实现了 `\Psr\Http\Message\ResponseInterface` 接口的实例。以下是一个通过闭包实现的中间件示例：
+中间件是一个可以接收三个参数的调用对象（callable），其参数分别为：请求对象、响应对象以及下一层中间件。中间件 **必须** 返回实现了 `\Psr\Http\Message\ResponseInterface` 接口的实例。以下是一个通过闭包实现的中间件示例：
 
     <?php
     function ($request, $response, $next) {
