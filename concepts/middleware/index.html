@@ -214,11 +214,11 @@
           <div role="main">
             <div class="section">
               <h1 id="_1">什么是中间件？</h1>
-<p>Slim 中间件是一个需要接受三个参数的 <em>回调对象</em>（ <em>callable</em> ），可以是 <code>Closure</code> 或者实现了 <code>__invoke</code> 方法的对象，其参数分别为：</p>
+<p>Slim 中间件是一个需要接受三个参数的 <em>调用对象</em>（ <em>callable</em> ），可以是 <code>Closure</code> 或者实现了 <code>__invoke</code> 方法的对象，其参数分别为：</p>
 <ol>
 <li><code>\Psr\Http\Message\RequestInterface</code> - 请求对象</li>
 <li><code>\Psr\Http\Message\ResponseInterface</code> - 响应对象</li>
-<li><code>callable</code> - 下一层中间件的回调对象</li>
+<li><code>callable</code> - 下一层中间件的调用对象</li>
 </ol>
 <p>中间件可以根据需求对这些对象做出相应的修改或者替换，在调用之后 <strong>必须</strong> 返回一个实现了 <code>\Psr\Http\Message\ResponseInterface</code> 接口的对象。中间件在执行过程中 <strong>可以</strong> 将新的请求和响应对象作为参数，调用下一层中间件。</p>
 <h1 id="_2">中间件是如何工作的？</h1>
@@ -226,7 +226,7 @@
 <p>当 Slim 应用运行时，请求对象和响应对象首先会进入最外层的中间件，然后不断向内深入，直到最后穿过整个中间件结构到达核心应用。在 Slim 应用分派了对应的路由之后，返回的响应对象又会以由内向外的方式穿过整个中间件结构。在离开最外层中间件之后，最终的响应对象会被序列化为一个原始的 HTTP 响应消息，然后返回给客户端。下面的图表很清晰的说明了中间件的执行流程：</p>
 <p><img alt="Middleware flow" src="../..//images/middleware.png" title="Middleware" /></p>
 <h1 id="_3">如何编写中间件？</h1>
-<p>中间件是一个可以接收三个参数的回调对象（callable），其参数分别为：请求对象、响应对象以及下一层中间件。中间件 <strong>必须</strong> 返回实现了 <code>\Psr\Http\Message\ResponseInterface</code> 接口的实例。以下是一个通过闭包实现的中间件示例：</p>
+<p>中间件是一个可以接收三个参数的调用对象（callable），其参数分别为：请求对象、响应对象以及下一层中间件。中间件 <strong>必须</strong> 返回实现了 <code>\Psr\Http\Message\ResponseInterface</code> 接口的实例。以下是一个通过闭包实现的中间件示例：</p>
 <pre><code>&lt;?php
 function ($request, $response, $next) {
     $response-&gt;write('BEFORE');
